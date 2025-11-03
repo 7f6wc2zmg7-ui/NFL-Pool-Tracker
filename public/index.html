@@ -80,42 +80,37 @@ async function main(){
     const parts = [];
 
     for(const pick of player.teams){
-      const name = (pick.name||'').toUpperCase();
+// --- Futures-based probabilities (with conservative estimates) ---
+const f = futures[name] || {};
+const pDiv = clamp01(f.div ?? 0);                 // P(win division)
+const pReachSB = clamp01(f.reach_sb ?? 0);        // P(reach Super Bowl / win conference)
+const pSB = clamp01(f.sb ?? 0);                   // P(win Super Bowl)
 
-      // Proj wins from next-game prob (placeholder; can replace with wins futures)
-      const nextProb = byTeamNext[name]?.impliedNextGameWinProb ?? 0.5;
-      const projWins = winsProjFromNextGameProb(nextProb);
+// Conservative estimate for P(make playoffs) if missing:
+//   playoffs ≈ division winners + some WC teams;
+//   use SB appearance as a strong-signal proxy.
+const pPO = clamp01(
+  (f.make_playoffs ?? Math.min(1, pDiv + 2 * pReachSB))
+);
 
-      // Win-total EV vs preseason OU
-      const ou = Number(ouByTeam[name] ?? NaN);
-      const wtPts = winTotalPoints(projWins, ou, rules);
+// Wild Card spot (not division) probability
+const pWCspot = Math.max(pPO - pDiv, 0);
 
-      // Division EV = (base * preseason ML multiplier) * P_div(current)
-      const ml = divMlByTeam[name];
-      const mult = mlToMultiplier(ml);
-      const pDiv = clamp01((futures[name]?.div) ?? 0);
-      const divEV = (PTS_DIV_WIN_BASE * mult) * pDiv;
+// Conservative estimate for reaching the Conference Championship (final four):
+// must be ≥ P(reach SB), and shouldn’t undercount strong division winners.
+const pReachConfRound = clamp01(
+  Math.max(f.reach_conf_champ ?? 0, Math.max(pDiv, Math.min(1, pReachSB * 2)))
+);
 
-      // WC EV (spot): only if they don't win division
-      const pPO = clamp01((futures[name]?.make_playoffs) ?? 0);
-      const wcSpotEV = PTS_WC * Math.max(pPO - pDiv, 0);
+// Divisional Round reach probability:
+// floor = division winners (already there) + a fraction of WC teams that advance.
+const assumedWCAdvance = 0.40;
+const pReachDivRound = clamp01(
+  Math.max(pDiv, pDiv + pWCspot * assumedWCAdvance)
+);
 
-      // Playoff rounds EV using futures probabilities (if present)
-      // If we have explicit round-reach markets, use them. Otherwise derive lower bounds from pPO/pDiv.
-      const pReachConf = clamp01((futures[name]?.reach_conf_champ) ?? 0);
-      const pReachSB   = clamp01((futures[name]?.reach_sb) ?? (futures[name]?.sb ?? 0)); // reaching SB >= winning SB
-      const pWinSB     = clamp01((futures[name]?.sb) ?? 0);
-
-      // Approx for WC Round reach probability: playoffs but not div winners
-      const pReachWCRound = Math.max(pPO - pDiv, 0);
-
-      // Approx for Divisional Round reach probability:
-      // floor = div winners (already in divisional) + WC winners (unknown). If no explicit market, use a conservative 40% WC-advance rate.
-      const assumedWCAdvance = 0.40;
-      const pReachDivRound = Math.max(
-        pDiv,
-        Math.min(1, pDiv + (pPO - pDiv) * assumedWCAdvance)
-      );
+// WC round reach probability = WC teams make the playoffs
+const pReachWCRound = clamp01(pWCspot);      );
       // If we have explicit pReachConf, it must be ≤ pReachDivRound. Use the max for EV lower bound consistency.
       const pReachConfRound = Math.max(pReachConf, 0);
 
