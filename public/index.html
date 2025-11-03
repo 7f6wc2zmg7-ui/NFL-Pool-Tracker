@@ -1,1 +1,61 @@
-<!DOCTYPE html><html><body><h1>Pool Tracker Starter</h1></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pool Tracker</title>
+  <style>
+    body{font-family:system-ui;margin:0;padding:20px;max-width:800px;}
+    table{border-collapse:collapse;width:100%;margin-top:1rem;}
+    th,td{border-bottom:1px solid #ddd;padding:6px;text-align:left;}
+  </style>
+</head>
+<body>
+  <h1>Pool Tracker</h1>
+  <p id="status">Loading predictions...</p>
+  <textarea id="rosters" rows="4" style="width:100%">
+Peter: NOTRE DAME, WISCONSIN
+Colleen: MICHIGAN, USC
+  </textarea><br>
+  <button id="apply">Show leaderboard</button>
+  <table id="board"><thead><tr><th>Owner</th><th>Score</th></tr></thead><tbody></tbody></table>
+
+  <script>
+  async function load() {
+    const res = await fetch('../data/predictions.json',{cache:'no-store'});
+    const data = await res.json();
+    document.getElementById('status').textContent =
+      'Updated ' + new Date(data.generatedAt).toLocaleString();
+    window.predictions = data;
+  }
+  function score(team){
+    const d = window.predictions;
+    const cfb = d.cfbFPI.find(x=>x.team===team);
+    if(cfb) return Math.max(0,Math.min(12,(cfb.fpi/4)+6));
+    const nfl = d.nflNextGame.find(x=>x.team===team);
+    return nfl?(nfl.impliedNextGameWinProb*17):0;
+  }
+  function show(){
+    const lines=document.getElementById('rosters').value.trim().split('\n');
+    const out=[];
+    for(const line of lines){
+      const [owner,teams]=line.split(':');
+      if(!owner||!teams)continue;
+      const list=teams.split(',').map(t=>t.trim().toUpperCase());
+      const s=list.reduce((a,t)=>a+score(t),0);
+      out.push({owner:owner.trim(),score:s.toFixed(2)});
+    }
+    out.sort((a,b)=>b.score-a.score);
+    const body=document.querySelector('#board tbody');
+    body.innerHTML='';
+    for(const r of out){
+      const tr=document.createElement('tr');
+      tr.innerHTML=`<td>${r.owner}</td><td>${r.score}</td>`;
+      body.appendChild(tr);
+    }
+  }
+  document.getElementById('apply').onclick=show;
+  load();
+  </script>
+</body>
+</html>
