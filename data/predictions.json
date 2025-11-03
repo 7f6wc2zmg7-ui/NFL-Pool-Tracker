@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2025-11-03T04:18:59.713Z",
+  "generatedAt": "2025-11-03T04:30:01.863Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
-    "nflFutures": "ESPN futures (auto-discovered, de-vigged)"
+    "nflFutures": "ESPN futures (auto-discovered; team markets only; de-vigged; supports book.value)"
   },
   "nflNextGame": [
     {
@@ -136,5 +136,142 @@
       "impliedNextGameWinProb": 0.43650793650793646
     }
   ],
-  "nflFutures": {}
+  "nflFutures": {
+    "KANSAS CITY CHIEFS": {
+      "sb": 0.12950625947082506,
+      "div": 0.4125449439676666,
+      "reach_sb": 0.2094191205064981
+    },
+    "BUFFALO BILLS": {
+      "sb": 0.10360500757666005,
+      "div": 0.5917714891481409,
+      "reach_sb": 0.22338039520693131
+    },
+    "DETROIT LIONS": {
+      "sb": 0.08633750631388337,
+      "div": 0.39553575197014185
+    },
+    "PHILADELPHIA EAGLES": {
+      "sb": 0.08633750631388337
+    },
+    "LOS ANGELES RAMS": {
+      "sb": 0.0817934270342053
+    },
+    "GREEN BAY PACKERS": {
+      "sb": 0.07770375568249505,
+      "div": 0.45341903274626016
+    },
+    "INDIANAPOLIS COLTS": {
+      "sb": 0.059772119755765414,
+      "div": 0.7000877653184803,
+      "reach_sb": 0.13961274700433207
+    },
+    "SEATTLE SEAHAWKS": {
+      "sb": 0.051802503788330026
+    },
+    "DENVER BRONCOS": {
+      "sb": 0.04570809157793826,
+      "div": 0.37886780568459183,
+      "reach_sb": 0.09855017435599911
+    },
+    "BALTIMORE RAVENS": {
+      "sb": 0.04570809157793826,
+      "div": 0.5449726836446985,
+      "reach_sb": 0.0761524074569084
+    },
+    "TAMPA BAY BUCCANEERS": {
+      "sb": 0.03700178842023573,
+      "div": 0.8390785373196481
+    },
+    "NEW ENGLAND PATRIOTS": {
+      "sb": 0.029886059877882707,
+      "div": 0.4044344155364471,
+      "reach_sb": 0.0761524074569084
+    },
+    "LOS ANGELES CHARGERS": {
+      "sb": 0.029886059877882707,
+      "div": 0.2062724719838333,
+      "reach_sb": 0.06980637350216604
+    },
+    "SAN FRANCISCO 49ERS": {
+      "sb": 0.029886059877882707
+    },
+    "JACKSONVILLE JAGUARS": {
+      "sb": 0.018952135532315863,
+      "div": 0.24892009433545964,
+      "reach_sb": 0.03642071660982576
+    },
+    "CHICAGO BEARS": {
+      "sb": 0.015236030525979419,
+      "div": 0.09295090171298334
+    },
+    "PITTSBURGH STEELERS": {
+      "sb": 0.012738320603687712,
+      "div": 0.381321994386961,
+      "reach_sb": 0.03221832623176894
+    },
+    "DALLAS COWBOYS": {
+      "sb": 0.010224178379275662
+    },
+    "HOUSTON TEXANS": {
+      "sb": 0.010224178379275662,
+      "div": 0.04912896598726177,
+      "reach_sb": 0.02326879116738868
+    },
+    "MINNESOTA VIKINGS": {
+      "sb": 0.007693441156682677,
+      "div": 0.058094313570614585
+    },
+    "WASHINGTON COMMANDERS": {
+      "sb": 0.007693441156682677
+    },
+    "ATLANTA FALCONS": {
+      "sb": 0.005145944084933446,
+      "div": 0.04104188497759149
+    },
+    "CAROLINA PANTHERS": {
+      "sb": 0.005145944084933446,
+      "div": 0.11799541931057553
+    },
+    "CINCINNATI BENGALS": {
+      "sb": 0.0038658584916664196,
+      "div": 0.05838993039050341,
+      "reach_sb": 0.0055475263710330625
+    },
+    "ARIZONA CARDINALS": {
+      "sb": 0.0019377495182667092
+    },
+    "NEW YORK GIANTS": {
+      "sb": 0.0015509731673152701
+    },
+    "CLEVELAND BROWNS": {
+      "sb": 0.0007762612955294209,
+      "div": 0.01531539157783696,
+      "reach_sb": 0.002782978345601304
+    },
+    "TENNESSEE TITANS": {
+      "sb": 0.0007762612955294209,
+      "div": 0.0018631743587983506,
+      "reach_sb": 0.0016720089461596654
+    },
+    "LAS VEGAS RAIDERS": {
+      "sb": 0.0007762612955294209,
+      "div": 0.002314778363908354,
+      "reach_sb": 0.0016720089461596654
+    },
+    "MIAMI DOLPHINS": {
+      "sb": 0.0007762612955294209,
+      "div": 0.0018970476577058893,
+      "reach_sb": 0.0016720089461596654
+    },
+    "NEW ORLEANS SAINTS": {
+      "sb": 0.0007762612955294209,
+      "div": 0.0018841583921848386
+    },
+    "NEW YORK JETS": {
+      "sb": 0.0007762612955294209,
+      "div": 0.0018970476577058893,
+      "reach_sb": 0.0016720089461596654
+    }
+  }
 }
