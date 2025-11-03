@@ -79,65 +79,74 @@ async function main(){
     let total = 0;
     const parts = [];
 
-    for(const pick of player.teams){
-// --- Futures-based probabilities (with conservative estimates) ---
-const f = futures[name] || {};
-const pDiv = clamp01(f.div ?? 0);                 // P(win division)
-const pReachSB = clamp01(f.reach_sb ?? 0);        // P(reach Super Bowl / win conference)
-const pSB = clamp01(f.sb ?? 0);                   // P(win Super Bowl)
+for (const pick of player.teams) {
+  // ---- Team identity & basic projections ----
+  const name = (pick.name || '').toUpperCase();
 
-// Conservative estimate for P(make playoffs) if missing:
-//   playoffs ≈ division winners + some WC teams;
-//   use SB appearance as a strong-signal proxy.
-const pPO = clamp01(
-  (f.make_playoffs ?? Math.min(1, pDiv + 2 * pReachSB))
-);
+  // Next-game prob -> season wins proxy (you already built byTeamNext and winsProjFromNextGameProb)
+  const nextProb = byTeamNext[name]?.impliedNextGameWinProb ?? 0.5;
+  const projWins = winsProjFromNextGameProb(nextProb);
 
-// Wild Card spot (not division) probability
-const pWCspot = Math.max(pPO - pDiv, 0);
+  // Preseason O/U + division ML (already loaded from odds.json earlier)
+  const ou = Number(ouByTeam[name] ?? NaN);
+  const ml = divMlByTeam[name];
 
-// Conservative estimate for reaching the Conference Championship (final four):
-// must be ≥ P(reach SB), and shouldn’t undercount strong division winners.
-const pReachConfRound = clamp01(
-  Math.max(f.reach_conf_champ ?? 0, Math.max(pDiv, Math.min(1, pReachSB * 2)))
-);
+  // Win-total points per your rules
+  const wtPts = winTotalPoints(projWins, ou, rules);
 
-// Divisional Round reach probability:
-// floor = division winners (already there) + a fraction of WC teams that advance.
-const assumedWCAdvance = 0.40;
-const pReachDivRound = clamp01(
-  Math.max(pDiv, pDiv + pWCspot * assumedWCAdvance)
-);
+  // ---- Futures-based probabilities (with conservative estimates) ----
+  const f = futures[name] || {};
+  const pDiv = clamp01(f.div ?? 0);          // P(win division)
+  const pReachSB = clamp01(f.reach_sb ?? 0); // P(reach Super Bowl / win conference)
+  const pSB = clamp01(f.sb ?? 0);            // P(win Super Bowl)
 
-// WC round reach probability = WC teams make the playoffs
-const pReachWCRound = clamp01(pWCspot);      );
+  // Conservative P(make playoffs) if missing: pPO ≈ pDiv + 2 * pReachSB (capped at 1)
+  const pPO = clamp01( (f.make_playoffs ?? (pDiv + 2 * pReachSB)) );
 
-      const evWCRound  = PTS_WC_ROUND   * pReachWCRound;
-      const evDivRound = PTS_DIV_ROUND  * pReachDivRound;
-      const evConf     = PTS_CONF_CHAMP * pReachConfRound;
-      const evSBApp    = PTS_SB_APPEAR  * pReachSB;
-      const evSBWin    = PTS_SB_WIN     * pWinSB;
+  // Wild Card spot probability (not division)
+  const pWCspot = Math.max(pPO - pDiv, 0);
 
-      const teamTotal = wtPts + divEV + wcSpotEV + evWCRound + evDivRound + evConf + evSBApp + evSBWin;
+  // Div points EV = (base * ML-multiplier) * P(div current)
+  const mult = mlToMultiplier(ml);
+  const divEV = (PTS_DIV_WIN_BASE * mult) * pDiv;
 
-      total += teamTotal;
-      parts.push(`${name} ${teamTotal.toFixed(1)} (WT ${wtPts.toFixed(1)} | DivEV ${divEV.toFixed(1)} | PO EV ${(wcSpotEV+evWCRound+evDivRound+evConf+evSBApp+evSBWin).toFixed(1)})`);
+  // Round reach probabilities (conservative)
+  const assumedWCAdvance = 0.40;
+  const pReachWCRound = clamp01(pWCspot); // WC teams play the WC round
+  const pReachDivRound = clamp01( Math.max(pDiv, pDiv + pWCspot * assumedWCAdvance) );
+  const pReachConfRound = clamp01( Math.max(f.reach_conf_champ ?? 0, Math.max(pDiv, Math.min(1, pReachSB * 2))) );
 
-      teamRows.push([
-        player.owner, name,
-        projWins.toFixed(1),
-        isFinite(ou)?ou:'—',
-        wtPts.toFixed(1),
-        divEV.toFixed(1),
-        wcSpotEV.toFixed(1),
-        evWCRound.toFixed(1),
-        evDivRound.toFixed(1),
-        evConf.toFixed(1),
-        evSBApp.toFixed(1),
-        evSBWin.toFixed(1)
-      ]);
-    }
+  // EVs for playoff rounds (cumulative points model you defined)
+  const evWCRound  = PTS_WC_ROUND   * pReachWCRound;
+  const evDivRound = PTS_DIV_ROUND  * pReachDivRound;
+  const evConf     = PTS_CONF_CHAMP * pReachConfRound;
+  const evSBApp    = PTS_SB_APPEAR  * pReachSB;
+  const evSBWin    = PTS_SB_WIN     * pSB;
 
+  const wcSpotEV = PTS_WC * pWCspot;
+
+  // Total projected points for this team
+  const teamTotal = wtPts + divEV + wcSpotEV + evWCRound + evDivRound + evConf + evSBApp + evSBWin;
+  total += teamTotal;
+
+  // Row details
+  parts.push(`${name} ${teamTotal.toFixed(1)} (WT ${wtPts.toFixed(1)} | DivEV ${divEV.toFixed(1)} | PO EV ${(wcSpotEV+evWCRound+evDivRound+evConf+evSBApp+evSBWin).toFixed(1)})`);
+
+  // Push to Teams table
+  teamRows.push([
+    player.owner, name,
+    projWins.toFixed(1),
+    isFinite(ou) ? ou : '—',
+    wtPts.toFixed(1),
+    divEV.toFixed(1),
+    wcSpotEV.toFixed(1),
+    evWCRound.toFixed(1),
+    evDivRound.toFixed(1),
+    evConf.toFixed(1),
+    evSBApp.toFixed(1),
+    evSBWin.toFixed(1)
+  ]);
+}
     leaderboard.push([player.owner, total, parts.join(' • ')]);
   }
 
