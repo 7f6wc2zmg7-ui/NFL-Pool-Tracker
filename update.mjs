@@ -1,15 +1,20 @@
-// update.mjs — ESPN futures (auto-discover) + OddsAPI H2H
+// update.mjs — ESPN futures (auto-discover; handles book.value) + OddsAPI H2H
 // Node 20. Writes data/predictions.json
 import fs from 'node:fs/promises';
 
 const ODDS_API_KEY = process.env.ODDS_API_KEY || '';
 const YEAR = new Date().getFullYear();
 
-function up(s){ return (s||'').toUpperCase().trim(); }
-function moneylineToProb(ml){
-  const n = Number(ml);
+const U = s => (s ?? '').toUpperCase().trim();
+
+function mlToProb(mlLike){
+  if (mlLike == null) return null;
+  // mlLike may be "+1400", -145, or a string "1400"
+  const str = String(mlLike).replace(/^\s*\+?/, ''); // remove leading '+'
+  const n = Number(str.startsWith('-') ? str : ('+' + str)); // ensure + for pos
   if (!isFinite(n)) return null;
-  return n < 0 ? (-n) / ((-n) + 100) : 100 / (n + 100);
+  if (n < 0) return (-n) / ((-n) + 100);
+  return 100 / (n + 100);
 }
 function devigProbMap(raw){ // {TEAM: raw_p}
   const vals = Object.values(raw).filter(v => v > 0);
@@ -26,12 +31,12 @@ async function safeJSON(url){
 }
 async function tryJSON(urls){
   for (const u of urls){
-    try { return await safeJSON(u); } catch (_) {}
+    try { return await safeJSON(u); } catch {}
   }
   return null;
 }
 
-// ---------- Odds API H2H (unchanged) ----------
+// ---------- Odds API H2H (optional) ----------
 async function fetchNFLOddsH2H(){
   if (!ODDS_API_KEY) return [];
   const url = `https://api.the-odds-api.com/v4/sports/americanfootball_nfl/odds/?regions=us&markets=h2h&oddsFormat=american&apiKey=${ODDS_API_KEY}`;
@@ -43,11 +48,11 @@ async function fetchNFLOddsH2H(){
     const book = g.bookmakers?.[0];
     const m = book?.markets?.find(x => x.key === 'h2h');
     if (!m) continue;
-    const H = up(g.home_team), A = up(g.away_team);
-    const h = m.outcomes?.find(o => up(o.name) === H);
-    const a = m.outcomes?.find(o => up(o.name) === A);
-    const ph = moneylineToProb(h?.price);
-    const pa = moneylineToProb(a?.price);
+    const H = U(g.home_team), A = U(g.away_team);
+    const h = m.outcomes?.find(o => U(o.name) === H);
+    const a = m.outcomes?.find(o => U(o.name) === A);
+    const ph = mlToProb(h?.price);
+    const pa = mlToProb(a?.price);
     if (ph != null && pa != null){
       const s = ph + pa;
       const nh = s > 0 ? ph / s : ph;
@@ -59,105 +64,118 @@ async function fetchNFLOddsH2H(){
   return Object.values(byTeam);
 }
 
-// ---------- ESPN futures (auto-discover, de-vig, categorize) ----------
-function looksLikeDivision(name){
-  const u = up(name);
-  return u.includes('DIVISION') || u.includes('WIN AFC EAST') || u.includes('WIN NFC');
-}
-function looksLikeConference(name){
-  const u = up(name);
-  return u.includes('WIN AFC') || u.includes('WIN NFC') || u.includes('CONFERENCE CHAMPION');
-}
-function looksLikeSuperBowl(name){
-  const u = up(name);
-  return u.includes('SUPER BOWL') || u.includes('PRO FOOTBALL CHAMPION');
-}
-function looksLikeMakePlayoffs(name){
-  const u = up(name);
-  return u.includes('MAKE PLAYOFFS') || u.includes('TO MAKE PLAYOFFS');
+// ---------- ESPN futures (auto-discover, robust) ----------
+function kindFromTitleAndSize(title, size){
+  const t = U(title);
+  // Strong title matches
+  if (t.includes('SUPER BOWL')) return 'sb';
+  if (t.includes('CONFERENCE CHAMP')) return 'reach_sb';
+  if (t.includes('WIN AFC') || t.includes('AFC CHAMPION')) return 'reach_sb';
+  if (t.includes('WIN NFC') || t.includes('NFC CHAMPION')) return 'reach_sb';
+  if (t.includes('MAKE PLAYOFFS')) return 'make_playoffs';
+  if (t.includes('DIVISION')) return 'div';
+
+  // Heuristics by team count (common shapes)
+  if (size >= 30) return 'sb';       // 32-team market → SB winner
+  if (size >= 14 && size <= 18) return 'reach_sb'; // ~16-team market → conference
+  if (size >= 4 && size <= 6 && /EAST|NORTH|SOUTH|WEST/.test(t)) return 'div'; // division group
+
+  return null;
 }
 
-async function listAllFutures(){
-  // ESPN sometimes moves the season; try YEAR, then YEAR-1.
-  const base = (y) => `https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/${y}/futures`;
+async function listFuturesRefs(){
+  const base = y => `https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/${y}/futures`;
   const root = await tryJSON([base(YEAR), base(YEAR-1)]);
   if (!root) return [];
-  // Paginated structure: items is an array of $refs to futures/{id}
-  // Some seasons include "items", others "entries". Handle both.
-  const refs = [];
-  const pushRefs = (arr) => arr?.forEach(x => x?.$ref && refs.push(x.$ref));
-  pushRefs(root.items || root.entries || []);
-  // (If there were multiple pages we'd follow next;, in practice NFL is single page.)
-  return refs;
+  const items = root.items || root.entries || [];
+  return items.map(x => x?.$ref).filter(Boolean);
 }
 
-async function fetchFutureMarket(ref){
-  // Load the collection and pick the entry with most books
+async function fetchMarketMeta(ref){
   const data = await safeJSON(ref);
-  let best = null;
-  for (const f of (data.futures || [])){
-    const count = (f.books || []).length;
-    if (count && (!best || count > (best.books?.length || 0))) best = f;
+  const title = data?.name || data?.title || '';
+  const futs = Array.isArray(data?.futures) ? data.futures : [];
+  let teamMode = false, athleteMode = false, teamBooks = 0;
+  for (const f of futs){
+    for (const b of (f.books || [])){
+      if (b.team?.$ref) { teamMode = true; teamBooks++; }
+      if (b.athlete?.$ref) athleteMode = true;
+    }
   }
-  if (!best || !best.books?.length) return null;
+  return { ref, title, futures: futs, teamMode, athleteMode, teamBooks };
+}
 
-  // Resolve team refs once
+async function resolveTeamName(refUrl, cache){
+  if (!refUrl) return null;
+  if (cache.has(refUrl)) return cache.get(refUrl);
+  try{
+    const tj = await safeJSON(refUrl);
+    const nm = U(tj?.displayName || tj?.name || tj?.abbreviation || '');
+    cache.set(refUrl, nm);
+    return nm;
+  }catch{ return null; }
+}
+
+function extractMLfromBook(b){
+  // Try several shapes: book.price.american, book.oddsAmerican, book.odds.american, or book.value
+  const ml =
+    b?.price?.american ??
+    b?.oddsAmerican ??
+    b?.odds?.american ??
+    b?.value ?? null;
+  return ml;
+}
+
+async function extractTeamProbs(meta){
+  const raw = {};
   const teamCache = new Map();
-  async function teamName(refUrl){
-    if (!refUrl) return null;
-    if (teamCache.has(refUrl)) return teamCache.get(refUrl);
-    try{
-      const tj = await safeJSON(refUrl);
-      const nm = up(tj?.displayName || tj?.name || tj?.abbreviation || '');
-      teamCache.set(refUrl, nm);
-      return nm;
-    }catch(_){ return null; }
+  for (const f of meta.futures || []){
+    for (const b of (f.books || [])){
+      if (!b.team?.$ref) continue;
+      const team = await resolveTeamName(b.team.$ref, teamCache);
+      const ml = extractMLfromBook(b);
+      const p = mlToProb(ml);
+      if (team && p != null) raw[team] = Math.max(raw[team] || 0, p);
+    }
   }
-
-  const raw = {}; // team -> raw p
-  for (const b of best.books){
-    const team = await teamName(b.team?.$ref);
-    const ml = b?.price?.american ?? b?.oddsAmerican ?? b?.odds?.american;
-    const p = moneylineToProb(ml);
-    if (team && p != null) raw[team] = Math.max(raw[team] || 0, p);
-  }
-  const probs = devigProbMap(raw);
-  // Use the collection name to categorize
-  const title = up(data?.name || data?.title || '');
-  let kind = null;
-  if (looksLikeSuperBowl(title)) kind = 'sb';
-  else if (looksLikeConference(title)) kind = 'reach_sb';
-  else if (looksLikeDivision(title)) kind = 'div';
-  else if (looksLikeMakePlayoffs(title)) kind = 'make_playoffs';
-  return { kind, probs, title };
+  return devigProbMap(raw);
 }
 
 async function fetchESPNFuturesAuto(){
-  const refs = await listAllFutures();
+  const refs = await listFuturesRefs();
+  const reports = { total: refs.length, teamMarkets: 0, athleteMarkets: 0, titles: [] };
+
   const futures = {}; // TEAM -> {div, reach_sb, sb, make_playoffs}
-  const counts = { sb:0, reach_sb:0, div:0, make_playoffs:0 };
   for (const ref of refs){
-    let market = null;
-    try { market = await fetchFutureMarket(ref); } catch(_){}
-    if (!market || !market.kind || !market.probs) continue;
-    for (const [team, p] of Object.entries(market.probs)){
-      const T = up(team);
+    let meta; try { meta = await fetchMarketMeta(ref); } catch { continue; }
+    const { title, teamMode, athleteMode } = meta;
+
+    if (reports.titles.length < 10) reports.titles.push(title);
+    if (athleteMode && !teamMode) { reports.athleteMarkets++; continue; }
+    if (!teamMode) continue;
+
+    // Extract team probs (handles book.value odds)
+    const probs = await extractTeamProbs(meta);
+    const kind = kindFromTitleAndSize(title, Object.keys(probs).length);
+    if (!kind) continue;
+
+    reports.teamMarkets++;
+    for (const [team, p] of Object.entries(probs)){
+      const T = U(team);
       futures[T] = futures[T] || {};
-      futures[T][market.kind] = Math.max(futures[T][market.kind] || 0, p);
+      futures[T][kind] = Math.max(futures[T][kind] || 0, p);
     }
-    counts[market.kind] = (counts[market.kind] || 0) + 1;
   }
-  console.log('ESPN futures markets collected:', counts);
+  console.log(`ESPN futures: total markets=${reports.total}, teamMarkets=${reports.teamMarkets}, athleteMarkets=${reports.athleteMarkets}`);
+  console.log('Sample titles:', reports.titles.join(' | '));
   return futures;
 }
 
 async function main(){
-  // Odds API (optional)
   let nflNextGame = [];
   try { nflNextGame = await fetchNFLOddsH2H(); }
   catch(e){ console.error('H2H fetch failed:', e?.message || e); }
 
-  // ESPN futures (auto-discovered)
   let nflFutures = {};
   try { nflFutures = await fetchESPNFuturesAuto(); }
   catch(e){ console.error('ESPN futures failed:', e?.message || e); }
@@ -166,13 +184,13 @@ async function main(){
     generatedAt: new Date().toISOString(),
     sources: {
       nflNextGame: 'The Odds API (h2h)',
-      nflFutures: 'ESPN futures (auto-discovered, de-vigged)'
+      nflFutures: 'ESPN futures (auto-discovered; team markets only; de-vigged; supports book.value)'
     },
     nflNextGame,
     nflFutures
   };
   await fs.writeFile('data/predictions.json', JSON.stringify(payload, null, 2), 'utf8');
-  console.log('Wrote data/predictions.json with futures for', Object.keys(nflFutures).length, 'teams');
+  console.log('Wrote data/predictions.json. teamsWithFutures=', Object.keys(nflFutures).length);
 }
 
 main().catch(e => { console.error(e); process.exit(1); });
