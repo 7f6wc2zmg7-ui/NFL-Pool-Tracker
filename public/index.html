@@ -111,8 +111,6 @@ const pReachDivRound = clamp01(
 
 // WC round reach probability = WC teams make the playoffs
 const pReachWCRound = clamp01(pWCspot);      );
-      // If we have explicit pReachConf, it must be ≤ pReachDivRound. Use the max for EV lower bound consistency.
-      const pReachConfRound = Math.max(pReachConf, 0);
 
       const evWCRound  = PTS_WC_ROUND   * pReachWCRound;
       const evDivRound = PTS_DIV_ROUND  * pReachDivRound;
