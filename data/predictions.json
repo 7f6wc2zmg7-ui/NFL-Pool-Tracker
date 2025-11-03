@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2025-11-03T10:50:14.020Z",
+  "generatedAt": "2025-11-03T11:30:18.096Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; team markets only; de-vigged; supports book.value)"
