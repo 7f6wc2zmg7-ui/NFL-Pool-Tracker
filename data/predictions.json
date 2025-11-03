@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2025-11-03T19:28:15.068Z",
+  "generatedAt": "2025-11-03T20:43:22.163Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; team markets only; de-vigged; supports book.value)"
@@ -199,6 +199,7 @@
     },
     "BALTIMORE RAVENS": {
       "sb": 0.04583133506730481,
+      "div": 0.5453537065656314,
       "reach_sb": 0.0761524074569084
     },
     "TAMPA BAY BUCCANEERS": {
@@ -233,6 +234,7 @@
     },
     "PITTSBURGH STEELERS": {
       "sb": 0.01277266714990462,
+      "div": 0.39782641208435116,
       "reach_sb": 0.03221832623176894
     },
     "DALLAS COWBOYS": {
@@ -262,6 +264,7 @@
     },
     "CINCINNATI BENGALS": {
       "sb": 0.0038762820703690634,
+      "div": 0.044518669923725,
       "reach_sb": 0.0055475263710330625
     },
     "WASHINGTON COMMANDERS": {
@@ -281,6 +284,7 @@
     },
     "CLEVELAND BROWNS": {
       "sb": 0.0007783543418023795,
+      "div": 0.012301211426292437,
       "reach_sb": 0.002782978345601304
     },
     "TENNESSEE TITANS": {
