@@ -1,61 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Pool Tracker</title>
-  <style>
-    body{font-family:system-ui;margin:0;padding:20px;max-width:800px;}
-    table{border-collapse:collapse;width:100%;margin-top:1rem;}
-    th,td{border-bottom:1px solid #ddd;padding:6px;text-align:left;}
-  </style>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>NFL Pool Tracker</title>
+<style>
+  body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;margin:0;padding:20px;max-width:1000px}
+  h1{margin:0 0 8px}
+  .meta{color:#666;margin:0 0 16px}
+  table{border-collapse:collapse;width:100%;margin-top:12px}
+  th,td{border-bottom:1px solid #eee;padding:8px;text-align:left;vertical-align:top}
+  .small{font-size:12px;color:#666}
+  .pill{display:inline-block;padding:2px 6px;border:1px solid #ddd;border-radius:999px;font-size:12px;margin-left:8px}
+</style>
 </head>
 <body>
-  <h1>Pool Tracker</h1>
-  <p id="status">Loading predictions...</p>
-  <textarea id="rosters" rows="4" style="width:100%">
-Peter: NOTRE DAME, WISCONSIN
-Colleen: MICHIGAN, USC
-  </textarea><br>
-  <button id="apply">Show leaderboard</button>
-  <table id="board"><thead><tr><th>Owner</th><th>Score</th></tr></thead><tbody></tbody></table>
+<h1>NFL Pool <span id="updated" class="pill">…</span></h1>
+<p class="meta">Projections from <code>data/predictions.json</code> vs preseason <code>data/odds.json</code>. Rules in <code>data/rules.json</code>. Rosters in <code>data/rosters.json</code>.</p>
 
-  <script>
-  async function load() {
-    const res = await fetch('../data/predictions.json',{cache:'no-store'});
-    const data = await res.json();
-    document.getElementById('status').textContent =
-      'Updated ' + new Date(data.generatedAt).toLocaleString();
-    window.predictions = data;
-  }
-  function score(team){
-    const d = window.predictions;
-    const cfb = d.cfbFPI.find(x=>x.team===team);
-    if(cfb) return Math.max(0,Math.min(12,(cfb.fpi/4)+6));
-    const nfl = d.nflNextGame.find(x=>x.team===team);
-    return nfl?(nfl.impliedNextGameWinProb*17):0;
-  }
-  function show(){
-    const lines=document.getElementById('rosters').value.trim().split('\n');
-    const out=[];
-    for(const line of lines){
-      const [owner,teams]=line.split(':');
-      if(!owner||!teams)continue;
-      const list=teams.split(',').map(t=>t.trim().toUpperCase());
-      const s=list.reduce((a,t)=>a+score(t),0);
-      out.push({owner:owner.trim(),score:s.toFixed(2)});
+<h2>Leaderboard (Projected)</h2>
+<table id="board">
+  <thead><tr><th>Owner</th><th>Projected Points</th><th class="small">Breakdown</th></tr></thead>
+  <tbody></tbody>
+</table>
+
+<h2>Teams (Projection Details)</h2>
+<table id="teams">
+  <thead><tr><th>Owner</th><th>Team</th><th>Proj Wins</th><th>O/U</th><th>Win-Total Pts</th><th>Div Pts (exp)</th><th>WC Pts (exp)</th></tr></thead>
+  <tbody></tbody>
+</table>
+
+<script>
+async function j(path){ const r=await fetch(path,{cache:'no-store'}); if(!r.ok) throw new Error('load '+path); return r.json(); }
+function mlToMultiplier(ml){ // +130 -> 1.30; -145 -> 100/145 ≈ 0.69
+  const n=Number(ml); if(!isFinite(n)) return 0;
+  return n>=0 ? (n/100) : (100/Math.abs(n));
+}
+// very rough season wins proxy from next-game implied prob
+function winsProjFromNextGameProb(p){ return 17 * (Number(p||0)); }
+// win-total scoring per your rules
+function winTotalPoints(winsProj, ou, rules){
+  const baseOver = Number(rules.win_total.base_points_if_over||20);
+  const baseUnder = Number(rules.win_total.base_points_if_not_over||-20);
+  const deltaPts = Number(rules.win_total.points_per_win_delta||1);
+  const equalIsNotOver = !!rules.win_total.equal_counts_as_not_over;
+  if (winsProj > ou) return baseOver + (winsProj - ou) * deltaPts;
+  if (winsProj < ou) return baseUnder - (ou - winsProj) * deltaPts;
+  // equal
+  return equalIsNotOver ? baseUnder : 0;
+}
+// expected division points = base * multiplier * P(div winner)
+// (we don't have P(div) yet; use a conservative placeholder 0 for now)
+function expectedDivisionPoints(ml, rules){
+  const mult = mlToMultiplier(ml);
+  const base = Number(rules.division_winner.base_points||20);
+  const pDiv = 0; // TODO: plug real div probabilities later
+  return base * mult * pDiv;
+}
+// expected wildcard points – placeholder (needs playoff odds feed); use 0 for now
+function expectedWildCardPoints(rules){ return Number(rules.wild_card_spot_points||10) * 0; }
+
+async function main(){
+  const [pred, rules, rosters, odds] = await Promise.all([
+    j('../data/predictions.json'),
+    j('../data/rules.json'),
+    j('../data/rosters.json'),
+    j('../data/odds.json')
+  ]);
+  document.getElementById('updated').textContent = 'Updated ' + new Date(pred.generatedAt).toLocaleString();
+
+  const nflMap = Object.create(null);
+  for(const t of pred.nflNextGame||[]) nflMap[(t.team||'').toUpperCase()] = t;
+
+  const ouByTeam = Object.create(null);
+  const divMlByTeam = Object.create(null);
+  for(const t of odds.teams||[]){ ouByTeam[t.team]=t.ou_wins; divMlByTeam[t.team]=t.div_ml; }
+
+  const leaderboard = [];
+  const teamRows = [];
+
+  for(const player of rosters.players){
+    let total = 0;
+    const parts = [];
+    for(const pick of player.teams){
+      const name = (pick.name||'').toUpperCase();
+      const ou = Number(ouByTeam[name] ?? NaN);
+      const ml = divMlByTeam[name];
+      const nextProb = nflMap[name]?.impliedNextGameWinProb ?? 0.5; // safe fallback
+      const winsProj = winsProjFromNextGameProb(nextProb);
+
+      const wtPts = isFinite(ou) ? winTotalPoints(winsProj, ou, rules) : 0;
+      const divPtsExp = expectedDivisionPoints(ml, rules);
+      const wcPtsExp = expectedWildCardPoints(rules);
+
+      const teamTotal = wtPts + divPtsExp + wcPtsExp;
+      total += teamTotal;
+
+      parts.push(`${name} ${teamTotal.toFixed(1)} (WT ${wtPts.toFixed(1)})`);
+      teamRows.push([player.owner, name, winsProj.toFixed(1), isFinite(ou)?ou:'—', wtPts.toFixed(1), divPtsExp.toFixed(1), wcPtsExp.toFixed(1)]);
     }
-    out.sort((a,b)=>b.score-a.score);
-    const body=document.querySelector('#board tbody');
-    body.innerHTML='';
-    for(const r of out){
-      const tr=document.createElement('tr');
-      tr.innerHTML=`<td>${r.owner}</td><td>${r.score}</td>`;
-      body.appendChild(tr);
-    }
+    leaderboard.push([player.owner, total, parts.join(' • ')]);
   }
-  document.getElementById('apply').onclick=show;
-  load();
-  </script>
+
+  leaderboard.sort((a,b)=>b[1]-a[1]);
+
+  const lb = document.querySelector('#board tbody'); lb.innerHTML='';
+  for(const r of leaderboard){
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${r[0]}</td><td>${r[1].toFixed(1)}</td><td class="small">${r[2]}</td>`;
+    lb.appendChild(tr);
+  }
+
+  const tt = document.querySelector('#teams tbody'); tt.innerHTML='';
+  for(const r of teamRows){
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td><td>${r[4]}</td><td>${r[5]}</td><td>${r[6]}</td>`;
+    tt.appendChild(tr);
+  }
+}
+main().catch(e=>{
+  document.body.insertAdjacentHTML('beforeend', `<p style="color:#b00">Error: ${e.message}</p>`);
+  console.error(e);
+});
+</script>
 </body>
 </html>
