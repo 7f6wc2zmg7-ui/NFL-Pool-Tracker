@@ -1,151 +1,144 @@
-// update.mjs — builds data/predictions.json with:
-// - nflNextGame: next-game implied win % from h2h odds
-// - nflFutures: implied probabilities from "outrights" (div/playoffs/conf/SB)
-// Requires Node 18+. Uses The Odds API if ODDS_API_KEY is set.
-
-import fs from 'node:fs/promises';
-import path from 'node:path';
-
-const ODDS_API_KEY = process.env.ODDS_API_KEY || '';
-const CFBD_API_KEY = process.env.CFBD_API_KEY || ''; // unused here but harmless
-
-// --- Helpers ---
-function moneylineToProb(ml) {
-  const n = Number(ml);
-  if (!isFinite(n)) return null;
-  if (n < 0) return (-n) / ((-n) + 100);
-  return 100 / (n + 100);
+<script>
+async function j(path){ const r=await fetch(path,{cache:'no-store'}); if(!r.ok) throw new Error('load '+path); return r.json(); }
+function mlToMultiplier(ml){ const n=Number(ml); if(!isFinite(n)) return 0; return n>=0 ? (n/100) : (100/Math.abs(n)); }
+function winsProjFromNextGameProb(p){ return 17 * (Number(p||0)); }
+function winTotalPoints(winsProj, ou, rules){
+  const baseOver = Number(rules.win_total.base_points_if_over||20);
+  const baseUnder = Number(rules.win_total.base_points_if_not_over||-20);
+  const deltaPts = Number(rules.win_total.points_per_win_delta||1);
+  const equalIsNotOver = !!rules.win_total.equal_counts_as_not_over;
+  if (!isFinite(ou)) return 0;
+  if (winsProj > ou) return baseOver + (winsProj - ou) * deltaPts;
+  if (winsProj < ou) return baseUnder - (ou - winsProj) * deltaPts;
+  return equalIsNotOver ? baseUnder : 0;
 }
-function normalizeProbs(outcomes) {
-  // Remove nulls, divide by sum to de-vigorish within a given market.
-  const arr = outcomes.map(p => (p ?? 0));
-  const s = arr.reduce((a,b)=>a+b,0);
-  return (s > 0) ? arr.map(p => p/s) : outcomes;
-}
-function up(s){ return (s||'').toUpperCase(); }
+function clamp01(x){ return Math.max(0, Math.min(1, x)); }
 
-// --- Odds API: next-game h2h (unchanged from earlier) ---
-async function fetchNFLOddsH2H() {
-  if (!ODDS_API_KEY) return [];
-  const url = `https://api.the-odds-api.com/v4/sports/americanfootball_nfl/odds/?regions=us&markets=h2h&apiKey=${ODDS_API_KEY}`;
-  const res = await fetch(url);
-  if (!res.ok) throw new Error(`H2H odds failed: ${res.status}`);
-  const games = await res.json();
-  const teamProbs = {};
-  for (const g of games) {
-    const book = g.bookmakers?.[0];
-    const market = book?.markets?.find(m => m.key === 'h2h');
-    if (!market) continue;
-    const H = up(g.home_team), A = up(g.away_team);
-    const hSel = market.outcomes?.find(o => up(o.name) === H);
-    const aSel = market.outcomes?.find(o => up(o.name) === A);
-    const hProb = moneylineToProb(hSel?.price);
-    const aProb = moneylineToProb(aSel?.price);
-    let [ph, pa] = [hProb, aProb];
-    if (ph != null && pa != null) [ph, pa] = normalizeProbs([ph, pa]);
-    if (H) teamProbs[H] = { sport: 'NFL', team: H, impliedNextGameWinProb: ph ?? null };
-    if (A) teamProbs[A] = { sport: 'NFL', team: A, impliedNextGameWinProb: pa ?? null };
-  }
-  return Object.values(teamProbs);
-}
+async function main(){
+  const [pred, rules, rosters, odds] = await Promise.all([
+    j('../data/predictions.json'),
+    j('../data/rules.json'),
+    j('../data/rosters.json'),
+    j('../data/odds.json')
+  ]);
+  document.getElementById('updated').textContent = 'Updated ' + new Date(pred.generatedAt).toLocaleString();
 
-// --- Odds API: outrights / futures ---
-// We look for market/outcome names that contain these phrases.
-// This is resilient: if a book uses slightly different labels, we still try common variants.
-const MARKET_HINTS = [
-  'OUTRIGHTS', 'FUTURE', 'FUTURES'
-];
-const OUTCOME_MAP = [
-  { key: 'div',  includes: ['WIN DIVISION','TO WIN DIVISION'] },
-  { key: 'make_playoffs', includes: ['MAKE PLAYOFFS','TO MAKE PLAYOFFS','MAKE THE PLAYOFFS'] },
-  { key: 'conf', includes: ['WIN CONFERENCE','TO WIN CONFERENCE'] },
-  { key: 'sb',   includes: ['WIN SUPER BOWL','TO WIN SUPER BOWL','SUPER BOWL WINNER'] },
-  { key: 'reach_conf_champ', includes: ['REACH CONFERENCE CHAMPIONSHIP','TO REACH CONFERENCE CHAMPIONSHIP'] },
-  { key: 'reach_sb', includes: ['REACH SUPER BOWL','TO REACH SUPER BOWL','TO MAKE SUPER BOWL'] }
-];
+  const byTeamNext = Object.create(null);
+  for(const t of pred.nflNextGame||[]) byTeamNext[(t.team||'').toUpperCase()] = t;
+  const futures = pred.nflFutures || {}; // {TEAM:{div,make_playoffs,conf,sb,reach_conf_champ,reach_sb}}
 
-function outcomeKeyFor(name) {
-  const u = up(name);
-  for (const m of OUTCOME_MAP) {
-    for (const token of m.includes) {
-      if (u.includes(token)) return m.key;
+  const ouByTeam = Object.create(null);
+  const divMlByTeam = Object.create(null);
+  for(const t of odds.teams||[]){ ouByTeam[t.team]=t.ou_wins; divMlByTeam[t.team]=t.div_ml; }
+
+  // Points config
+  const PTS_DIV_WIN_BASE = Number(rules.division_winner.base_points||20);
+  const PTS_WC = Number(rules.wild_card_spot_points||10);
+  const PTS_WC_ROUND = Number(rules.playoff_points?.wc_round||15);
+  const PTS_DIV_ROUND = Number(rules.playoff_points?.divisional_round||30);
+  const PTS_CONF_CHAMP = Number(rules.playoff_points?.conference_champ||50);
+  const PTS_SB_APPEAR = Number(rules.playoff_points?.super_bowl_appearance||75);
+  const PTS_SB_WIN = Number(rules.playoff_points?.super_bowl_win||100);
+
+  const leaderboard = [];
+  const teamRows = [];
+
+  for(const player of rosters.players){
+    let total = 0;
+    const parts = [];
+
+    for(const pick of player.teams){
+      const name = (pick.name||'').toUpperCase();
+
+      // Proj wins from next-game prob (placeholder; can replace with wins futures)
+      const nextProb = byTeamNext[name]?.impliedNextGameWinProb ?? 0.5;
+      const projWins = winsProjFromNextGameProb(nextProb);
+
+      // Win-total EV vs preseason OU
+      const ou = Number(ouByTeam[name] ?? NaN);
+      const wtPts = winTotalPoints(projWins, ou, rules);
+
+      // Division EV = (base * preseason ML multiplier) * P_div(current)
+      const ml = divMlByTeam[name];
+      const mult = mlToMultiplier(ml);
+      const pDiv = clamp01((futures[name]?.div) ?? 0);
+      const divEV = (PTS_DIV_WIN_BASE * mult) * pDiv;
+
+      // WC EV (spot): only if they don't win division
+      const pPO = clamp01((futures[name]?.make_playoffs) ?? 0);
+      const wcSpotEV = PTS_WC * Math.max(pPO - pDiv, 0);
+
+      // Playoff rounds EV using futures probabilities (if present)
+      // If we have explicit round-reach markets, use them. Otherwise derive lower bounds from pPO/pDiv.
+      const pReachConf = clamp01((futures[name]?.reach_conf_champ) ?? 0);
+      const pReachSB   = clamp01((futures[name]?.reach_sb) ?? (futures[name]?.sb ?? 0)); // reaching SB >= winning SB
+      const pWinSB     = clamp01((futures[name]?.sb) ?? 0);
+
+      // Approx for WC Round reach probability: playoffs but not div winners
+      const pReachWCRound = Math.max(pPO - pDiv, 0);
+
+      // Approx for Divisional Round reach probability:
+      // floor = div winners (already in divisional) + WC winners (unknown). If no explicit market, use a conservative 40% WC-advance rate.
+      const assumedWCAdvance = 0.40;
+      const pReachDivRound = Math.max(
+        pDiv,
+        Math.min(1, pDiv + (pPO - pDiv) * assumedWCAdvance)
+      );
+      // If we have explicit pReachConf, it must be ≤ pReachDivRound. Use the max for EV lower bound consistency.
+      const pReachConfRound = Math.max(pReachConf, 0);
+
+      const evWCRound  = PTS_WC_ROUND   * pReachWCRound;
+      const evDivRound = PTS_DIV_ROUND  * pReachDivRound;
+      const evConf     = PTS_CONF_CHAMP * pReachConfRound;
+      const evSBApp    = PTS_SB_APPEAR  * pReachSB;
+      const evSBWin    = PTS_SB_WIN     * pWinSB;
+
+      const teamTotal = wtPts + divEV + wcSpotEV + evWCRound + evDivRound + evConf + evSBApp + evSBWin;
+
+      total += teamTotal;
+      parts.push(`${name} ${teamTotal.toFixed(1)} (WT ${wtPts.toFixed(1)} | DivEV ${divEV.toFixed(1)} | PO EV ${(wcSpotEV+evWCRound+evDivRound+evConf+evSBApp+evSBWin).toFixed(1)})`);
+
+      teamRows.push([
+        player.owner, name,
+        projWins.toFixed(1),
+        isFinite(ou)?ou:'—',
+        wtPts.toFixed(1),
+        divEV.toFixed(1),
+        wcSpotEV.toFixed(1),
+        evWCRound.toFixed(1),
+        evDivRound.toFixed(1),
+        evConf.toFixed(1),
+        evSBApp.toFixed(1),
+        evSBWin.toFixed(1)
+      ]);
     }
+
+    leaderboard.push([player.owner, total, parts.join(' • ')]);
   }
-  return null;
-}
 
-async function fetchNFLOutrights() {
-  if (!ODDS_API_KEY) return {};
-  // Try to fetch an "outrights/futures" listing.
-  // If your plan doesn't expose it, this call may 404 or return empty — we'll handle that.
-  const url = `https://api.the-odds-api.com/v4/sports/americanfootball_nfl/odds/?regions=us&markets=outrights&oddsFormat=american&apiKey=${ODDS_API_KEY}`;
-  const res = await fetch(url);
-  if (!res.ok) {
-    console.error('Outrights fetch not available:', res.status);
-    return {};
+  leaderboard.sort((a,b)=>b[1]-a[1]);
+
+  // Render Leaderboard
+  const lb = document.querySelector('#board tbody'); lb.innerHTML='';
+  for(const r of leaderboard){
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${r[0]}</td><td>${r[1].toFixed(1)}</td><td class="small">${r[2]}</td>`;
+    lb.appendChild(tr);
   }
-  const books = await res.json();
 
-  // Collect probabilities per team per outcome key.
-  // For each market, normalize prices to probabilities within that market before storing.
-  const prob = {}; // prob[TEAM][key] = probability
-  for (const b of books) {
-    for (const m of (b.markets || [])) {
-      const mName = up(m.key || m.name || '');
-      // ensure it's an outright/futures-y market
-      if (!MARKET_HINTS.some(h => mName.includes(h)) && up(m.key) !== 'OUTRIGHTS') continue;
+  // Render Teams (replace table header to show new cols)
+  document.querySelector('#teams thead').innerHTML =
+    '<tr><th>Owner</th><th>Team</th><th>Proj Wins</th><th>O/U</th><th>WT Pts</th><th>Div EV</th><th>WC EV</th><th>WC Rnd</th><th>Div Rnd</th><th>Conf</th><th>SB App</th><th>SB Win</th></tr>';
 
-      const outcomes = (m.outcomes || []).map(o => ({
-        team: up(o.name || ''),
-        key: outcomeKeyFor(o.description || o.name || ''),
-        p: moneylineToProb(o.price)
-      })).filter(x => x.key && x.team && x.p != null);
-
-      // group by key, normalize within key
-      const byKey = {};
-      for (const o of outcomes) {
-        byKey[o.key] = byKey[o.key] || [];
-        byKey[o.key].push(o);
-      }
-      for (const k of Object.keys(byKey)) {
-        const arr = byKey[k];
-        const norm = normalizeProbs(arr.map(x => x.p));
-        arr.forEach((x,i) => {
-          const team = x.team;
-          prob[team] = prob[team] || {};
-          prob[team][k] = Math.max(prob[team][k] ?? 0, norm[i]); // keep max across books
-        });
-      }
-    }
+  const tt = document.querySelector('#teams tbody'); tt.innerHTML='';
+  for(const r of teamRows){
+    const tr = document.createElement('tr');
+    tr.innerHTML = r.map(x=>`<td>${x}</td>`).join('');
+    tt.appendChild(tr);
   }
-  return prob;
 }
-
-async function main() {
-  const outPath = path.join('data', 'predictions.json');
-
-  // Next-game odds (for a simple wins proxy)
-  let nflNextGame = [];
-  try { nflNextGame = await fetchNFLOddsH2H(); }
-  catch (e) { console.error('H2H fetch failed (continuing):', e?.message || e); }
-
-  // Outrights: division/playoffs/conference/SB/reach rounds
-  let nflFutures = {};
-  try { nflFutures = await fetchNFLOutrights(); }
-  catch (e) { console.error('Outrights fetch failed (continuing):', e?.message || e); }
-
-  const payload = {
-    generatedAt: new Date().toISOString(),
-    sources: {
-      nflNextGame: 'The Odds API h2h moneyline',
-      nflFutures: 'The Odds API outrights (normalized per market)'
-    },
-    nflNextGame, // [{team, impliedNextGameWinProb}]
-    nflFutures   // {TEAM: {div, make_playoffs, conf, sb, reach_conf_champ, reach_sb}}
-  };
-
-  await fs.writeFile(outPath, JSON.stringify(payload, null, 2), 'utf8');
-  console.log(`Wrote ${outPath}`);
-}
-
-main().catch(e => { console.error(e); process.exit(1); });
+main().catch(e=>{
+  document.body.insertAdjacentHTML('beforeend', `<p style="color:#b00">Error: ${e.message}</p>`);
+  console.error(e);
+});
+</script>
