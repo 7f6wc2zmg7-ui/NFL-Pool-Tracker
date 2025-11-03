@@ -1,0 +1,8 @@
+name: Update Predictions
+on:
+  workflow_dispatch: {}
+jobs:
+  placeholder:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "workflow ready"
