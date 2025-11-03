@@ -1,8 +1,9 @@
-// update.mjs — Robust ESPN futures -> probabilities (de-vigged) + OddsAPI H2H
-// Node 18+ (global fetch). Writes data/predictions.json
+// update.mjs — ESPN futures (auto-discover) + OddsAPI H2H
+// Node 20. Writes data/predictions.json
 import fs from 'node:fs/promises';
 
 const ODDS_API_KEY = process.env.ODDS_API_KEY || '';
+const YEAR = new Date().getFullYear();
 
 function up(s){ return (s||'').toUpperCase().trim(); }
 function moneylineToProb(ml){
@@ -10,28 +11,27 @@ function moneylineToProb(ml){
   if (!isFinite(n)) return null;
   return n < 0 ? (-n) / ((-n) + 100) : 100 / (n + 100);
 }
-function devigProbMap(rawMap){ // {TEAM: raw_p}
-  const vals = Object.values(rawMap).filter(v => v > 0);
+function devigProbMap(raw){ // {TEAM: raw_p}
+  const vals = Object.values(raw).filter(v => v > 0);
   const s = vals.reduce((a,b)=>a+b, 0);
   if (s <= 0) return {};
   const out = {};
-  for (const [k,v] of Object.entries(rawMap)) if (v > 0) out[k] = v / s;
+  for (const [k,v] of Object.entries(raw)) if (v > 0) out[k] = v / s;
   return out;
 }
-
 async function safeJSON(url){
   const r = await fetch(url);
   if (!r.ok) throw new Error(`${r.status} ${url}`);
   return r.json();
 }
-async function tryFetchJSON(urls){
+async function tryJSON(urls){
   for (const u of urls){
-    try { return await safeJSON(u); } catch(_) {}
+    try { return await safeJSON(u); } catch (_) {}
   }
   return null;
 }
 
-// ---------- Odds API (optional) for next-game implied win % ----------
+// ---------- Odds API H2H (unchanged) ----------
 async function fetchNFLOddsH2H(){
   if (!ODDS_API_KEY) return [];
   const url = `https://api.the-odds-api.com/v4/sports/americanfootball_nfl/odds/?regions=us&markets=h2h&oddsFormat=american&apiKey=${ODDS_API_KEY}`;
@@ -49,7 +49,7 @@ async function fetchNFLOddsH2H(){
     const ph = moneylineToProb(h?.price);
     const pa = moneylineToProb(a?.price);
     if (ph != null && pa != null){
-      const s = ph + pa; // de-vig 2-way
+      const s = ph + pa;
       const nh = s > 0 ? ph / s : ph;
       const na = s > 0 ? pa / s : pa;
       byTeam[H] = { sport:'NFL', team:H, impliedNextGameWinProb:nh };
@@ -59,32 +59,41 @@ async function fetchNFLOddsH2H(){
   return Object.values(byTeam);
 }
 
-// ---------- ESPN futures (robust) ----------
-const YEAR = new Date().getFullYear();
+// ---------- ESPN futures (auto-discover, de-vig, categorize) ----------
+function looksLikeDivision(name){
+  const u = up(name);
+  return u.includes('DIVISION') || u.includes('WIN AFC EAST') || u.includes('WIN NFC');
+}
+function looksLikeConference(name){
+  const u = up(name);
+  return u.includes('WIN AFC') || u.includes('WIN NFC') || u.includes('CONFERENCE CHAMPION');
+}
+function looksLikeSuperBowl(name){
+  const u = up(name);
+  return u.includes('SUPER BOWL') || u.includes('PRO FOOTBALL CHAMPION');
+}
+function looksLikeMakePlayoffs(name){
+  const u = up(name);
+  return u.includes('MAKE PLAYOFFS') || u.includes('TO MAKE PLAYOFFS');
+}
 
-// Known good IDs
-const FUTURE_IDS = {
-  sb: [1561],                 // Super Bowl winner
-  afcChamp: [2757],           // Win AFC (reach SB)
-  nfcChamp: [3904],           // Win NFC (reach SB)
-  afcDivs: [2740,2738,2737,2739], // EAST, NORTH, SOUTH, WEST
-  nfcDivs: [3906,3905,3908,3907], // EAST, NORTH, SOUTH, WEST
-  // ESPN sometimes publishes “make playoffs” under different ids per season/provider.
-  // Try a handful of historical ids; we’ll use whatever returns.
-  makePO: [11267, 11520, 11521, 11522, 11523] // best-effort guesses; harmless if 404/empty
-};
+async function listAllFutures(){
+  // ESPN sometimes moves the season; try YEAR, then YEAR-1.
+  const base = (y) => `https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/${y}/futures`;
+  const root = await tryJSON([base(YEAR), base(YEAR-1)]);
+  if (!root) return [];
+  // Paginated structure: items is an array of $refs to futures/{id}
+  // Some seasons include "items", others "entries". Handle both.
+  const refs = [];
+  const pushRefs = (arr) => arr?.forEach(x => x?.$ref && refs.push(x.$ref));
+  pushRefs(root.items || root.entries || []);
+  // (If there were multiple pages we'd follow next;, in practice NFL is single page.)
+  return refs;
+}
 
-// Given an ESPN futures collection, pick the entry with the most books, then
-// resolve team refs and convert American odds -> probabilities, de-vig within that market.
-async function fetchESPNFutureCollection(id){
-  const urls = [
-    `https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/${YEAR}/futures/${id}`,
-    `https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/${YEAR-1}/futures/${id}`,
-  ];
-  const data = await tryFetchJSON(urls);
-  if (!data) return null;
-
-  // Choose the futures entry with the largest number of books
+async function fetchFutureMarket(ref){
+  // Load the collection and pick the entry with most books
+  const data = await safeJSON(ref);
   let best = null;
   for (const f of (data.futures || [])){
     const count = (f.books || []).length;
@@ -92,133 +101,78 @@ async function fetchESPNFutureCollection(id){
   }
   if (!best || !best.books?.length) return null;
 
-  // Resolve each book's team ref once (cache by URL)
+  // Resolve team refs once
   const teamCache = new Map();
-  async function resolveTeamName(ref){
-    if (!ref) return null;
-    if (teamCache.has(ref)) return teamCache.get(ref);
+  async function teamName(refUrl){
+    if (!refUrl) return null;
+    if (teamCache.has(refUrl)) return teamCache.get(refUrl);
     try{
-      const tj = await safeJSON(ref);
+      const tj = await safeJSON(refUrl);
       const nm = up(tj?.displayName || tj?.name || tj?.abbreviation || '');
-      teamCache.set(ref, nm);
+      teamCache.set(refUrl, nm);
       return nm;
-    }catch(_){
-      return null;
-    }
+    }catch(_){ return null; }
   }
 
-  // Build raw prob map (team -> raw probability from ML)
-  const raw = {};
+  const raw = {}; // team -> raw p
   for (const b of best.books){
-    const tRef = b.team?.$ref;
-    const team = await resolveTeamName(tRef);
+    const team = await teamName(b.team?.$ref);
     const ml = b?.price?.american ?? b?.oddsAmerican ?? b?.odds?.american;
     const p = moneylineToProb(ml);
-    if (team && p != null){
-      // keep the MAX raw prob across entries (then de-vig once at the end)
-      raw[team] = Math.max(raw[team] || 0, p);
-    }
+    if (team && p != null) raw[team] = Math.max(raw[team] || 0, p);
   }
-  // De-vig within the market
-  return devigProbMap(raw); // {TEAM: prob}
+  const probs = devigProbMap(raw);
+  // Use the collection name to categorize
+  const title = up(data?.name || data?.title || '');
+  let kind = null;
+  if (looksLikeSuperBowl(title)) kind = 'sb';
+  else if (looksLikeConference(title)) kind = 'reach_sb';
+  else if (looksLikeDivision(title)) kind = 'div';
+  else if (looksLikeMakePlayoffs(title)) kind = 'make_playoffs';
+  return { kind, probs, title };
 }
 
-// Fetch and merge multiple ids for a given label; keep MAX prob per team (cross-provider)
-async function fetchESPNFuturesMerged(ids){
-  const out = {};
-  for (const id of ids){
-    try{
-      const m = await fetchESPNFutureCollection(id);
-      if (!m) continue;
-      for (const [team, p] of Object.entries(m)){
-        const T = up(team);
-        out[T] = Math.max(out[T] || 0, p);
-      }
-    }catch(_){}
-  }
-  return out;
-}
-
-async function fetchAllESPNFutures(){
-  // Parallel fetches
-  const [
-    sb, afc, nfc,
-    afcDivE, afcDivN, afcDivS, afcDivW,
-    nfcDivE, nfcDivN, nfcDivS, nfcDivW,
-    makePO // may be empty
-  ] = await Promise.all([
-    fetchESPNFuturesMerged(FUTURE_IDS.sb),
-    fetchESPNFuturesMerged(FUTURE_IDS.afcChamp),
-    fetchESPNFuturesMerged(FUTURE_IDS.nfcChamp),
-    fetchESPNFuturesMerged([FUTURE_IDS.afcDivs[0]]),
-    fetchESPNFuturesMerged([FUTURE_IDS.afcDivs[1]]),
-    fetchESPNFuturesMerged([FUTURE_IDS.afcDivs[2]]),
-    fetchESPNFuturesMerged([FUTURE_IDS.afcDivs[3]]),
-    fetchESPNFuturesMerged([FUTURE_IDS.nfcDivs[0]]),
-    fetchESPNFuturesMerged([FUTURE_IDS.nfcDivs[1]]),
-    fetchESPNFuturesMerged([FUTURE_IDS.nfcDivs[2]]),
-    fetchESPNFuturesMerged([FUTURE_IDS.nfcDivs[3]]),
-    fetchESPNFuturesMerged(FUTURE_IDS.makePO)
-  ]);
-
-  // Merge divisions: a team appears in exactly one division market; take max for safety.
-  const div = {};
-  for (const m of [afcDivE, afcDivN, afcDivS, afcDivW, nfcDivE, nfcDivN, nfcDivS, nfcDivW]){
-    for (const [team, p] of Object.entries(m || {})){
+async function fetchESPNFuturesAuto(){
+  const refs = await listAllFutures();
+  const futures = {}; // TEAM -> {div, reach_sb, sb, make_playoffs}
+  const counts = { sb:0, reach_sb:0, div:0, make_playoffs:0 };
+  for (const ref of refs){
+    let market = null;
+    try { market = await fetchFutureMarket(ref); } catch(_){}
+    if (!market || !market.kind || !market.probs) continue;
+    for (const [team, p] of Object.entries(market.probs)){
       const T = up(team);
-      div[T] = Math.max(div[T] || 0, p);
+      futures[T] = futures[T] || {};
+      futures[T][market.kind] = Math.max(futures[T][market.kind] || 0, p);
     }
+    counts[market.kind] = (counts[market.kind] || 0) + 1;
   }
-
-  // reach SB = win AFC or win NFC
-  const reachSB = {};
-  for (const [team, p] of Object.entries(afc || {})){
-    const T = up(team); reachSB[T] = Math.max(reachSB[T] || 0, p);
-  }
-  for (const [team, p] of Object.entries(nfc || {})){
-    const T = up(team); reachSB[T] = Math.max(reachSB[T] || 0, p);
-  }
-
-  // Build futures object per team
-  const allTeams = new Set([
-    ...Object.keys(sb || {}),
-    ...Object.keys(reachSB || {}),
-    ...Object.keys(div || {}),
-    ...Object.keys(makePO || {})
-  ].map(up));
-
-  const futures = {};
-  for (const T of allTeams){
-    futures[T] = {
-      sb: sb?.[T] || 0,
-      reach_sb: reachSB?.[T] || 0,
-      div: div?.[T] || 0,
-      make_playoffs: makePO?.[T] || undefined // leave undefined if market absent
-    };
-  }
-  return futures; // {TEAM:{div, reach_sb, sb, make_playoffs?}}
+  console.log('ESPN futures markets collected:', counts);
+  return futures;
 }
 
 async function main(){
+  // Odds API (optional)
   let nflNextGame = [];
   try { nflNextGame = await fetchNFLOddsH2H(); }
   catch(e){ console.error('H2H fetch failed:', e?.message || e); }
 
+  // ESPN futures (auto-discovered)
   let nflFutures = {};
-  try { nflFutures = await fetchAllESPNFutures(); }
+  try { nflFutures = await fetchESPNFuturesAuto(); }
   catch(e){ console.error('ESPN futures failed:', e?.message || e); }
 
   const payload = {
     generatedAt: new Date().toISOString(),
     sources: {
       nflNextGame: 'The Odds API (h2h)',
-      nflFutures: 'ESPN futures collections (de-vigged, merged)'
+      nflFutures: 'ESPN futures (auto-discovered, de-vigged)'
     },
     nflNextGame,
     nflFutures
   };
   await fs.writeFile('data/predictions.json', JSON.stringify(payload, null, 2), 'utf8');
-  console.log('Wrote data/predictions.json with', Object.keys(nflFutures).length, 'teams having futures');
+  console.log('Wrote data/predictions.json with futures for', Object.keys(nflFutures).length, 'teams');
 }
 
 main().catch(e => { console.error(e); process.exit(1); });
