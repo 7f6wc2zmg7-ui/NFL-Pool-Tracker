@@ -1,0 +1,43 @@
+{
+  "teams": [
+    {"team": "BUFFALO BILLS", "conference": "AFC", "division": "EAST", "ou_wins": 11.5, "div_ml": -260},
+    {"team": "NEW ENGLAND PATRIOTS", "conference": "AFC", "division": "EAST", "ou_wins": 8.5, "div_ml": 550},
+    {"team": "MIAMI DOLPHINS", "conference": "AFC", "division": "EAST", "ou_wins": 8.5, "div_ml": 700},
+    {"team": "NEW YORK JETS", "conference": "AFC", "division": "EAST", "ou_wins": 5.5, "div_ml": 1600},
+
+    {"team": "HOUSTON TEXANS", "conference": "AFC", "division": "SOUTH", "ou_wins": 9.5, "div_ml": 110},
+    {"team": "JACKSONVILLE JAGUARS", "conference": "AFC", "division": "SOUTH", "ou_wins": 7.5, "div_ml": 290},
+    {"team": "INDIANAPOLIS COLTS", "conference": "AFC", "division": "SOUTH", "ou_wins": 7.5, "div_ml": 330},
+    {"team": "TENNESSEE TITANS", "conference": "AFC", "division": "SOUTH", "ou_wins": 5.5, "div_ml": 650},
+
+    {"team": "BALTIMORE RAVENS", "conference": "AFC", "division": "NORTH", "ou_wins": 11.5, "div_ml": -155},
+    {"team": "CINCINNATI BENGALS", "conference": "AFC", "division": "NORTH", "ou_wins": 9.5, "div_ml": 250},
+    {"team": "PITTSBURGH STEELERS", "conference": "AFC", "division": "NORTH", "ou_wins": 8.5, "div_ml": 500},
+    {"team": "CLEVELAND BROWNS", "conference": "AFC", "division": "NORTH", "ou_wins": 4.5, "div_ml": 3300},
+
+    {"team": "KANSAS CITY CHIEFS", "conference": "AFC", "division": "WEST", "ou_wins": 11.5, "div_ml": 110},
+    {"team": "LOS ANGELES CHARGERS", "conference": "AFC", "division": "WEST", "ou_wins": 9.5, "div_ml": 340},
+    {"team": "DENVER BRONCOS", "conference": "AFC", "division": "WEST", "ou_wins": 9.5, "div_ml": 280},
+    {"team": "LAS VEGAS RAIDERS", "conference": "AFC", "division": "WEST", "ou_wins": 6.5, "div_ml": 1100},
+
+    {"team": "PHILADELPHIA EAGLES", "conference": "NFC", "division": "EAST", "ou_wins": 11.5, "div_ml": -145},
+    {"team": "WASHINGTON COMMANDERS", "conference": "NFC", "division": "EAST", "ou_wins": 9.5, "div_ml": 220},
+    {"team": "DALLAS COWBOYS", "conference": "NFC", "division": "EAST", "ou_wins": 7.5, "div_ml": 700},
+    {"team": "NEW YORK GIANTS", "conference": "NFC", "division": "EAST", "ou_wins": 5.5, "div_ml": 1600},
+
+    {"team": "TAMPA BAY BUCCANEERS", "conference": "NFC", "division": "SOUTH", "ou_wins": 9.5, "div_ml": -105},
+    {"team": "ATLANTA FALCONS", "conference": "NFC", "division": "SOUTH", "ou_wins": 7.5, "div_ml": 220},
+    {"team": "CAROLINA PANTHERS", "conference": "NFC", "division": "SOUTH", "ou_wins": 6.5, "div_ml": 420},
+    {"team": "NEW ORLEANS SAINTS", "conference": "NFC", "division": "SOUTH", "ou_wins": 4.5, "div_ml": 1300},
+
+    {"team": "DETROIT LIONS", "conference": "NFC", "division": "NORTH", "ou_wins": 10.5, "div_ml": 180},
+    {"team": "GREEN BAY PACKERS", "conference": "NFC", "division": "NORTH", "ou_wins": 10.5, "div_ml": 165},
+    {"team": "MINNESOTA VIKINGS", "conference": "NFC", "division": "NORTH", "ou_wins": 8.5, "div_ml": 360},
+    {"team": "CHICAGO BEARS", "conference": "NFC", "division": "NORTH", "ou_wins": 8.5, "div_ml": 600},
+
+    {"team": "SAN FRANCISCO 49ERS", "conference": "NFC", "division": "WEST", "ou_wins": 10.5, "div_ml": 160},
+    {"team": "LOS ANGELES RAMS", "conference": "NFC", "division": "WEST", "ou_wins": 9.5, "div_ml": 210},
+    {"team": "ARIZONA CARDINALS", "conference": "NFC", "division": "WEST", "ou_wins": 8.5, "div_ml": 380},
+    {"team": "SEATTLE SEAHAWKS", "conference": "NFC", "division": "WEST", "ou_wins": 8.5, "div_ml": 500}
+  ]
+}
