@@ -1,8 +1,41 @@
 name: Update Predictions
+
 on:
   workflow_dispatch: {}
+  schedule:
+    - cron: "17 * * * *"  # runs hourly at :17 past
+
+permissions:
+  contents: write
+
 jobs:
-  placeholder:
+  update:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "workflow ready"
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Generate predictions
+        env:
+          CFBD_API_KEY: ${{ secrets.CFBD_API_KEY }}
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+        run: |
+          node --version
+          node update.mjs
+
+      - name: Commit predictions.json
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/predictions.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "chore: update predictions $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            git push
+          fi
