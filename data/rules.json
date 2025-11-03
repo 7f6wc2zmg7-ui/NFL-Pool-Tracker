@@ -1,0 +1,24 @@
+{
+  "league": "NFL",
+  "win_total": {
+    "base_points_if_over": 20,
+    "base_points_if_not_over": -20,
+    "points_per_win_delta": 1,
+    "equal_counts_as_not_over": true,
+    "note": "Your example (Bears 7.5 -> 4 = -13.5) implies a 10-point base. If you want to match that example exactly, set base_points_if_not_over to -10 instead of -20."
+  },
+  "division_winner": {
+    "base_points": 20,
+    "moneyline_multiplier": "moneyline_to_multiplier",
+    "examples": "Bengals +130 => 20 * 1.30 = 26. Favorites use 100/|-ML|, e.g. Eagles -145 => 20 * (100/145) ≈ 13.79."
+  },
+  "wild_card_spot_points": 10,
+  "playoff_points": {
+    "wc_round": 15,
+    "divisional_round": 30,
+    "conference_champ": 50,
+    "super_bowl_appearance": 75,
+    "super_bowl_win": 100,
+    "cumulative": true
+  }
+}
