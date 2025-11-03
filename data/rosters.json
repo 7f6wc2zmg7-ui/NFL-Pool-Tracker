@@ -1,0 +1,59 @@
+{
+  "players": [
+    {
+      "owner": "Dylan",
+      "teams": [
+        {"league": "NFL", "name": "PHILADELPHIA EAGLES"},
+        {"league": "NFL", "name": "DENVER BRONCOS"},
+        {"league": "NFL", "name": "LOS ANGELES RAMS"},
+        {"league": "NFL", "name": "TAMPA BAY BUCCANEERS"},
+        {"league": "NFL", "name": "PITTSBURGH STEELERS"},
+        {"league": "NFL", "name": "SEATTLE SEAHAWKS"}
+      ]
+    },
+    {
+      "owner": "Hammad",
+      "teams": [
+        {"league": "NFL", "name": "DETROIT LIONS"},
+        {"league": "NFL", "name": "HOUSTON TEXANS"},
+        {"league": "NFL", "name": "ATLANTA FALCONS"},
+        {"league": "NFL", "name": "ARIZONA CARDINALS"},
+        {"league": "NFL", "name": "CAROLINA PANTHERS"},
+        {"league": "NFL", "name": "NEW YORK JETS"}
+      ]
+    },
+    {
+      "owner": "Jack",
+      "teams": [
+        {"league": "NFL", "name": "BALTIMORE RAVENS"},
+        {"league": "NFL", "name": "SAN FRANCISCO 49ERS"},
+        {"league": "NFL", "name": "MINNESOTA VIKINGS"},
+        {"league": "NFL", "name": "CINCINNATI BENGALS"},
+        {"league": "NFL", "name": "CHICAGO BEARS"},
+        {"league": "NFL", "name": "LAS VEGAS RAIDERS"}
+      ]
+    },
+    {
+      "owner": "Nate",
+      "teams": [
+        {"league": "NFL", "name": "KANSAS CITY CHIEFS"},
+        {"league": "NFL", "name": "GREEN BAY PACKERS"},
+        {"league": "NFL", "name": "WASHINGTON COMMANDERS"},
+        {"league": "NFL", "name": "LOS ANGELES CHARGERS"},
+        {"league": "NFL", "name": "DALLAS COWBOYS"},
+        {"league": "NFL", "name": "NEW ENGLAND PATRIOTS"}
+      ]
+    },
+    {
+      "owner": "Peter",
+      "teams": [
+        {"league": "NFL", "name": "BUFFALO BILLS"},
+        {"league": "NFL", "name": "JACKSONVILLE JAGUARS"},
+        {"league": "NFL", "name": "INDIANAPOLIS COLTS"},
+        {"league": "NFL", "name": "NEW YORK GIANTS"},
+        {"league": "NFL", "name": "TENNESSEE TITANS"},
+        {"league": "NFL", "name": "MIAMI DOLPHINS"}
+      ]
+    }
+  ]
+}
