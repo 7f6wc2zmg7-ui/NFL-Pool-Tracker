@@ -1,20 +1,10 @@
 {
-  "generatedAt": "2025-11-03T04:15:23.336Z",
+  "generatedAt": "2025-11-03T04:18:59.713Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
-    "nflFutures": "ESPN futures collections (de-vigged, merged)"
+    "nflFutures": "ESPN futures (auto-discovered, de-vigged)"
   },
   "nflNextGame": [
-    {
-      "sport": "NFL",
-      "team": "WASHINGTON COMMANDERS",
-      "impliedNextGameWinProb": 0.028848900314195947
-    },
-    {
-      "sport": "NFL",
-      "team": "SEATTLE SEAHAWKS",
-      "impliedNextGameWinProb": 0.9711510996858042
-    },
     {
       "sport": "NFL",
       "team": "DALLAS COWBOYS",
