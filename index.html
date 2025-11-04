@@ -164,10 +164,32 @@ async function main(){
     }
   }
 
-  const ouByTeam = Object.create(null);
-  const divMlByTeam = Object.create(null);
-  for(const t of odds.teams||[]){ const T=(t.team||'').toUpperCase(); ouByTeam[T]=t.ou_wins; divMlByTeam[T]=t.div_ml; }
+  const ouByTeam = Object.create(null);          // preseason O/U (your constants)
+const divMlByTeam = Object.create(null);
+for (const t of odds.teams || []) {
+  const T = (t.team || '').toUpperCase();
+  ouByTeam[T] = t.ou_wins;                     // <- preseason line
+  divMlByTeam[T] = t.div_ml;
+}
 
+// --- NEW: current O/U from predictions.json, with multiple fallbacks ---
+const curOUByTeam = Object.create(null);
+
+// 1) Preferred: predictions.json exposes a current OU map
+if (pred.nflCurrentOU && typeof pred.nflCurrentOU === 'object') {
+  for (const [team, v] of Object.entries(pred.nflCurrentOU))
+    curOUByTeam[team.toUpperCase()] = Number(v);
+}
+// 2) Alt keys we might have placed in update.mjs
+if (pred.current_ou && typeof pred.current_ou === 'object') {
+  for (const [team, v] of Object.entries(pred.current_ou))
+    curOUByTeam[team.toUpperCase()] = Number(v);
+}
+if (pred.win_totals && typeof pred.win_totals === 'object') {
+  for (const [team, v] of Object.entries(pred.win_totals))
+    curOUByTeam[team.toUpperCase()] = Number(v);
+}
+// 3) Fallback: if not found, we’ll just use preseason later
   /* points config */
   const PTS_DIV_WIN_BASE = Number(rules.division_winner?.base_points ?? 20);
   const PTS_WC = Number(rules.wild_card_spot_points ?? 10);
@@ -192,14 +214,35 @@ async function main(){
     for (const pick of player.teams||[]) {
       const name = (pick.name||'').toUpperCase();
 
-      // wins projection
-      const nextProb = byTeamNext[name]?.impliedNextGameWinProb ?? 0.5;
-      const projWins = winsProjFromNextGameProb(nextProb);
+     // Projection = CURRENT O/U (market today); Scoring compares to PRESEASON O/U
+const preOU = Number(ouByTeam[name] ?? NaN);             // preseason line (scoring line)
+const curOU = Number.isFinite(Number(curOUByTeam[name]))
+  ? Number(curOUByTeam[name])                            // current market line (projection)
+  : preOU;                                               // fallback
 
-      // O/U and win-total points
-      const ou = Number(ouByTeam[name] ?? NaN);
-      const wtPts = winTotalPoints(projWins, ou, rules);
+const projWins = curOU;
 
+// Win-total points are based on how projWins compares to the PRESEASON line
+const wtPts = winTotalPoints(projWins, preOU, rules);
+
+// (optional) components to display clarity in the table
+const baseOver = Number(rules.win_total?.base_points_if_over ?? 20);
+const baseUnder = Number(rules.win_total?.base_points_if_not_over ?? -20);
+const deltaPts  = Number(rules.win_total?.points_per_win_delta ?? 1);
+const equalIsNotOver = !!rules.win_total?.equal_counts_as_not_over;
+
+let wtBase = 0;
+if (!isFinite(preOU)) {
+  wtBase = 0;
+} else if (projWins > preOU) {
+  wtBase = baseOver;
+} else if (projWins < preOU) {
+  wtBase = baseUnder;
+} else {
+  wtBase = equalIsNotOver ? baseUnder : 0;
+}
+const wtDelta = isFinite(preOU) ? (projWins - preOU) * deltaPts : 0;
+      
       // futures probabilities  (REPLACE EVERYTHING DOWN TO JUST BEFORE // Totals)
 const f = futures[name] || {};
 
@@ -268,13 +311,15 @@ const evSBWin   = PTS_SB_WIN    * pSB_win;
       // Tables
       const record = '—'; // placeholder until we wire standings (wins-losses)
       regRows.push({
-        team: name,
-        record,
-        projWins: projWins,
-        ou: isFinite(ou)?ou:'—',
-        regPoints,
-        wtPts, divEV
-      });
+  team: name,
+  record: '—',                     // placeholder for W-L if you wire it later
+  projWins,
+  preOU: isFinite(preOU) ? preOU : '—',
+  deltaWins: isFinite(preOU) ? (projWins - preOU) : 0,
+  wtPts,
+  divEV,
+  regPoints: wtPts + divEV
+});
 
 poRows.push({
   team: name,
@@ -423,8 +468,17 @@ poRows.push({
         <div class="table-wrap">
           <table>
             <thead>
-              <tr><th>Team</th><th>Record</th><th class="right">Proj Wins</th><th class="right">O/U</th><th class="right">WT Pts</th><th class="right">Div EV</th><th class="right">Implied Pts</th></tr>
-            </thead>
+  <tr>
+    <th>Team</th>
+    <th>Record</th>
+    <th class="right">Proj Wins<br><span class="small">(Current O/U)</span></th>
+    <th class="right">Pre O/U</th>
+    <th class="right small">Δ Wins</th>
+    <th class="right">WT Pts</th>
+    <th class="right">Div EV</th>
+    <th class="right">Implied Pts</th>
+  </tr>
+</thead>
             <tbody></tbody>
             <tfoot>
               <tr><th colspan="6" class="right">Subtotal</th><th class="right subtotal">${data.regSubtotal.toFixed(1)}</th></tr>
@@ -432,19 +486,20 @@ poRows.push({
           </table>
         </div>
       </div>`;
-    const tbody = box.querySelector('tbody');
-    for (const row of data.regRows){
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td>${row.team}</td>
-        <td class="subtle">${row.record}</td>
-        <td class="right">${row.projWins.toFixed(1)}</td>
-        <td class="right">${row.ou}</td>
-        <td class="right">${row.wtPts.toFixed(1)}</td>
-        <td class="right">${row.divEV.toFixed(1)}</td>
-        <td class="right">${row.regPoints.toFixed(1)}</td>`;
-      tbody.appendChild(tr);
-    }
+const tbody = box.querySelector('tbody');
+for (const row of data.regRows){
+  const tr = document.createElement('tr');
+  tr.innerHTML = `
+    <td>${row.team}</td>
+    <td class="subtle">${row.record}</td>
+    <td class="right">${isFinite(row.projWins) ? row.projWins.toFixed(1) : '—'}</td>
+    <td class="right">${row.preOU}</td>
+    <td class="right small">${isFinite(row.deltaWins) ? row.deltaWins.toFixed(1) : '—'}</td>
+    <td class="right">${row.wtPts.toFixed(1)}</td>
+    <td class="right">${row.divEV.toFixed(1)}</td>
+    <td class="right">${row.regPoints.toFixed(1)}</td>`;
+  tbody.appendChild(tr);
+}
     regHost.appendChild(box);
   }
 
