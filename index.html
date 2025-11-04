@@ -301,56 +301,84 @@ poRows.push({
     owners[player.owner] = { regRows, poRows, regSubtotal, poSubtotal, total: totalOwner };
     leaderboard.push([player.owner, totalOwner, regSubtotal, poSubtotal]);
   }
-// ---- Normalize league totals to bracket structure ----
-(function normalizeAndRecalc(){
-  // 1) Current sums
-  let S={wcSpot:0,wcRound:0,divRound:0,conf:0,sbApp:0,sbWin:0};
-  for (const [,data] of Object.entries(owners)){
-    for (const r of data.poRows){
-      S.wcSpot  += r.pWCspot;
-      S.wcRound += r.pReachWCRound;
-      S.divRound+= r.pReachDivRound;
-      S.conf    += r.pReachConfRound;
-      S.sbApp   += r.pReachSB;
-      S.sbWin   += r.pSB;
+// ---- Normalize league totals to exact bracket targets ----
+(function normalizeLeagueExact(){
+  const T = { wcSpot:6, wcRound:12, divRound:8, conf:4, sbApp:2 }; // exact targets
+  const MAX_ITERS = 30, EPS = 1e-4;
+
+  // helper: recompute sums
+  function sums(){
+    let S = { wcSpot:0,wcRound:0,divRound:0,conf:0,sbApp:0,sbWin:0 };
+    for (const [,data] of Object.entries(owners)){
+      for (const r of data.poRows){
+        S.wcSpot  += r.pWCspot;
+        S.wcRound += r.pReachWCRound;
+        S.divRound+= r.pReachDivRound;
+        S.conf    += r.pReachConfRound;
+        S.sbApp   += r.pReachSB;
+        S.sbWin   += r.pSB;
+      }
     }
+    return S;
   }
 
-  // 2) Targets
-  const T={wcSpot:6, wcRound:12, divRound:8, conf:4, sbApp:2}; // sbWin stays market-based
+  // per-team clamping + monotone (uses anchors)
+  function clampMonotone(r){
+    const pPO  = clamp01(r._pPO ?? 1);
+    const pDiv = clamp01(r._pDivTitle ?? 0);
+    const pSB  = clamp01(r.pSB ?? 0);
 
-  // 3) Safe scale factors (limit extreme swings 0.5×..1.5×)
-  const scale = (a,t)=> (a>1e-6 ? Math.min(1.5, Math.max(0.5, t/a)) : 1);
-  const k={
-    wcSpot:  scale(S.wcSpot,  T.wcSpot),
-    wcRound: scale(S.wcRound, T.wcRound),
-    divRound:scale(S.divRound,T.divRound),
-    conf:    scale(S.conf,    T.conf),
-    sbApp:   scale(S.sbApp,   T.sbApp)
-  };
+    // order: PO ≥ WC ≥ Div ≥ Conf ≥ SBApp ≥ SB
+    r.pReachSB        = Math.max(r.pReachSB, pSB);
+    r.pReachConfRound = Math.min(r.pReachDivRound, Math.max(r.pReachConfRound, r.pReachSB));
+    r.pReachDivRound  = Math.min(r.pReachWCRound,  Math.max(r.pReachDivRound, r.pReachConfRound, pDiv));
+    r.pReachWCRound   = Math.min(pPO,              Math.max(r.pReachWCRound,  r.pReachDivRound));
+    // WC spot is independent, but keep it ∈[0, pPO] and ≤ WC round (since WC round implies they play it)
+    r.pWCspot         = Math.min(pPO, Math.max(0, r.pWCspot));
+    r.pReachWCRound   = Math.max(r.pReachWCRound, r.pWCspot);
+  }
 
-  // 4) Apply scaling per team + enforce monotone + caps; recompute EVs/subtotals
+  // iterate scaling → clamp → check
+  for (let it=0; it<MAX_ITERS; it++){
+    const S = sums();
+
+    // compute exact scale factors (avoid divide-by-zero)
+    const k = {
+      wcSpot:  S.wcSpot  ? (T.wcSpot  / S.wcSpot)   : 1,
+      wcRound: S.wcRound ? (T.wcRound / S.wcRound)  : 1,
+      divRound:S.divRound? (T.divRound/ S.divRound) : 1,
+      conf:    S.conf    ? (T.conf    / S.conf)     : 1,
+      sbApp:   S.sbApp   ? (T.sbApp   / S.sbApp)    : 1
+    };
+
+    // apply scaling
+    for (const [,data] of Object.entries(owners)){
+      for (const r of data.poRows){
+        r.pWCspot         = clamp01(r.pWCspot        * k.wcSpot);
+        r.pReachWCRound   = clamp01(r.pReachWCRound  * k.wcRound);
+        r.pReachDivRound  = clamp01(r.pReachDivRound * k.divRound);
+        r.pReachConfRound = clamp01(r.pReachConfRound* k.conf);
+        r.pReachSB        = clamp01(r.pReachSB       * k.sbApp);
+        // keep SB win market-based (unchanged)
+        clampMonotone(r);
+      }
+    }
+
+    // stop when all within tolerance
+    const S2 = sums();
+    const done =
+      Math.abs(S2.wcSpot  - T.wcSpot)  < EPS &&
+      Math.abs(S2.wcRound - T.wcRound) < EPS &&
+      Math.abs(S2.divRound- T.divRound)< EPS &&
+      Math.abs(S2.conf    - T.conf)    < EPS &&
+      Math.abs(S2.sbApp   - T.sbApp)   < EPS;
+    if (done) break;
+  }
+
+  // recompute EVs, subtotals, and rebuild leaderboard
   for (const [,data] of Object.entries(owners)){
     data.poSubtotal = 0;
     for (const r of data.poRows){
-      // scale
-      r.pWCspot        = clamp01(r.pWCspot        * k.wcSpot);
-      r.pReachWCRound  = clamp01(r.pReachWCRound  * k.wcRound);
-      r.pReachDivRound = clamp01(r.pReachDivRound * k.divRound);
-      r.pReachConfRound= clamp01(r.pReachConfRound* k.conf);
-      r.pReachSB       = clamp01(r.pReachSB       * k.sbApp);
-
-      // caps & monotone
-      const pPO  = clamp01(r._pPO ?? 1);
-      const pDiv = clamp01(r._pDivTitle ?? 0);
-      const pSB  = clamp01(r.pSB ?? 0);
-      // ensure ordering: PO ≥ WC ≥ Div ≥ Conf ≥ SBApp ≥ SBWin
-      r.pReachSB        = Math.max(r.pReachSB, pSB);
-      r.pReachConfRound = Math.min(r.pReachDivRound, Math.max(r.pReachConfRound, r.pReachSB));
-      r.pReachDivRound  = Math.min(r.pReachWCRound,  Math.max(r.pReachDivRound, r.pReachConfRound, pDiv));
-      r.pReachWCRound   = Math.min(pPO,              Math.max(r.pReachWCRound,  r.pReachDivRound));
-
-      // recompute EVs
       r.wcSpotEV = PTS_WC         * r.pWCspot;
       r.evWCRound= PTS_WC_ROUND   * r.pReachWCRound;
       r.evDivRound=PTS_DIV_ROUND  * r.pReachDivRound;
@@ -358,23 +386,17 @@ poRows.push({
       r.evSBApp  = PTS_SB_APPEAR  * r.pReachSB;
       r.evSBWin  = PTS_SB_WIN     * (r.pSB ?? 0);
       r.poPoints = r.wcSpotEV + r.evWCRound + r.evDivRound + r.evConf + r.evSBApp + r.evSBWin;
-
       data.poSubtotal += r.poPoints;
     }
   }
 
-  // 5) Rebuild leaderboard using updated subtotals
-  //    (clear any earlier entries and regenerate)
-  const lb = [];
+  // regenerate leaderboard array
+  leaderboard.length = 0;
   for (const [owner,data] of Object.entries(owners)){
     const total = (data.regSubtotal||0) + (data.poSubtotal||0);
     data.total = total;
-    lb.push([owner, total, data.regSubtotal, data.poSubtotal]);
+    leaderboard.push([owner, total, data.regSubtotal, data.poSubtotal]);
   }
-  // replace original leaderboard
-  // (we declared `const leaderboard = []` earlier; reuse by clearing and pushing)
-  leaderboard.length = 0;
-  for (const row of lb) leaderboard.push(row);
 })();
   // Leaderboard render
   leaderboard.sort((a,b)=>b[1]-a[1]);
