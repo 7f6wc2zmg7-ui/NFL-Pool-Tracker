@@ -407,12 +407,7 @@ const evSBWin   = PTS_SB_WIN    * pSB_win;
     }
     poHost.appendChild(box);
   }
-}
-
-main().catch(e=>{
-  document.getElementById('updated').textContent = 'Error';
-  console.error(e);
-  // --- League totals (expected counts)
+   // --- League totals (expected counts)
 const totals = { wcSpot:0, wcRound:0, divRound:0, conf:0, sbApp:0, sbWin:0 };
 for (const [,data] of Object.entries(owners)){
   for (const r of data.poRows){
@@ -443,6 +438,12 @@ if (body && card){
   ).join('');
   body.innerHTML = rows;
 }
+}
+
+main().catch(e=>{
+  document.getElementById('updated').textContent = 'Error';
+  console.error(e);
+ 
 });
 </script>
 </body>
