@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2025-11-04T04:33:29.735Z",
+  "generatedAt": "2025-11-04T04:45:43.202Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -79,6 +79,14 @@
       "impliedNextGameWinProb": 0.43650793650793646
     },
     {
+      "team": "SEATTLE SEAHAWKS",
+      "impliedNextGameWinProb": 0.7220792588780237
+    },
+    {
+      "team": "ARIZONA CARDINALS",
+      "impliedNextGameWinProb": 0.27792074112197634
+    },
+    {
       "team": "WASHINGTON COMMANDERS",
       "impliedNextGameWinProb": 0.19570707070707072
     },
@@ -88,11 +96,11 @@
     },
     {
       "team": "SAN FRANCISCO 49ERS",
-      "impliedNextGameWinProb": 0.3775334481388264
+      "impliedNextGameWinProb": 0.3690596562184025
     },
     {
       "team": "LOS ANGELES RAMS",
-      "impliedNextGameWinProb": 0.6224665518611737
+      "impliedNextGameWinProb": 0.6309403437815976
     },
     {
       "team": "LOS ANGELES CHARGERS",
