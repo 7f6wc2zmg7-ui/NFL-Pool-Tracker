@@ -46,6 +46,11 @@
   <input type="range" id="tauRange" min="0.3" max="0.8" step="0.05" value="0.65"
          style="width:200px;vertical-align:middle">
   <span id="tauVal">0.65</span>
+  <div id="leagueTotals" class="card" style="display:none">
+  <h2>League totals</h2>
+  <p class="meta">Sums of probabilities across all teams (expected counts). TAU: <span id="tauShow">—</span></p>
+  <div class="table-wrap"><table><tbody id="leagueTotalsBody"></tbody></table></div>
+</div>
 </div>
   <!-- Leaderboard -->
   <div class="card">
@@ -407,6 +412,37 @@ const evSBWin   = PTS_SB_WIN    * pSB_win;
 main().catch(e=>{
   document.getElementById('updated').textContent = 'Error';
   console.error(e);
+  // --- League totals (expected counts)
+const totals = { wcSpot:0, wcRound:0, divRound:0, conf:0, sbApp:0, sbWin:0 };
+for (const [,data] of Object.entries(owners)){
+  for (const r of data.poRows){
+    totals.wcSpot  += r.pWCspot;
+    totals.wcRound += r.pReachWCRound;
+    totals.divRound+= r.pReachDivRound;
+    totals.conf    += r.pReachConfRound;
+    totals.sbApp   += r.pReachSB;
+    totals.sbWin   += r.pSB;
+  }
+}
+const tgt = { wcSpot:14, wcRound:12, divRound:8, conf:4, sbApp:2, sbWin:1 };
+const body = document.getElementById('leagueTotalsBody');
+const card = document.getElementById('leagueTotals');
+const tauOut = document.getElementById('tauShow');
+if (body && card){
+  card.style.display = '';
+  if (tauOut) tauOut.textContent = (typeof TAU==='number'?TAU:NaN).toFixed(2);
+  const rows = [
+    ['WC Spot', totals.wcSpot, tgt.wcSpot],
+    ['WC Round', totals.wcRound, tgt.wcRound],
+    ['Div Round', totals.divRound, tgt.divRound],
+    ['Conf', totals.conf, tgt.conf],
+    ['SB App', totals.sbApp, tgt.sbApp],
+    ['SB Win', totals.sbWin, tgt.sbWin]
+  ].map(([label,val,goal]) =>
+    `<tr><td>${label}</td><td class="right">${val.toFixed(2)}</td><td class="right small">target ≈ ${goal}</td></tr>`
+  ).join('');
+  body.innerHTML = rows;
+}
 });
 </script>
 </body>
