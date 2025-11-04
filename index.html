@@ -207,55 +207,59 @@ const mult      = mlToMultiplier(divMlByTeam[name]);
 const pDivTitle = clamp01(f.div ?? 0);              // P(win division)
 const divEV     = (PTS_DIV_WIN_BASE * mult) * pDivTitle;
 
-// --- Playoff probability chain (midpoint interpolation + monotonic) ---
+// ----- Structure-aware playoff model (smooth + bracket-consistent) -----
 
-// Endpoints (may be missing)
-const pSB_win0  = clamp01(f.sb ?? 0);               // P(win SB)
-let   pReachSB  = clamp01(f.reach_sb ?? 0);         // P(reach SB = win conference)
-if (pReachSB < pSB_win0) pReachSB = pSB_win0;
+const f = futures[name] || {};
 
-// Top endpoint: P(make playoffs). If missing, estimate from div + reachSB
-let pPO = clamp01( f.make_playoffs ?? (pDivTitle + 2 * pReachSB) );
-// Must be at least reachSB:
-if (pPO < pReachSB) pPO = pReachSB;
+// Division EV (unchanged): preseason ML multiplier × current P(div)
+const mult      = mlToMultiplier(divMlByTeam[name]);
+const pDivTitle = clamp01(f.div ?? 0);
+const divEV     = (PTS_DIV_WIN_BASE * mult) * pDivTitle;
 
-// WC spot (NOT division): max(P(playoffs) - P(div), 0)
-let pWCspot  = clamp01(Math.max(pPO - pDivTitle, 0));
+// Anchors from market if present
+let pSB_win  = clamp01(f.sb ?? 0);             // P(win SB)
+let pSB_appM = clamp01(f.reach_sb ?? 0);       // P(reach SB), may be missing
 
-// Start round chain
-let pWCRound = pWCspot;               // WC teams that play the WC round
-let pConf    = pReachSB;              // must be ≥ SB win
-let pDivRound= clamp01(Math.max(pDivTitle, (pWCRound + pConf) / 2));
+// Playoffs top endpoint
+let pPO = clamp01( f.make_playoffs ?? (pDivTitle + 2 * pSB_appM) );
+if (pPO < pSB_appM) pPO = pSB_appM;
 
-// ---------- Gentle taper (weighted blend) ----------
-// Tune this: higher TAU = flatter/smoother; lower = steeper.
+// Wild-card spot (not division)
+let pWCspot = clamp01(Math.max(pPO - pDivTitle, 0));
 
+// --- bracket parameters ---
+const BYE_RATE = 0.25; // 2 of 8 division winners get a bye
+// Map TAU to a reasonable advancement rate (0.45–0.65 typically)
+const tauVal = (typeof TAU === 'number') ? TAU : 0.60;
+const ADV = clamp01(0.40 + 0.50 * (tauVal - 0.50)); // TAU=0.50→0.40 ; TAU=0.65→0.475 ; TAU=0.75→0.525
 
-// 1) WC Round: blend toward Playoffs, but never below Div Round nor above Playoffs
-const pWCRound_raw = TAU * pPO + (1 - TAU) * pDivRound;
-pWCRound = Math.min(pPO, Math.max(pDivRound, pWCRound_raw));
+// Wild Card round = wildcards + non-bye division winners
+let pWCRound = clamp01( pWCspot + (1 - BYE_RATE) * pDivTitle );
 
-// 2) Div Round: blend between WC Round and Conference, never below max(Div Title, Conf)
-const pDivRound_raw = TAU * pWCRound + (1 - TAU) * pConf;
-pDivRound = Math.min(pWCRound, Math.max(Math.max(pDivTitle, pConf), pDivRound_raw));
+// Divisional round = winners from WC + bye teams
+let pDivRound = clamp01( ADV * pWCRound + BYE_RATE * pDivTitle );
 
-// 3) Conference: blend between Div Round and Reach SB, never below Reach SB
-const pConf_raw = TAU * pDivRound + (1 - TAU) * pReachSB;
-pConf = Math.min(pDivRound, Math.max(pReachSB, pConf_raw));
+// Conference = winners from Divisional
+let pConf = clamp01( ADV * pDivRound );
 
-// Final hard caps for monotonic chain
-pWCRound  = Math.min(pPO, pWCRound);
-pDivRound = Math.min(pWCRound, pDivRound);
-pConf     = Math.min(pDivRound, pConf);
-const pSB_win = pSB_win0; // rename for clarity
+// Super Bowl appearance: market if available; else from Conf
+let pSBApp = pSB_appM || clamp01( ADV * pConf );
 
-// EVs
+// Ensure monotone: PO ≥ WC ≥ Div ≥ Conf ≥ SBApp ≥ SBwin
+pSBApp   = Math.max(pSBApp, pSB_win);
+pConf    = Math.max(pConf, pSBApp);
+pDivRound= Math.max(pDivRound, pConf);
+pWCRound = Math.max(pWCRound, pDivRound);
+pWCRound = Math.min(pWCRound, pPO); // can’t exceed playoffs
+
+// EVs (unchanged names)
 const wcSpotEV  = PTS_WC        * pWCspot;
 const evWCRound = PTS_WC_ROUND  * pWCRound;
 const evDivRound= PTS_DIV_ROUND * pDivRound;
 const evConf    = PTS_CONF_CHAMP* pConf;
-const evSBApp   = PTS_SB_APPEAR * pReachSB;
+const evSBApp   = PTS_SB_APPEAR * pSBApp;
 const evSBWin   = PTS_SB_WIN    * pSB_win;
+      
       // Totals
       const regPoints = wtPts + divEV; // regular-season subtotal component
       const poPoints  = wcSpotEV + evWCRound + evDivRound + evConf + evSBApp + evSBWin; // playoffs subtotal
