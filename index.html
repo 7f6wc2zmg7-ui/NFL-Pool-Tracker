@@ -190,6 +190,33 @@ if (pred.win_totals && typeof pred.win_totals === 'object') {
     curOUByTeam[team.toUpperCase()] = Number(v);
 }
 // 3) Fallback: if not found, we’ll just use preseason later
+ 
+ // Priority: ESPN -> manual -> preseason (fallback happens in loop)
+const curOUByTeam = Object.create(null);
+
+// 1) ESPN / predictions.json
+if (pred.nflCurrentOU && typeof pred.nflCurrentOU === 'object') {
+  for (const [team, val] of Object.entries(pred.nflCurrentOU)) {
+    const T = (team || '').toUpperCase();
+    const n = Number(val);
+    if (Number.isFinite(n)) curOUByTeam[T] = n;
+  }
+}
+
+// 2) Manual overrides ONLY for teams missing from ESPN
+const manualOU = await safeJSON('data/current_ou.manual.json'); // optional file
+if (manualOU && typeof manualOU === 'object') {
+  for (const [team, val] of Object.entries(manualOU)) {
+    const T = (team || '').toUpperCase();
+    if (!(T in curOUByTeam)) {
+      const n = Number(val);
+      if (Number.isFinite(n)) curOUByTeam[T] = n;
+    }
+  }
+} 
+  
+  
+  
   /* points config */
   const PTS_DIV_WIN_BASE = Number(rules.division_winner?.base_points ?? 20);
   const PTS_WC = Number(rules.wild_card_spot_points ?? 10);
