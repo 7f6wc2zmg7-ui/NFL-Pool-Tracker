@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2025-11-04T22:41:24.330Z",
+  "generatedAt": "2025-11-04T23:32:40.942Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -28,7 +28,7 @@
     },
     {
       "team": "BALTIMORE RAVENS",
-      "impliedNextGameWinProb": 0.740871613663133
+      "impliedNextGameWinProb": 0.7508125677139762
     },
     {
       "team": "MIAMI DOLPHINS",
@@ -60,7 +60,7 @@
     },
     {
       "team": "CLEVELAND BROWNS",
-      "impliedNextGameWinProb": 0.2591283863368669
+      "impliedNextGameWinProb": 0.2491874322860238
     },
     {
       "team": "HOUSTON TEXANS",
