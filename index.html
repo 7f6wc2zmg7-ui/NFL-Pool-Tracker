@@ -245,12 +245,17 @@ const evSBWin   = PTS_SB_WIN    * pSB_win;
         wtPts, divEV
       });
 
-      poRows.push({
-        team: name,
-        pWCspot, pReachWCRound, pReachDivRound, pReachConfRound, pReachSB, pSB,
-        wcSpotEV, evWCRound, evDivRound, evConf, evSBApp, evSBWin,
-        poPoints
-      });
+     poRows.push({
+  team: name,
+  pWCspot,                         // from above
+  pReachWCRound: pWCRound,
+  pReachDivRound: pDivRound,
+  pReachConfRound: pConf,
+  pReachSB: pReachSB,
+  pSB: pSB_win,
+  wcSpotEV, evWCRound, evDivRound, evConf, evSBApp, evSBWin,
+  poPoints
+});
     }
 
     // sort per owner
