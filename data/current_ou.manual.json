@@ -1,0 +1,36 @@
+{
+  "CHARGERS": 10.5,
+  "49ERS": 10.5,
+  "BRONCOS": 11.5,
+  "COLTS": 11.5,
+  "CHIEFS": 11.5,
+  "RAMS": 11.5,
+  "PATRIOTS": 11.5,
+  "EAGLES": 11.5,
+  "SEAHAWKS": 11.5,
+  "BUCCANEERS": 11.5,
+  "BILLS": 12.5,
+
+  "VIKINGS": 7.5,
+  "PANTHERS": 8.5,
+  "BEARS": 8.5,
+  "RAVENS": 9.5,
+  "JAGUARS": 9.5,
+  "STEELERS": 9.5,
+  "LIONS": 10.5,
+  "PACKERS": 10.5,
+
+  "TITANS": 2.5,
+  "SAINTS": 3.5,
+  "JETS": 3.5,
+  "RAIDERS": 4.5,
+  "DOLPHINS": 4.5,
+  "GIANTS": 4.5,
+  "BROWNS": 5.5,
+  "COMMANDERS": 5.5,
+  "BENGALS": 6.5,
+  "FALCONS": 7.5,
+  "TEXANS": 7.5
+
+  /* Missing from screenshots: COWBOYS, CARDINALS (they’ll fall back to preseason) */
+}
