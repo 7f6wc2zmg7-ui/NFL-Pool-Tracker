@@ -180,33 +180,33 @@ async function main(){
       const wtPts = winTotalPoints(projWins, ou, rules);
 
       // futures probabilities  (REPLACE everything down to just before // Totals)
+// futures probabilities  (REPLACE from here down to just before // Totals)
 const f = futures[name] || {};
+
+// Division EV uses preseason ML multiplier × current P(div title)
+const mult  = mlToMultiplier(divMlByTeam[name]);
+const pDivTitle = clamp01(f.div ?? 0);              // P(win division)
+const divEV = (PTS_DIV_WIN_BASE * mult) * pDivTitle;
 
 // --- Playoff probability chain (midpoint interpolation + monotonic) ---
 
-// Inputs from futures (some may be missing)
-const pDivTitle = clamp01(f.div ?? 0);     // P(win division)
-const pSB_win   = clamp01(f.sb ?? 0);      // P(win SB)
-let   pReachSB  = clamp01(f.reach_sb ?? 0);// P(reach SB = win conference)
-if (pReachSB < pSB_win) pReachSB = pSB_win;
+// Endpoints we (may) have
+const pSB_win0  = clamp01(f.sb ?? 0);               // P(win SB)
+let   pReachSB  = clamp01(f.reach_sb ?? 0);         // P(reach SB = win conference)
+if (pReachSB < pSB_win0) pReachSB = pSB_win0;
 
-// Top endpoint: P(make playoffs). If missing, conservative estimate.
+// Top endpoint: P(make playoffs). If missing, conservative estimate from div + reachSB
 let pPO = clamp01( f.make_playoffs ?? (pDivTitle + 2 * pReachSB) );
 // Must be at least as big as reaching the SB:
 if (pPO < pReachSB) pPO = pReachSB;
 
-// Division winner EV uses preseason ML multiplier × current P(div)
-const mult  = mlToMultiplier(divMlByTeam[name]);
-const divEV = (PTS_DIV_WIN_BASE * mult) * pDivTitle;
-
-// Wild-card round: WC teams play WC rd; division winners skip it
-// Start from identity pWCspot = max(P(playoffs) - P(win division), 0)
+// WC round entry = WC teams that make playoffs (division winners skip WC round)
 let pWCRound = clamp01(Math.max(pPO - pDivTitle, 0));
 
-// Conference Championship (final four): at least reachSB
+// Start Conf at least reachSB
 let pConf = pReachSB;
 
-// Divisional round sits between WC rd and Conf, but never below P(div title)
+// Divisional round sits between WC rd and Conf, never below P(div title)
 let pDivRound = clamp01(Math.max(pDivTitle, (pWCRound + pConf) / 2));
 
 // Apply midpoint rule to neighbors with bounds
@@ -222,10 +222,12 @@ pWCRound  = Math.min(pPO, pWCRound);
 pDivRound = Math.min(pWCRound, Math.max(pDivRound, pConf, pDivTitle));
 pConf     = Math.min(pDivRound, Math.max(pConf, pReachSB));
 
+const pSB_win = pSB_win0; // rename for clarity below
+
 // EVs from these probabilities
 const wcSpotEV  = PTS_WC        * Math.max(pPO - pDivTitle, 0);
 const evWCRound = PTS_WC_ROUND  * pWCRound;
-const evDivRound= PTS_DIV_ROUND * pDivRound;   // NOTE: keep the name *evDivRound*
+const evDivRound= PTS_DIV_ROUND * pDivRound;   // keep this name exactly
 const evConf    = PTS_CONF_CHAMP* pConf;
 const evSBApp   = PTS_SB_APPEAR * pReachSB;
 const evSBWin   = PTS_SB_WIN    * pSB_win;
