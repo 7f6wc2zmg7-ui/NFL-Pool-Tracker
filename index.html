@@ -215,7 +215,8 @@ let pSB_win  = clamp01(f.sb ?? 0);       // P(win SB)
 let pSB_appM = clamp01(f.reach_sb ?? 0); // P(reach SB), may be missing
 
 // Playoffs top endpoint (fallback if market doesn't provide)
-let pPO = clamp01( f.make_playoffs ?? (pDivTitle + 2 * pSB_appM) );
+// Use 3× reach-SB as a fallback so league totals hit ~14 playoffs (8 div champs + 6 WCs)
+let pPO = clamp01( f.make_playoffs ?? (pDivTitle + 3 * pSB_appM) );
 if (pPO < pSB_appM) pPO = pSB_appM;
 
 // Wild-card spot (not division)
@@ -225,8 +226,9 @@ let pWCspot = clamp01(Math.max(pPO - pDivTitle, 0));
 const BYE_RATE = 0.25; // 2 of 8 division winners get a bye
 // Map TAU (0.3–0.8 slider) to a reasonable advancement rate (about 0.35–0.55)
 const tauVal = (typeof TAU === 'number') ? TAU : 0.60;
-const ADV = clamp01(0.30 + 0.50 * (tauVal - 0.50)); // TAU=0.50→0.30 ; 0.65→0.375 ; 0.75→0.425
-
+// Anchor around 0.50 (about half the field advances each round), with a subtle TAU tilt
+const ADV = clamp01(0.50 + 0.10 * (tauVal - 0.50)); // TAU 0.35→~0.485, TAU 0.65→~0.515
+      
 // Wild Card round = wildcards + non-bye division winners
 let pWCRound = clamp01( pWCspot + (1 - BYE_RATE) * pDivTitle );
 
