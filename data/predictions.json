@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2025-11-04T15:45:15.726Z",
+  "generatedAt": "2025-11-04T16:53:23.926Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -8,11 +8,11 @@
   "nflNextGame": [
     {
       "team": "DENVER BRONCOS",
-      "impliedNextGameWinProb": 0.7913616398243045
+      "impliedNextGameWinProb": 0.7867435158501441
     },
     {
       "team": "LAS VEGAS RAIDERS",
-      "impliedNextGameWinProb": 0.20863836017569545
+      "impliedNextGameWinProb": 0.2132564841498559
     },
     {
       "team": "INDIANAPOLIS COLTS",
@@ -96,11 +96,11 @@
     },
     {
       "team": "SAN FRANCISCO 49ERS",
-      "impliedNextGameWinProb": 0.3690596562184025
+      "impliedNextGameWinProb": 0.3630958183058778
     },
     {
       "team": "LOS ANGELES RAMS",
-      "impliedNextGameWinProb": 0.6309403437815976
+      "impliedNextGameWinProb": 0.6369041816941223
     },
     {
       "team": "LOS ANGELES CHARGERS",
