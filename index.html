@@ -108,7 +108,17 @@ async function safeJSON(path){
   try{ const r=await fetch(path,{cache:'no-store'}); if(!r.ok) return null; return await r.json(); }
   catch{ return null; }
 }
+let TAU = 0.65;
+const tauSlider = document.getElementById?.('tauRange');
+const tauLabel  = document.getElementById?.('tauVal');
 
+if (tauSlider && tauLabel) {
+  tauSlider.addEventListener('input', e => {
+    TAU = parseFloat(e.target.value);
+    tauLabel.textContent = TAU.toFixed(2);
+    main();  // re-run the main render with the new TAU
+  });
+}
 /* ---------- main ---------- */
 async function main(){
   const [pred, rules, rosters, odds] = await Promise.all([
@@ -214,7 +224,7 @@ let pDivRound= clamp01(Math.max(pDivTitle, (pWCRound + pConf) / 2));
 
 // ---------- Gentle taper (weighted blend) ----------
 // Tune this: higher TAU = flatter/smoother; lower = steeper.
-const TAU = 0.65; // try 0.60–0.70 for mobile-friendly smoothness
+
 
 // 1) WC Round: blend toward Playoffs, but never below Div Round nor above Playoffs
 const pWCRound_raw = TAU * pPO + (1 - TAU) * pDivRound;
