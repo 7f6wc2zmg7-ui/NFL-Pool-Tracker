@@ -10,7 +10,6 @@
   "SEAHAWKS": 11.5,
   "BUCCANEERS": 11.5,
   "BILLS": 12.5,
-
   "VIKINGS": 7.5,
   "PANTHERS": 8.5,
   "BEARS": 8.5,
@@ -19,7 +18,6 @@
   "STEELERS": 9.5,
   "LIONS": 10.5,
   "PACKERS": 10.5,
-
   "TITANS": 2.5,
   "SAINTS": 3.5,
   "JETS": 3.5,
@@ -31,6 +29,4 @@
   "BENGALS": 6.5,
   "FALCONS": 7.5,
   "TEXANS": 7.5
-
-  /* Missing from screenshots: COWBOYS, CARDINALS (they’ll fall back to preseason) */
 }
