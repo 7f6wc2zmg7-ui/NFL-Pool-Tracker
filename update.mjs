@@ -192,5 +192,22 @@ async function main(){
   await fs.writeFile('data/predictions.json', JSON.stringify(payload, null, 2), 'utf8');
   console.log('Wrote data/predictions.json. teamsWithFutures=', Object.keys(nflFutures).length);
 }
+// --- Regular Season Wins (current O/U) ---
+const ouMap = {};
+for (const f of allFutures.items || []) {
+  if (f.displayName?.toLowerCase().includes('regular season wins')) {
+    const resp = await fetch(f['$ref']);
+    const fut = await resp.json();
+    for (const book of fut.futures?.[0]?.books || []) {
+      if (book.team?.$ref && book.value) {
+        const teamId = book.team.$ref.split('/teams/').pop().split('?')[0];
+        const teamName = teamNamesById[teamId]; // reuse your map from earlier
+        if (teamName) ouMap[teamName.toUpperCase()] = parseFloat(book.value);
+      }
+    }
+  }
+}
+pred.nflCurrentOU = ouMap;
+
 
 main().catch(e => { console.error(e); process.exit(1); });
