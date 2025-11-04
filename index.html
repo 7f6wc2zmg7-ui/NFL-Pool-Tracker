@@ -180,30 +180,49 @@ async function main(){
       const wtPts = winTotalPoints(projWins, ou, rules);
 
       // futures probabilities
-      const f = futures[name] || {};
-      const pDiv = clamp01(f.div ?? 0);
-      const pReachSB = clamp01(f.reach_sb ?? 0);
-      const pSB = clamp01(f.sb ?? 0);
-      const pPO = clamp01( (f.make_playoffs ?? (pDiv + 2 * pReachSB)) );
-      const pWCspot = Math.max(pPO - pDiv, 0);
+ // --- Playoff probability chain (midpoint interpolation + monotonic) ---
 
-      // EV components
-      const mult = mlToMultiplier(divMlByTeam[name]);
-      const divEV = (PTS_DIV_WIN_BASE * mult) * pDiv;
+// Inputs from futures (some may be missing)
+const pDivTitle = clamp01(f.div ?? 0);     // P(win division)
+const pSB_win   = clamp01(f.sb ?? 0);      // P(win SB)
+let   pReachSB  = clamp01(f.reach_sb ?? 0);// P(reach SB = win conference)
+if (pReachSB < pSB_win) pReachSB = pSB_win;
 
-      // round reach approximations
-      const assumedWCAdvance = 0.40;
-      const pReachWCRound = clamp01(pWCspot);
-      const pReachDivRound = clamp01(Math.max(pDiv, pDiv + pWCspot * assumedWCAdvance));
-      const pReachConfRound = clamp01(Math.max(f.reach_conf_champ ?? 0, Math.max(pDiv, Math.min(1, pReachSB * 2))));
+// Top endpoint: P(make playoffs). If missing, conservative estimate.
+let pPO = clamp01( (f.make_playoffs ?? (pDivTitle + 2 * pReachSB)) );
+// Must be at least as big as reaching the SB:
+if (pPO < pReachSB) pPO = pReachSB;
 
-      const wcSpotEV = PTS_WC * pWCspot;
-      const evWCRound  = PTS_WC_ROUND   * pReachWCRound;
-      const evDivRound = PTS_DIV_ROUND  * pReachDivRound;
-      const evConf     = PTS_CONF_CHAMP * pReachConfRound;
-      const evSBApp    = PTS_SB_APPEAR  * pReachSB;
-      const evSBWin    = PTS_SB_WIN     * pSB;
+// Wild-card round: WC teams play WC rd; division winners skip it
+// Start from the identity pWCspot = max(P(playoffs) - P(win division), 0)
+let pWCRound = clamp01(Math.max(pPO - pDivTitle, 0));
 
+// Conference Championship (final four): at least reachSB
+let pConf = pReachSB;
+
+// Divisional round should sit between WC rd and Conf, but never below P(div title)
+let pDivRound = clamp01(Math.max(pDivTitle, (pWCRound + pConf) / 2));
+
+// Now apply your midpoint rule to neighbors with bounds:
+// WC round midway between Playoffs and Divisional, bounded by them
+pWCRound = clamp01(Math.max(pDivRound, Math.min(pPO, (pPO + pDivRound) / 2)));
+
+// Conference midway between Divisional and ReachSB, bounded by them
+pConf = clamp01(Math.min(pDivRound, Math.max(pReachSB, (pDivRound + pReachSB) / 2)));
+
+// Final safety: enforce monotonic chain
+// P(playoffs) ≥ P(WC rd) ≥ P(Div rd) ≥ P(Conf) ≥ P(Reach SB) ≥ P(SB win)
+pWCRound = Math.min(pPO, pWCRound);
+pDivRound = Math.min(pWCRound, Math.max(pDivRound, pConf, pDivTitle));
+pConf = Math.min(pDivRound, Math.max(pConf, pReachSB));
+
+// (Keep using pWCRound, pDivRound, pConf, pReachSB, pSB_win below for EVs)
+const wcSpotEV  = PTS_WC        * Math.max(pPO - pDivTitle, 0);
+const evWCRound = PTS_WC_ROUND  * pWCRound;
+const evDivRnd  = PTS_DIV_ROUND * pDivRound;
+const evConf    = PTS_CONF_CHAMP* pConf;
+const evSBApp   = PTS_SB_APPEAR * pReachSB;
+const evSBWin   = PTS_SB_WIN    * pSB_win;
       // Totals
       const regPoints = wtPts + divEV; // regular-season subtotal component
       const poPoints  = wcSpotEV + evWCRound + evDivRound + evConf + evSBApp + evSBWin; // playoffs subtotal
