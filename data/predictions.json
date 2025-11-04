@@ -1,147 +1,120 @@
 {
-  "generatedAt": "2025-11-04T03:36:47.633Z",
+  "generatedAt": "2025-11-04T03:51:59.512Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
-    "nflFutures": "ESPN futures (auto-discovered; team markets only; de-vigged; supports book.value)"
+    "nflFutures": "ESPN futures (auto-discovered)",
+    "nflCurrentOU": "ESPN futures — Regular Season Wins"
   },
   "nflNextGame": [
     {
-      "sport": "NFL",
       "team": "DALLAS COWBOYS",
-      "impliedNextGameWinProb": 0.0641711229946524
+      "impliedNextGameWinProb": 0.17154811715481172
     },
     {
-      "sport": "NFL",
       "team": "ARIZONA CARDINALS",
-      "impliedNextGameWinProb": 0.9358288770053476
+      "impliedNextGameWinProb": 0.8284518828451883
     },
     {
-      "sport": "NFL",
       "team": "DENVER BRONCOS",
       "impliedNextGameWinProb": 0.7957758771164253
     },
     {
-      "sport": "NFL",
       "team": "LAS VEGAS RAIDERS",
       "impliedNextGameWinProb": 0.2042241228835748
     },
     {
-      "sport": "NFL",
       "team": "INDIANAPOLIS COLTS",
       "impliedNextGameWinProb": 0.705033164260632
     },
     {
-      "sport": "NFL",
       "team": "ATLANTA FALCONS",
       "impliedNextGameWinProb": 0.2949668357393679
     },
     {
-      "sport": "NFL",
       "team": "MINNESOTA VIKINGS",
       "impliedNextGameWinProb": 0.3630958183058778
     },
     {
-      "sport": "NFL",
       "team": "BALTIMORE RAVENS",
       "impliedNextGameWinProb": 0.6369041816941223
     },
     {
-      "sport": "NFL",
       "team": "MIAMI DOLPHINS",
       "impliedNextGameWinProb": 0.20863836017569545
     },
     {
-      "sport": "NFL",
       "team": "BUFFALO BILLS",
       "impliedNextGameWinProb": 0.7913616398243045
     },
     {
-      "sport": "NFL",
       "team": "CAROLINA PANTHERS",
       "impliedNextGameWinProb": 0.6750312469954812
     },
     {
-      "sport": "NFL",
       "team": "NEW ORLEANS SAINTS",
       "impliedNextGameWinProb": 0.3249687530045188
     },
     {
-      "sport": "NFL",
       "team": "CHICAGO BEARS",
       "impliedNextGameWinProb": 0.6224665518611737
     },
     {
-      "sport": "NFL",
       "team": "NEW YORK GIANTS",
       "impliedNextGameWinProb": 0.3775334481388264
     },
     {
-      "sport": "NFL",
       "team": "NEW YORK JETS",
       "impliedNextGameWinProb": 0.5427435387673957
     },
     {
-      "sport": "NFL",
       "team": "CLEVELAND BROWNS",
       "impliedNextGameWinProb": 0.4572564612326044
     },
     {
-      "sport": "NFL",
       "team": "HOUSTON TEXANS",
       "impliedNextGameWinProb": 0.5324675324675325
     },
     {
-      "sport": "NFL",
       "team": "JACKSONVILLE JAGUARS",
       "impliedNextGameWinProb": 0.4675324675324675
     },
     {
-      "sport": "NFL",
       "team": "TAMPA BAY BUCCANEERS",
       "impliedNextGameWinProb": 0.5634920634920635
     },
     {
-      "sport": "NFL",
       "team": "NEW ENGLAND PATRIOTS",
       "impliedNextGameWinProb": 0.43650793650793646
     },
     {
-      "sport": "NFL",
       "team": "WASHINGTON COMMANDERS",
       "impliedNextGameWinProb": 0.19570707070707072
     },
     {
-      "sport": "NFL",
       "team": "DETROIT LIONS",
       "impliedNextGameWinProb": 0.8042929292929294
     },
     {
-      "sport": "NFL",
       "team": "SAN FRANCISCO 49ERS",
       "impliedNextGameWinProb": 0.3775334481388264
     },
     {
-      "sport": "NFL",
       "team": "LOS ANGELES RAMS",
       "impliedNextGameWinProb": 0.6224665518611737
     },
     {
-      "sport": "NFL",
       "team": "LOS ANGELES CHARGERS",
       "impliedNextGameWinProb": 0.593369754159424
     },
     {
-      "sport": "NFL",
       "team": "PITTSBURGH STEELERS",
       "impliedNextGameWinProb": 0.4066302458405761
     },
     {
-      "sport": "NFL",
       "team": "GREEN BAY PACKERS",
       "impliedNextGameWinProb": 0.551441114716549
     },
     {
-      "sport": "NFL",
       "team": "PHILADELPHIA EAGLES",
       "impliedNextGameWinProb": 0.448558885283451
     }
@@ -283,5 +256,6 @@
       "div": 0.0018970476577058893,
       "reach_sb": 0.0016682628291003604
     }
-  }
+  },
+  "nflCurrentOU": {}
 }
