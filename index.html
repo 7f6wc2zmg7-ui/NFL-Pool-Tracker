@@ -41,7 +41,12 @@
 <div class="wrap">
   <h1>🏈 NFL Pool Tracker — v3 <span id="updated" class="pill">Loading…</span></h1>
   <p class="meta">Live data from <span class="kbd">data/predictions.json</span> (ESPN futures + H2H), preseason odds from <span class="kbd">data/odds.json</span>, rosters from <span class="kbd">data/rosters.json</span>, rules from <span class="kbd">data/rules.json</span>.</p>
-
+<div class="card" style="margin-bottom:12px">
+  <label for="tauRange">Playoff Smoothing (TAU): </label>
+  <input type="range" id="tauRange" min="0.3" max="0.8" step="0.05" value="0.65"
+         style="width:200px;vertical-align:middle">
+  <span id="tauVal">0.65</span>
+</div>
   <!-- Leaderboard -->
   <div class="card">
     <h2>Leaderboard</h2>
@@ -207,15 +212,26 @@ let pWCRound = pWCspot;               // WC teams that play the WC round
 let pConf    = pReachSB;              // must be ≥ SB win
 let pDivRound= clamp01(Math.max(pDivTitle, (pWCRound + pConf) / 2));
 
-// Apply midpoint smoothing with bounds
-pWCRound = clamp01(Math.max(pDivRound, Math.min(pPO, (pPO + pDivRound) / 2)));
-pConf    = clamp01(Math.min(pDivRound, Math.max(pReachSB, (pDivRound + pReachSB) / 2)));
+// ---------- Gentle taper (weighted blend) ----------
+// Tune this: higher TAU = flatter/smoother; lower = steeper.
+const TAU = 0.65; // try 0.60–0.70 for mobile-friendly smoothness
 
-// Enforce monotone chain: P(PO) ≥ P(WC rd) ≥ P(Div rd) ≥ P(Conf) ≥ P(Reach SB) ≥ P(SB win)
+// 1) WC Round: blend toward Playoffs, but never below Div Round nor above Playoffs
+const pWCRound_raw = TAU * pPO + (1 - TAU) * pDivRound;
+pWCRound = Math.min(pPO, Math.max(pDivRound, pWCRound_raw));
+
+// 2) Div Round: blend between WC Round and Conference, never below max(Div Title, Conf)
+const pDivRound_raw = TAU * pWCRound + (1 - TAU) * pConf;
+pDivRound = Math.min(pWCRound, Math.max(Math.max(pDivTitle, pConf), pDivRound_raw));
+
+// 3) Conference: blend between Div Round and Reach SB, never below Reach SB
+const pConf_raw = TAU * pDivRound + (1 - TAU) * pReachSB;
+pConf = Math.min(pDivRound, Math.max(pReachSB, pConf_raw));
+
+// Final hard caps for monotonic chain
 pWCRound  = Math.min(pPO, pWCRound);
-pDivRound = Math.min(pWCRound, Math.max(pDivRound, pConf, pDivTitle));
-pConf     = Math.min(pDivRound, Math.max(pConf, pReachSB));
-
+pDivRound = Math.min(pWCRound, pDivRound);
+pConf     = Math.min(pDivRound, pConf);
 const pSB_win = pSB_win0; // rename for clarity
 
 // EVs
