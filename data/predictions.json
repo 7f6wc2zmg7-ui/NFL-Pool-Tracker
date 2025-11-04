@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2025-11-04T21:33:00.446Z",
+  "generatedAt": "2025-11-04T22:41:24.330Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -16,7 +16,7 @@
     },
     {
       "team": "INDIANAPOLIS COLTS",
-      "impliedNextGameWinProb": 0.7179705215419501
+      "impliedNextGameWinProb": 0.7220792588780237
     },
     {
       "team": "ATLANTA FALCONS",
@@ -28,7 +28,7 @@
     },
     {
       "team": "BALTIMORE RAVENS",
-      "impliedNextGameWinProb": 0.7440690150970525
+      "impliedNextGameWinProb": 0.740871613663133
     },
     {
       "team": "MIAMI DOLPHINS",
@@ -60,7 +60,7 @@
     },
     {
       "team": "CLEVELAND BROWNS",
-      "impliedNextGameWinProb": 0.2559309849029475
+      "impliedNextGameWinProb": 0.2591283863368669
     },
     {
       "team": "HOUSTON TEXANS",
