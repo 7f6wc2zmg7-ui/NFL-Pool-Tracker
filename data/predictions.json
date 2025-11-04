@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2025-11-04T03:34:15.851Z",
+  "generatedAt": "2025-11-04T03:36:47.633Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; team markets only; de-vigged; supports book.value)"
@@ -8,12 +8,12 @@
     {
       "sport": "NFL",
       "team": "DALLAS COWBOYS",
-      "impliedNextGameWinProb": 0.0686070686070686
+      "impliedNextGameWinProb": 0.0641711229946524
     },
     {
       "sport": "NFL",
       "team": "ARIZONA CARDINALS",
-      "impliedNextGameWinProb": 0.9313929313929314
+      "impliedNextGameWinProb": 0.9358288770053476
     },
     {
       "sport": "NFL",
