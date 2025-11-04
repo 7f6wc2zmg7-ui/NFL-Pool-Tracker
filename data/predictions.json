@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2025-11-04T18:52:54.015Z",
+  "generatedAt": "2025-11-04T19:28:53.164Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -56,11 +56,11 @@
     },
     {
       "team": "NEW YORK JETS",
-      "impliedNextGameWinProb": 0.5217391304347826
+      "impliedNextGameWinProb": 0.448558885283451
     },
     {
       "team": "CLEVELAND BROWNS",
-      "impliedNextGameWinProb": 0.4782608695652174
+      "impliedNextGameWinProb": 0.551441114716549
     },
     {
       "team": "HOUSTON TEXANS",
