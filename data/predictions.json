@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2025-11-04T13:48:12.939Z",
+  "generatedAt": "2025-11-04T14:48:45.971Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -40,11 +40,11 @@
     },
     {
       "team": "CAROLINA PANTHERS",
-      "impliedNextGameWinProb": 0.6750312469954812
+      "impliedNextGameWinProb": 0.6805555555555556
     },
     {
       "team": "NEW ORLEANS SAINTS",
-      "impliedNextGameWinProb": 0.3249687530045188
+      "impliedNextGameWinProb": 0.3194444444444444
     },
     {
       "team": "CHICAGO BEARS",
