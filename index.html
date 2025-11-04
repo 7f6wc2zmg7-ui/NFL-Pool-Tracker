@@ -46,11 +46,12 @@
   <input type="range" id="tauRange" min="0.3" max="0.8" step="0.05" value="0.65"
          style="width:200px;vertical-align:middle">
   <span id="tauVal">0.65</span>
-  <div id="leagueTotals" class="card" style="display:none">
+</div>
+
+<div id="leagueTotals" class="card" style="display:none">
   <h2>League totals</h2>
   <p class="meta">Sums of probabilities across all teams (expected counts). TAU: <span id="tauShow">—</span></p>
   <div class="table-wrap"><table><tbody id="leagueTotalsBody"></tbody></table></div>
-</div>
 </div>
   <!-- Leaderboard -->
   <div class="card">
@@ -199,28 +200,21 @@ async function main(){
       const ou = Number(ouByTeam[name] ?? NaN);
       const wtPts = winTotalPoints(projWins, ou, rules);
 
-      // futures probabilities
+      // futures probabilities  (REPLACE EVERYTHING DOWN TO JUST BEFORE // Totals)
 const f = futures[name] || {};
 
-// Division EV uses preseason ML multiplier × current P(div title)
-const mult      = mlToMultiplier(divMlByTeam[name]);
-const pDivTitle = clamp01(f.div ?? 0);              // P(win division)
-const divEV     = (PTS_DIV_WIN_BASE * mult) * pDivTitle;
-
-// ----- Structure-aware playoff model (smooth + bracket-consistent) -----
-
-const f = futures[name] || {};
-
-// Division EV (unchanged): preseason ML multiplier × current P(div)
+// Division EV: preseason ML multiplier × current P(div)
 const mult      = mlToMultiplier(divMlByTeam[name]);
 const pDivTitle = clamp01(f.div ?? 0);
 const divEV     = (PTS_DIV_WIN_BASE * mult) * pDivTitle;
 
-// Anchors from market if present
-let pSB_win  = clamp01(f.sb ?? 0);             // P(win SB)
-let pSB_appM = clamp01(f.reach_sb ?? 0);       // P(reach SB), may be missing
+// ----- Structure-aware playoff model (smooth + bracket-consistent) -----
 
-// Playoffs top endpoint
+// Anchors from market if present
+let pSB_win  = clamp01(f.sb ?? 0);       // P(win SB)
+let pSB_appM = clamp01(f.reach_sb ?? 0); // P(reach SB), may be missing
+
+// Playoffs top endpoint (fallback if market doesn't provide)
 let pPO = clamp01( f.make_playoffs ?? (pDivTitle + 2 * pSB_appM) );
 if (pPO < pSB_appM) pPO = pSB_appM;
 
@@ -229,9 +223,9 @@ let pWCspot = clamp01(Math.max(pPO - pDivTitle, 0));
 
 // --- bracket parameters ---
 const BYE_RATE = 0.25; // 2 of 8 division winners get a bye
-// Map TAU to a reasonable advancement rate (0.45–0.65 typically)
+// Map TAU (0.3–0.8 slider) to a reasonable advancement rate (about 0.35–0.55)
 const tauVal = (typeof TAU === 'number') ? TAU : 0.60;
-const ADV = clamp01(0.40 + 0.50 * (tauVal - 0.50)); // TAU=0.50→0.40 ; TAU=0.65→0.475 ; TAU=0.75→0.525
+const ADV = clamp01(0.30 + 0.50 * (tauVal - 0.50)); // TAU=0.50→0.30 ; 0.65→0.375 ; 0.75→0.425
 
 // Wild Card round = wildcards + non-bye division winners
 let pWCRound = clamp01( pWCspot + (1 - BYE_RATE) * pDivTitle );
@@ -252,7 +246,7 @@ pDivRound= Math.max(pDivRound, pConf);
 pWCRound = Math.max(pWCRound, pDivRound);
 pWCRound = Math.min(pWCRound, pPO); // can’t exceed playoffs
 
-// EVs (unchanged names)
+// EVs
 const wcSpotEV  = PTS_WC        * pWCspot;
 const evWCRound = PTS_WC_ROUND  * pWCRound;
 const evDivRound= PTS_DIV_ROUND * pDivRound;
@@ -280,13 +274,13 @@ const evSBWin   = PTS_SB_WIN    * pSB_win;
         wtPts, divEV
       });
 
-     poRows.push({
+poRows.push({
   team: name,
-  pWCspot,                         // from above
+  pWCspot,                         // wild-card spot probability
   pReachWCRound: pWCRound,
   pReachDivRound: pDivRound,
   pReachConfRound: pConf,
-  pReachSB: pReachSB,
+  pReachSB: pSBApp,
   pSB: pSB_win,
   wcSpotEV, evWCRound, evDivRound, evConf, evSBApp, evSBWin,
   poPoints
