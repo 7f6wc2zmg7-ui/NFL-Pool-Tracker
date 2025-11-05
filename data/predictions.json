@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2025-11-05T14:23:39.499Z",
+  "generatedAt": "2025-11-05T14:30:20.810Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered)",
@@ -329,5 +329,118 @@
       "reach_sb": 0.001679530395355236
     }
   },
-  "nflFPI": {}
+  "nflFPI": {
+    "6-2-0": {
+      "projected_wins": 6,
+      "playoff": 0.275,
+      "div": 0.461,
+      "conf": 0.10400000000000001,
+      "sb": 0.048,
+      "win_sb": 0
+    },
+    "7-2-0": {
+      "projected_wins": 7,
+      "playoff": 0.405,
+      "div": 0.425,
+      "conf": 0.066,
+      "sb": 0.027000000000000003,
+      "win_sb": 0
+    },
+    "6-3-0": {
+      "projected_wins": 6,
+      "playoff": 0.251,
+      "div": 0.39299999999999996,
+      "conf": 0.086,
+      "sb": 0.045,
+      "win_sb": 0
+    },
+    "5-4-0": {
+      "projected_wins": 5,
+      "playoff": 0.12,
+      "div": 0.094,
+      "conf": 0.008,
+      "sb": 0.002,
+      "win_sb": 0
+    },
+    "5-3-0": {
+      "projected_wins": 5,
+      "playoff": 0.092,
+      "div": 0.11800000000000001,
+      "conf": 0.013999999999999999,
+      "sb": 0.005,
+      "win_sb": 0
+    },
+    "5-2-1": {
+      "projected_wins": 5,
+      "playoff": 0.51,
+      "div": 0.49200000000000005,
+      "conf": 0.133,
+      "sb": 0.066,
+      "win_sb": 0
+    },
+    "3-5-0": {
+      "projected_wins": 3,
+      "playoff": 0.004,
+      "div": 0.026000000000000002,
+      "conf": 0.004,
+      "sb": 0.001,
+      "win_sb": 0
+    },
+    "4-4-0": {
+      "projected_wins": 4,
+      "playoff": 0.035,
+      "div": 0.046,
+      "conf": 0.006,
+      "sb": 0.002,
+      "win_sb": 0
+    },
+    "3-5-1": {
+      "projected_wins": 3,
+      "playoff": 0.026000000000000002,
+      "div": 0.027999999999999997,
+      "conf": 0.005,
+      "sb": 0.002,
+      "win_sb": 0
+    },
+    "3-6-0": {
+      "projected_wins": 3,
+      "playoff": 0.018000000000000002,
+      "div": 0.01,
+      "conf": 0.001,
+      "sb": 0.001,
+      "win_sb": 0
+    },
+    "2-7-0": {
+      "projected_wins": 2,
+      "playoff": 0,
+      "div": 0.001,
+      "conf": 0,
+      "sb": 0,
+      "win_sb": 0
+    },
+    "2-6-0": {
+      "projected_wins": 2,
+      "playoff": 0.001,
+      "div": 0,
+      "conf": 0,
+      "sb": 0,
+      "win_sb": 0
+    },
+    "1-7-0": {
+      "projected_wins": 1,
+      "playoff": 0,
+      "div": 0,
+      "conf": 0,
+      "sb": 0,
+      "win_sb": 0
+    },
+    "1-8-0": {
+      "projected_wins": 1,
+      "playoff": 0,
+      "div": 0,
+      "conf": 0,
+      "sb": 0,
+      "win_sb": 0
+    }
+  }
 }
