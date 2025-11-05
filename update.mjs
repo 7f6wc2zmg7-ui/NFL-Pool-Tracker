@@ -156,7 +156,7 @@ async function fetchESPNFuturesAuto() {
   return futures;
 }
 
-// --- ESPN FPI projections (robust header-driven table scrape; team is first col) ---
+// --- ESPN FPI projections (simple positional parser; team is col 0) ---
 async function fetchESPNFPIProjectionTable() {
   const BASE = 'https://www.espn.com/nfl/fpi/_/view/projections';
 
@@ -172,7 +172,10 @@ async function fetchESPNFPIProjectionTable() {
     const n = Number(String(s).replace(/[,%]/g,'').trim());
     return Number.isFinite(n) ? n : null;
   };
-  const normTxt = s => String(s||'').replace(/<[^>]+>/g,'').replace(/\s+/g,' ').trim();
+  const normTxt = s => String(s||'')
+    .replace(/<[^>]+>/g,'')     // strip tags
+    .replace(/\s+/g,' ')        // collapse whitespace
+    .trim();
 
   // Fetch HTML
   let html = '';
@@ -185,100 +188,56 @@ async function fetchESPNFPIProjectionTable() {
     return {};
   }
 
-  // Save for inspection
+  // Save full page for inspection
   try { await fs.writeFile('data/debug-fpi-page.html', html, 'utf8'); } catch {}
 
-  // Extract all tables
+  // Find the projections table (the one with PROJ W-L & WIN SB% in header)
   const tables = [];
   const tableRx = /<table[\s\S]*?<\/table>/gi;
-  let tm;
-  while ((tm = tableRx.exec(html)) !== null) tables.push(tm[0]);
-  if (!tables.length) { console.log('FPI: no <table> tags found'); return {}; }
-
-  // Parse header helper
-  function parseHeader(tableHtml) {
-    const thead = tableHtml.match(/<thead[\s\S]*?<\/thead>/i)?.[0] || tableHtml;
-    const tr = thead.match(/<tr[\s\S]*?<\/tr>/i)?.[0] || '';
-    const ths = Array.from(tr.matchAll(/<(th|td)[^>]*>([\s\S]*?)<\/\1>/gi)).map(x=>normTxt(x[2]));
-    return ths;
-  }
-
-  // Find the projections table by its distinctive headers
-  let chosen = null, header = [];
+  let tm; while ((tm = tableRx.exec(html)) !== null) tables.push(tm[0]);
+  let chosen = null, headerText = '';
   for (const t of tables) {
-    const h = parseHeader(t).map(s=>s.toUpperCase());
-    if (h.includes('PROJ W-L') && (h.includes('WIN SB%') || h.includes('SB WIN%'))) {
-      chosen = t; header = h; break;
+    const thead = t.match(/<thead[\s\S]*?<\/thead>/i)?.[0] || '';
+    const headCells = Array.from(thead.matchAll(/<(th|td)[^>]*>([\s\S]*?)<\/\1>/gi))
+      .map(x => normTxt(x[2]).toUpperCase());
+    if (headCells.includes('PROJ W-L') && (headCells.includes('WIN SB%') || headCells.includes('SB WIN%'))) {
+      chosen = t; headerText = headCells.join(' | '); break;
     }
   }
   if (!chosen) {
-    // fallback: pick the table with the longest header row
-    let best = tables[0], bestH = parseHeader(tables[0]);
-    for (const t of tables.slice(1)) {
-      const h = parseHeader(t);
-      if (h.length > bestH.length) { best = t; bestH = h; }
-    }
-    chosen = best; header = bestH.map(s=>s.toUpperCase());
-    console.log('FPI: using fallback table; header=', header.join(' | '));
-  } else {
-    console.log('FPI: matched table header=', header.join(' | '));
-  }
-
-  // Build index map for known headers (TEAM is not in header on ESPN)
-  function idx(nameCandidates) {
-    for (const cand of nameCandidates) {
-      const i = header.indexOf(cand.toUpperCase());
-      if (i >= 0) return i;
-    }
-    return -1;
-  }
-  const idxWLT    = idx(['W-L-T']);
-  const idxProjWL = idx(['PROJ W-L','PROJECTED W-L']);
-  const idxPO     = idx(['PLAYOFF%','MAKE PLAYOFFS%','PLAYOFFS%']);
-  const idxDiv    = idx(['WIN DIV%','DIVISION%']);
-  const idxConf   = idx(['MAKE CONF%','WIN CONF%','CONF%']);
-  const idxSBApp  = idx(['MAKE SB%','SB APP%','SUPER BOWL%']);
-  const idxSBWin  = idx(['WIN SB%','SB WIN%']);
-
-  if (idxWLT < 0 || idxProjWL < 0) {
-    console.log('FPI: missing critical columns — header seen:', header);
+    console.log('FPI: projections table not found');
     return {};
   }
+  console.log('FPI: matched table header=', headerText);
 
-  // Parse body rows; assume TEAM is the 1st cell BEFORE W-L-T (ESPN omits it from header)
+  // Parse body rows, using fixed positions:
+  // 0 Team, 1 W-L-T, 2 PROJ W-L, 3 PLAYOFF%, 4 WIN DIV%, 5 MAKE DIV%, 6 MAKE CONF%, 7 MAKE SB%, 8 WIN SB%
   const out = {};
   const bodyHtml = chosen.match(/<tbody[\s\S]*?<\/tbody>/i)?.[0] || chosen;
   const rowRx = /<tr[^>]*>([\s\S]*?)<\/tr>/gi;
-  let rm;
+  let rm; let rowCount = 0, used = 0, skipped = 0;
+
   while ((rm = rowRx.exec(bodyHtml)) !== null) {
+    rowCount++;
     const row = rm[1];
-    const cells = Array.from(row.matchAll(/<(td|th)[^>]*>([\s\S]*?)<\/\1>/gi)).map(x=>normTxt(x[2]));
-    if (!cells.length) continue;
+    const cells = Array.from(row.matchAll(/<(td|th)[^>]*>([\s\S]*?)<\/\1>/gi)).map(x => normTxt(x[2]));
+    if (cells.length < 9) { skipped++; continue; }
 
-    // If ESPN omitted TEAM in header, the first body cell is team name
-    const teamCellIndex = (header.includes('TEAM') ? header.indexOf('TEAM') : 0);
-    const teamFull = cells[teamCellIndex] || '';
-    const projWL   = cells[teamCellIndex + (idxProjWL - idxWLT + 1)] // rough alignment
-                  || cells[idxProjWL] || cells.find(c => /^\d+(\.\d+)?-\d+(\.\d+)?$/.test(c)) || '';
+    const teamName = cells[0];
+    const projWl   = cells[2];
+    if (!teamName || !projWl || !projWl.includes('-')) { skipped++; continue; }
 
-    // If the above heuristic is too fancy, fall back to a simpler rule:
-    // TEAM = first cell, PROJ W-L = the first cell matching N-N pattern.
-    const teamName = teamFull || cells[0] || '';
-    const projWlCell = projWL || (cells.find(c => /^\d+(\.\d+)?-\d+(\.\d+)?$/.test(c)) || '');
+    const projWins = toNum(projWl.split('-')[0]);
+    if (projWins == null) { skipped++; continue; }
 
-    if (!teamName || !projWlCell.includes('-')) continue;
+    const playoff  = toNum(cells[3]);
+    const winDiv   = toNum(cells[4]);
+    const makeConf = toNum(cells[6]);
+    const makeSB   = toNum(cells[7]);
+    const winSB    = toNum(cells[8]);
 
-    const projWins = toNum(projWlCell.split('-')[0]);
-    if (projWins == null) continue;
-
-    const playoff  = (idxPO    >= 0 ? toNum(cells[idxPO + (teamCellIndex>0?1:0)])    : null);
-    const winDiv   = (idxDiv   >= 0 ? toNum(cells[idxDiv + (teamCellIndex>0?1:0)])   : null);
-    const makeConf = (idxConf  >= 0 ? toNum(cells[idxConf + (teamCellIndex>0?1:0)])  : null);
-    const makeSB   = (idxSBApp >= 0 ? toNum(cells[idxSBApp + (teamCellIndex>0?1:0)]) : null);
-    const winSB    = (idxSBWin >= 0 ? toNum(cells[idxSBWin + (teamCellIndex>0?1:0)]) : null);
-
-    const teamKey = teamName.toUpperCase();
-    out[teamKey] = {
+    const key = teamName.toUpperCase();
+    out[key] = {
       projected_wins: projWins,
       playoff: (playoff ?? 0) / 100,
       div:     (winDiv  ?? 0) / 100,
@@ -286,9 +245,10 @@ async function fetchESPNFPIProjectionTable() {
       sb:      (makeSB  ?? 0) / 100,
       win_sb:  (winSB   ?? 0) / 100
     };
+    used++;
   }
 
-  console.log('FPI (header-parse) teams =', Object.keys(out).length);
+  console.log(`FPI (pos-parse): rows=${rowCount} used=${used} skipped=${skipped}`);
   try { await fs.writeFile('data/debug-fpi-table.html', chosen, 'utf8'); } catch {}
   return out;
 }
