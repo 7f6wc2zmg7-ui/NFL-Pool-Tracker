@@ -196,6 +196,89 @@ async function fetchCurrentWinTotals() {
   return out; // { BILLS: 10.5, JETS: 8.5, ... }
 }
 
+// --- ESPN FPI scrape (rich payload) ---------------------------------
+function nicknameFromDisplayName(name){
+  if (!name) return null;
+  const parts = String(name).trim().split(/\s+/);
+  return (parts[parts.length - 1] || '').toUpperCase();
+}
+
+function num(x){ const n = Number(x); return Number.isFinite(n) ? n : null; }
+
+async function fetchESPNFPIRich(){
+  const url = 'https://www.espn.com/nfl/fpi';
+  let html = '';
+  try{
+    const res = await fetch(url, {
+      headers: {
+        'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Safari/537.36',
+        'Accept':'text/html,application/xhtml+xml'
+      }
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    html = await res.text();
+  }catch(e){
+    console.error('FPI fetch failed:', e?.message || e);
+    return {};
+  }
+
+  // We’ll scan flexible blocks that include a team’s displayName/abbr, then look
+  // nearby for the numeric fields. This is resilient to minor layout shifts.
+  const teamBlockRx = /"displayName"\s*:\s*"([^"]+)"[\s\S]{0,600}?"abbreviation"\s*:\s*"([A-Z0-9]{2,4})"([\s\S]{0,1200}?)"projectedWins"\s*:\s*([0-9.]+)/g;
+
+  const out = {};
+  let m, hits = 0;
+  while ((m = teamBlockRx.exec(html)) !== null){
+    const displayName = m[1];
+    const abbr = m[2];
+    const tailBlob = m[3] || ''; // the chunk we’ll mine for other fields
+    const projWins = num(m[4]);
+    const nick = nicknameFromDisplayName(displayName);
+    if (!nick) continue;
+
+    // Helpers to find numbers in the local blob (or the wider html if needed)
+    const findNum = (label, blob = tailBlob, range = 1200) => {
+      const rx = new RegExp(`"${label}"\\s*:\\s*([0-9.]+)`);
+      const mm = rx.exec(blob) || rx.exec(html.slice(Math.max(0, teamBlockRx.lastIndex - range), teamBlockRx.lastIndex + range));
+      return mm ? num(mm[1]) : null;
+    };
+
+    // Core projections / probs
+    const projLoss = findNum('projectedLosses');
+    const fpi      = findNum('fpi');
+    const fpiRank  = findNum('fpiRank');
+    const offFPI   = findNum('offenseFpi');
+    const defFPI   = findNum('defenseFpi');
+    const stFPI    = findNum('specialTeamsFpi');
+    const makePO   = findNum('makePlayoffs');
+    const winDiv   = findNum('winDivision');
+    const winConf  = findNum('winConference');
+    const winSB    = findNum('winSuperBowl');
+    const sosRem   = findNum('sosRemaining');
+
+    out[nick] = {
+      name: displayName,
+      abbr,
+      nick,
+      projected_wins: projWins,
+      projected_losses: projLoss,
+      fpi, fpi_rank: fpiRank,
+      off_fpi: offFPI,
+      def_fpi: defFPI,
+      st_fpi: stFPI,
+      make_playoffs: makePO,
+      win_division: winDiv,
+      win_conference: winConf,
+      win_super_bowl: winSB,
+      sos_remaining: sosRem
+    };
+    hits++;
+  }
+
+  console.log('FPI rich parsed teams:', Object.keys(out).length, 'blocks:', hits);
+  return out; // { BILLS: { ... }, 49ERS: { ... }, ... }
+}
+
 // ---------- main ----------
 async function main() {
   // 1) Optional next-game probs (safe if no key)
@@ -233,18 +316,26 @@ async function main() {
     console.error("Cache check failed:", e?.message || e);
   }
 
+  let nflFPI = {};
+try { nflFPI = await fetchESPNFPIRich(); }
+catch(e){ console.error('FPI rich scrape failed:', e?.message || e); }
+
   // 5) Write predictions.json
-  const payload = {
-    generatedAt: new Date().toISOString(),
-    sources: {
-      nflNextGame: "The Odds API (h2h)",
-      nflFutures:  "ESPN futures (auto-discovered; de-vigged)",
-      nflCurrentOU:"ESPN Season Wins (robust matcher; cached if missing)"
-    },
-    nflNextGame,
-    nflFutures,
-    nflCurrentOU
-  };
+ const payload = {
+  generatedAt: new Date().toISOString(),
+  sources: {
+    nflNextGame: "The Odds API (h2h)",
+    nflFutures:  "ESPN futures (auto-discovered; de-vigged)",
+    nflCurrentOU:"ESPN Season Wins (robust matcher; cached if missing)",
+    nflFPI:      "ESPN FPI (rich scrape: proj wins, probs, ratings)"
+  },
+  nflNextGame,
+  nflFutures,
+  nflCurrentOU,
+  nflFPI
+};
+
+await fs.writeFile('data/predictions.json', JSON.stringify(payload, null, 2), 'utf8');
 
   await fs.writeFile("data/predictions.json", JSON.stringify(payload, null, 2), "utf8");
   console.log("✅ Wrote data/predictions.json",
