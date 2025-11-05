@@ -156,128 +156,133 @@ async function fetchESPNFuturesAuto() {
   return futures;
 }
 
-// --- ESPN FPI projections (uses ?xhr=1 JSON, with HTML inside) ---
+// --- ESPN FPI projections (robust header-driven table scrape) ---
 async function fetchESPNFPIProjectionTable() {
   const BASE = 'https://www.espn.com/nfl/fpi/_/view/projections';
-  // Helper to turn "Buffalo Bills" -> "BILLS"
-  const nickFromFull = (name) => {
-    if (!name) return null;
-    const parts = String(name).trim().split(/\s+/);
-    return (parts[parts.length - 1] || '').toUpperCase();
+
+  const UA = {
+    'User-Agent': 'Mozilla/5.0',
+    'Accept': 'text/html,application/xhtml+xml,*/*',
+    'Accept-Language': 'en-US,en;q=0.9',
+    'Cache-Control': 'no-cache'
   };
-  const toNum = (s) => {
+
+  const toNum = s => {
+    if (s == null) return null;
     const n = Number(String(s).replace(/[,%]/g,'').trim());
     return Number.isFinite(n) ? n : null;
   };
+  const normTxt = s => String(s||'').replace(/<[^>]+>/g,'').replace(/\s+/g,' ').trim();
 
-  // 1) Try the XHR JSON endpoint (preferred)
+  // Fetch HTML (we'll rely on visible table; ESPN often hides JSON)
+  let html = '';
   try {
-    const res = await fetch(`${BASE}?xhr=1`, {
-      headers: {
-        'User-Agent': 'Mozilla/5.0',
-        'Accept': 'application/json,text/html,*/*'
-      }
-    });
+    const res = await fetch(BASE, { headers: UA });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const j = await res.json();
-
-    // The JSON typically holds HTML in "content" fields; flatten them
-    const htmlChunks = [];
-    (function collect(node){
-      if (!node || typeof node !== 'object') return;
-      if (typeof node.content === 'string') htmlChunks.push(node.content);
-      for (const v of Array.isArray(node) ? node : Object.values(node)) collect(v);
-    })(j);
-
-    const html = htmlChunks.join('\n');
-    // Save for debugging
-    try { await fs.writeFile('data/debug-fpi-xhr.json', JSON.stringify(j, null, 2), 'utf8'); } catch {}
-    try { await fs.writeFile('data/debug-fpi-xhr.html', html, 'utf8'); } catch {}
-
-    // Parse rows out of the HTML we just collected
-    const out = {};
-    const rowRx = /<tr[^>]*>([\s\S]*?)<\/tr>/gi;
-    let m;
-    while ((m = rowRx.exec(html)) !== null) {
-      const row = m[1];
-      const cells = Array.from(row.matchAll(/<td[^>]*>([\s\S]*?)<\/td>/gi))
-        .map(x => x[1].replace(/<[^>]+>/g, '').replace(/\s+/g,' ').trim());
-      // Expecting at least 9 tds: Team | W-L-T | PROJ W-L | PLAYOFF% | WIN DIV% | MAKE DIV% | MAKE CONF% | MAKE SB% | WIN SB%
-      if (cells.length < 9) continue;
-
-      const teamFull = cells[0];
-      const projWL   = cells[2];   // e.g., "12.0-5.0"
-      const playoff  = toNum(cells[3]);
-      const winDiv   = toNum(cells[4]);
-      const makeConf = toNum(cells[6]);
-      const makeSB   = toNum(cells[7]);
-      const winSB    = toNum(cells[8]);
-
-      if (!teamFull || !projWL) continue;
-      const projWins = toNum(projWL.split('-')[0]);
-      const nick = nickFromFull(teamFull);
-      if (!nick || projWins == null) continue;
-
-      out[nick] = {
-        projected_wins: projWins,
-        playoff: (playoff ?? 0) / 100,
-        div:     (winDiv  ?? 0) / 100,
-        conf:    (makeConf?? 0) / 100,
-        sb:      (makeSB  ?? 0) / 100,
-        win_sb:  (winSB   ?? 0) / 100
-      };
-    }
-
-    console.log('FPI (xhr) parsed teams =', Object.keys(out).length);
-    if (Object.keys(out).length) return out;
+    html = await res.text();
   } catch (e) {
-    console.error('FPI xhr fetch failed:', e?.message || e);
-  }
-
-  // 2) Fallback to plain HTML (in case xhr=1 is blocked)
-  try {
-    const res = await fetch(BASE, { headers: { 'User-Agent': 'Mozilla/5.0' } });
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const html = await res.text();
-    try { await fs.writeFile('data/debug-fpi-page.html', html, 'utf8'); } catch {}
-
-    const out = {};
-    const rowRx = /<tr[^>]*>([\s\S]*?)<\/tr>/gi;
-    let m;
-    while ((m = rowRx.exec(html)) !== null) {
-      const row = m[1];
-      const cells = Array.from(row.matchAll(/<td[^>]*>([\s\S]*?)<\/td>/gi))
-        .map(x => x[1].replace(/<[^>]+>/g, '').replace(/\s+/g,' ').trim());
-      if (cells.length < 9) continue;
-
-      const teamFull = cells[0];
-      const projWL   = cells[2];
-      const playoff  = toNum(cells[3]);
-      const winDiv   = toNum(cells[4]);
-      const makeConf = toNum(cells[6]);
-      const makeSB   = toNum(cells[7]);
-      const winSB    = toNum(cells[8]);
-
-      if (!teamFull || !projWL) continue;
-      const projWins = toNum(projWL.split('-')[0]);
-      const nick = nickFromFull(teamFull);
-      if (!nick || projWins == null) continue;
-
-      out[nick] = {
-        projected_wins: projWins,
-        playoff: (playoff ?? 0) / 100,
-        div:     (winDiv  ?? 0) / 100,
-        conf:    (makeConf?? 0) / 100,
-        sb:      (makeSB  ?? 0) / 100,
-        win_sb:  (winSB   ?? 0) / 100
-      };
-    }
-    console.log('FPI (html) parsed teams =', Object.keys(out).length);
-    return out;
-  } catch (e) {
-    console.error('FPI plain fetch failed:', e?.message || e);
+    console.error('FPI page fetch failed:', e?.message || e);
     return {};
   }
+
+  // Save for inspection
+  try { await fs.writeFile('data/debug-fpi-page.html', html, 'utf8'); } catch {}
+
+  // Extract all <table>...</table>
+  const tables = [];
+  const tableRx = /<table[\s\S]*?<\/table>/gi;
+  let tm;
+  while ((tm = tableRx.exec(html)) !== null) tables.push(tm[0]);
+  if (!tables.length) { console.log('FPI: no <table> tags found'); return {}; }
+
+  // Find the table whose header row contains PROJ W-L and WIN SB%
+  function parseHeader(tableHtml) {
+    // grab first THEAD or the first TR with THs
+    const thead = tableHtml.match(/<thead[\s\S]*?<\/thead>/i)?.[0] || tableHtml;
+    const tr = thead.match(/<tr[\s\S]*?<\/tr>/i)?.[0] || '';
+    const ths = Array.from(tr.matchAll(/<(th|td)[^>]*>([\s\S]*?)<\/\1>/gi)).map(x=>normTxt(x[2]));
+    return ths;
+  }
+
+  let chosen = null, header = [];
+  for (const t of tables) {
+    const h = parseHeader(t).map(s=>s.toUpperCase());
+    if (h.includes('PROJ W-L') && (h.includes('WIN SB%') || h.includes('SB WIN%') || h.includes('WIN SB%'))) {
+      chosen = t; header = h; break;
+    }
+  }
+  if (!chosen) {
+    // fallback: pick the table with the longest header row
+    let best = tables[0], bestH = parseHeader(tables[0]);
+    for (const t of tables.slice(1)) {
+      const h = parseHeader(t);
+      if (h.length > bestH.length) { best = t; bestH = h; }
+    }
+    chosen = best; header = bestH.map(s=>s.toUpperCase());
+    console.log('FPI: using fallback table; header=', header.join(' | '));
+  } else {
+    console.log('FPI: matched table header=', header.join(' | '));
+  }
+
+  // Build a header index map
+  function idx(nameCandidates) {
+    for (const cand of nameCandidates) {
+      const i = header.indexOf(cand.toUpperCase());
+      if (i >= 0) return i;
+    }
+    return -1;
+  }
+  const idxTeam   = idx(['TEAM','SCHOOL','CLUB']);
+  const idxProjWL = idx(['PROJ W-L','PROJECTED W-L','PROJ W-L']);
+  const idxPO     = idx(['PLAYOFF%','MAKE PLAYOFFS%','PLAYOFFS%']);
+  const idxDiv    = idx(['WIN DIV%','DIVISION%','WIN DIV%']);
+  const idxConf   = idx(['MAKE CONF%','WIN CONF%','CONF%','MAKE CONF%']);
+  const idxSBApp  = idx(['MAKE SB%','SB APP%','SUPER BOWL%','MAKE SB%']);
+  const idxSBWin  = idx(['WIN SB%','SB WIN%','WIN SB%']);
+
+  if (idxTeam < 0 || idxProjWL < 0) {
+    console.log('FPI: missing critical columns — header seen:', header);
+    return {};
+  }
+
+  // Parse body rows: accept both <td> and <th> cells
+  const out = {};
+  const bodyHtml = chosen.match(/<tbody[\s\S]*?<\/tbody>/i)?.[0] || chosen;
+  const rowRx = /<tr[^>]*>([\s\S]*?)<\/tr>/gi;
+  let rm;
+  while ((rm = rowRx.exec(bodyHtml)) !== null) {
+    const row = rm[1];
+    const cells = Array.from(row.matchAll(/<(td|th)[^>]*>([\s\S]*?)<\/\1>/gi)).map(x=>normTxt(x[2]));
+    if (cells.length < Math.max(idxTeam, idxProjWL, idxPO, idxDiv, idxConf, idxSBApp, idxSBWin) + 1) continue;
+
+    const teamFull = cells[idxTeam];
+    const projWL   = cells[idxProjWL];
+    if (!teamFull || !projWL || !projWL.includes('-')) continue;
+
+    const projWins = toNum(projWL.split('-')[0]);
+    if (projWins == null) continue;
+
+    const playoff  = (idxPO    >= 0 ? toNum(cells[idxPO])    : null);
+    const winDiv   = (idxDiv   >= 0 ? toNum(cells[idxDiv])   : null);
+    const makeConf = (idxConf  >= 0 ? toNum(cells[idxConf])  : null);
+    const makeSB   = (idxSBApp >= 0 ? toNum(cells[idxSBApp]) : null);
+    const winSB    = (idxSBWin >= 0 ? toNum(cells[idxSBWin]) : null);
+
+    const teamKey = teamFull.toUpperCase(); // keep full name uppercased; your frontend maps by uppercase key
+    out[teamKey] = {
+      projected_wins: projWins,
+      playoff: (playoff ?? 0) / 100,
+      div:     (winDiv  ?? 0) / 100,
+      conf:    (makeConf?? 0) / 100,
+      sb:      (makeSB  ?? 0) / 100,
+      win_sb:  (winSB   ?? 0) / 100
+    };
+  }
+
+  console.log('FPI (header-parse) teams =', Object.keys(out).length);
+  // dump the chosen table for quick eyeballing
+  try { await fs.writeFile('data/debug-fpi-table.html', chosen, 'utf8'); } catch {}
+  return out;
 }
 
 /* ---------- main ---------- */
