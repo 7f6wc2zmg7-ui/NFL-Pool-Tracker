@@ -4,46 +4,108 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>NFL Pool Tracker ⭐</title>
-<style>
+<<style>
+  /* ===== NFL Pool Tracker — Snazzy ND-inspired theme + mobile-first tables ===== */
   :root{
     --nd-navy:#0C2340; --nd-gold:#C99700;
-    --bg:#0b0f14; --card:#111820; --muted:#8a98a8; --text:#f3f6fa;
-    --border:#1c2632; --pill:#101926; --win:#19d3a3; --loss:#ff6b6b;
+    --bg:#0b0f14; --card:#111820; --muted:#8ea0b4; --text:#f3f6fa;
+    --accent:#5cc8ff; --border:#1c2632; --pill:#0f1a28;
+    --win:#19d3a3; --loss:#ff6b6b;
+    --shadow: 0 8px 18px rgba(0,0,0,.25), 0 1px 0 rgba(255,255,255,.02) inset;
   }
-  *{box-sizing:border-box}
-  html,body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
-  .hero{background:linear-gradient(135deg, var(--nd-navy), #0b1830 60%);border-bottom:1px solid #0f1c2e}
-  .hero .wrap{display:flex;gap:12px;align-items:center;max-width:1100px;margin:0 auto;padding:14px 16px}
-  .brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.2px;font-size:18px}
-  .logo{display:inline-grid;grid-auto-flow:column;gap:6px;align-items:center}
-  .nd{width:18px;height:18px;border:2px solid var(--nd-gold);border-radius:3px;display:grid;place-items:center;font-size:12px;color:var(--nd-gold);font-weight:800;line-height:1}
-  .nfl{width:18px;height:18px;border-radius:3px;background:#c00;position:relative;box-shadow:0 0 0 2px #fff inset}
-  .nfl:before{content:"";position:absolute;inset:3px 3px auto auto;width:6px;height:6px;border-radius:1px;background:#fff;box-shadow:0 7px 0 #fff}
 
-  .wrap-main{max-width:1100px;margin:0 auto;padding:16px}
-  h1{margin:0 0 8px;font-size:22px} h2{margin:20px 0 8px;font-size:18px}
-  .pill{display:inline-block;padding:2px 8px;border:1px solid var(--border);border-radius:999px;background:var(--pill);font-size:12px;margin-left:8px;color:var(--muted)}
-  .meta{color:var(--muted);margin:0 0 12px;font-size:13px}
-  .kbd{font-family:ui-monospace,Menlo,Consolas,monospace;background:rgba(255,255,255,.06);padding:1px 6px;border-radius:6px;border:1px solid var(--border)}
-  .badge{display:inline-block;padding:2px 6px;border:1px solid var(--border);border-radius:6px;font-size:12px;margin-left:6px;color:var(--muted)}
-  .card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px;margin:10px 0}
+  *{ box-sizing:border-box }
+  html,body{
+    margin:0; background:var(--bg); color:var(--text);
+    font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+  }
 
-  .table-wrap{overflow:auto;border:1px solid var(--border);border-radius:8px}
-  table{border-collapse:collapse;width:100%;min-width:760px}
-  th,td{padding:10px;border-bottom:1px solid var(--border);text-align:left;font-size:13px;white-space:nowrap}
-  thead th{position:sticky;top:0;background:var(--card);z-index:1}
-  th.small,td.small{font-size:12px;color:var(--muted)}
-  .right{text-align:right} .subtotal{font-weight:600} .owner{font-weight:700;letter-spacing:.2px}
-  .rank{width:44px;text-align:center;font-weight:800;color:var(--nd-gold)}
-  .sticky-first thead th:first-child,.sticky-first tbody td:first-child{position:sticky;left:0;background:var(--card);z-index:2}
-  .zebra tbody tr:nth-child(odd){background:rgba(255,255,255,.02)}
+  /* Header band (works even if you don't have a hero div) */
+  .hero, .topband{
+    background:linear-gradient(135deg,var(--nd-navy),#0b1830 62%);
+    border-bottom:1px solid #0f1c2e;
+    box-shadow:0 6px 20px rgba(0,0,0,.25);
+  }
+  .hero .wrap, .topband .wrap{
+    max-width:1100px; margin:0 auto; padding:14px 16px; display:flex; gap:12px; align-items:center;
+  }
 
+  /* Layout */
+  .wrap-main,.wrap{ max-width:1100px; margin:0 auto; padding:16px }
+  h1{ margin:0 0 8px; font-size:22px; letter-spacing:.2px }
+  h2{ margin:18px 0 8px; font-size:18px }
+
+  /* Chips, badges, keycaps */
+  .pill{
+    display:inline-block; padding:3px 9px; border:1px solid var(--border); border-radius:999px;
+    background:var(--pill); color:var(--muted); font-size:12px;
+  }
+  .badge{
+    display:inline-block; padding:2px 6px; border:1px solid var(--border); border-radius:6px;
+    color:var(--muted); font-size:12px; margin-left:6px;
+  }
+  .kbd{
+    font:12px/1.2 ui-monospace,Menlo,Consolas,monospace;
+    background:rgba(255,255,255,.06); padding:1px 6px; border-radius:6px; border:1px solid var(--border)
+  }
+  .meta{ color:var(--muted); margin:0 0 10px; font-size:13px }
+
+  /* Cards */
+  .card{
+    background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
+    border:1px solid var(--border); border-radius:12px; padding:12px; margin:10px 0;
+    box-shadow:var(--shadow);
+  }
+
+  /* Tables: tighter + mobile-first */
+  .table-wrap{ overflow:auto; border:1px solid var(--border); border-radius:10px; }
+  .table-wrap::-webkit-scrollbar{ height:8px }
+  .table-wrap::-webkit-scrollbar-thumb{ background:#203044; border-radius:8px }
+
+  table{ border-collapse:collapse; width:100%; min-width:560px }
+  th,td{
+    padding:8px 10px; border-bottom:1px solid var(--border);
+    text-align:left; font-size:13px; white-space:nowrap;
+  }
+  thead th{ position:sticky; top:0; background:var(--card); z-index:1; }
+  .sticky-first thead th:first-child,
+  .sticky-first tbody td:first-child{
+    position:sticky; left:0; z-index:2; background:var(--card);
+  }
+  .zebra tbody tr:nth-child(odd){ background:rgba(255,255,255,.02) }
+
+  /* Right-align numeric cells, small helper */
+  .right{ text-align:right }
+  .small{ font-size:12px; color:var(--muted) }
+  .subtotal{ font-weight:600 }
+  .owner{ font-weight:700; letter-spacing:.2px }
+
+  /* Rank badge (for leaderboard #1, #2, …) */
+  .rank{
+    width:42px; text-align:center; font-weight:800; color:var(--nd-gold);
+    text-shadow:0 0 10px rgba(201,151,0,.15);
+  }
+
+  /* Hide non-essential columns on phones; keep scores visible without scrolling */
+  .hide-sm{ display:none }
+  @media (min-width:721px){ .hide-sm{ display:table-cell } }
+
+  /* Phone-specific tightening */
   @media (max-width:720px){
-    th,td{padding:8px 10px;font-size:12px}
-    table{min-width:680px}
-    .rank{width:38px}
-    .meta{font-size:12px}
+    th,td{ padding:6px 8px; font-size:12px }
+    table{ min-width:520px }
+    .meta{ font-size:12px }
+    .rank{ width:36px }
+    /* Optional: slightly reduce card padding */
+    .card{ padding:10px }
   }
+
+  /* Accents for good/bad */
+  .ok{ color:var(--win) } .bad{ color:var(--loss) }
+
+  /* Subtle ND accent border on headings */
+  h2{ border-left:4px solid rgba(201,151,0,.35); padding-left:8px }
 </style>
 </head>
 <body>
@@ -131,11 +193,11 @@ function winTotalPoints(winsProj, ou, rules){
   const baseOver = Number(rules.win_total?.base_points_if_over ?? 20);
   const baseUnder = Number(rules.win_total?.base_points_if_not_over ?? -20);
   const deltaPts  = Number(rules.win_total?.points_per_win_delta ?? 1);
-  const equalIsNotOver = !!rules.win_total?.equal_counts_as_not_over;
+  // IMPORTANT: a tie is 0 now (ignores rules.equal_counts_as_not_over)
   if (!isFinite(ou)) return 0;
   if (winsProj > ou) return baseOver + (winsProj - ou) * deltaPts;
   if (winsProj < ou) return baseUnder - (ou - winsProj) * deltaPts;
-  return equalIsNotOver ? baseUnder : 0;
+  return 0; // tie
 }
 async function safeJSON(path){
   try{ const r=await fetch(path,{cache:'no-store'}); if(!r.ok) return null; return await r.json(); }
@@ -357,19 +419,19 @@ async function main(){
       <div class="section-pad">
         <div class="table-wrap sticky-first zebra">
           <table>
-            <thead>
-              <tr>
-                <th>Team</th>
-                <th class="right">Current O/U</th>
-                <th class="right">Pre O/U</th>
-                <th class="right">WT Points</th>
-                <th class="right small">Div Pre (ML)</th>
-                <th class="right small">Div Pre (%)</th>
-                <th class="right small">Div Now (%)</th>
-                <th class="right">Div EV</th>
-                <th class="right">Total</th>
-              </tr>
-            </thead>
+           <thead>
+  <tr>
+    <th>Team</th>
+    <th class="right">Total</th>
+    <th class="right">Current O/U</th>
+    <th class="right">WT Points</th>
+    <th class="right small">Div Now (%)</th>
+    <th class="right hide-sm">Pre O/U</th>
+    <th class="right small hide-sm">Div Pre (ML)</th>
+    <th class="right small hide-sm">Div Pre (%)</th>
+    <th class="right hide-sm">Div EV</th>
+  </tr>
+</thead>
             <tbody></tbody>
             <tfoot>
               <tr><th colspan="8" class="right">Subtotal</th><th class="right subtotal">${data.regSubtotal.toFixed(1)}</th></tr>
@@ -381,15 +443,15 @@ async function main(){
     for (const r of data.regRows){
       const tr = document.createElement('tr');
       tr.innerHTML = `
-        <td>${r.team}</td>
-        <td class="right">${isFinite(r.curOU)?r.curOU.toFixed(1):'—'}</td>
-        <td class="right">${isFinite(r.preOU)?r.preOU.toFixed(1):'—'}</td>
-        <td class="right">${r.wtPts.toFixed(1)}</td>
-        <td class="right small">${r.preDivML ?? '—'}</td>
-        <td class="right small">${pct(r.preDivPct ?? 0)}</td>
-        <td class="right small">${pct(r.curDivPct ?? 0)}</td>
-        <td class="right">${r.divEV.toFixed(1)}</td>
-        <td class="right">${r.regPts.toFixed(1)}</td>`;
+  <td>${r.team}</td>
+  <td class="right">${r.regPts.toFixed(1)}</td>
+  <td class="right">${isFinite(r.curOU)?r.curOU.toFixed(1):'—'}</td>
+  <td class="right">${r.wtPts.toFixed(1)}</td>
+  <td class="right small">${pct(r.curDivPct ?? 0)}</td>
+  <td class="right hide-sm">${isFinite(r.preOU)?r.preOU.toFixed(1):'—'}</td>
+  <td class="right small hide-sm">${r.preDivML ?? '—'}</td>
+  <td class="right small hide-sm">${pct(r.preDivPct ?? 0)}</td>
+  <td class="right hide-sm">${r.divEV.toFixed(1)}</td>`;
       tbody.appendChild(tr);
     }
     regHost.appendChild(box);
