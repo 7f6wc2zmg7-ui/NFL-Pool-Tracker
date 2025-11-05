@@ -86,17 +86,41 @@ async function main(){
   const ouByTeam=Object.create(null),divMlByTeam=Object.create(null);
   for(const t of odds.teams||[]){const T=t.team.toUpperCase();ouByTeam[T]=+t.ou_wins;divMlByTeam[T]=t.div_ml;}
 
-  // --- Current O/U priority: ESPN -> manual -> preseason
-  const curOUByTeam=Object.create(null);
-  if(pred.nflCurrentOU&&typeof pred.nflCurrentOU==='object'){
-    for(const [team,val] of Object.entries(pred.nflCurrentOU)){const T=team.toUpperCase();const n=+val;if(Number.isFinite(n))curOUByTeam[T]=n;}
-  }
-  const manualOU=await safeJSON('data/current_ou.manual.json');
-  if(manualOU&&typeof manualOU==='object'){
-    for(const [team,val] of Object.entries(manualOU)){const T=team.toUpperCase(); if(!(T in curOUByTeam)){const n=+val; if(Number.isFinite(n)) curOUByTeam[T]=n;}}
-  }
-  log('curOU teams=', Object.keys(curOUByTeam).length);
+  // --- Current O/U priority: Covers → manual → preseason
+const curOUByTeam = Object.create(null);
 
+// 1) Covers.com current O/U (from predictions.json)
+if (pred.nflCurrentOU && typeof pred.nflCurrentOU === 'object') {
+  for (const [team, val] of Object.entries(pred.nflCurrentOU)) {
+    const T = team.toUpperCase();
+    const n = Number(val);
+    if (Number.isFinite(n)) curOUByTeam[T] = n;
+  }
+}
+
+// 2) Manual snapshot fallback (optional file you maintain)
+const manualOU = await safeJSON('data/current_ou.manual.json');
+if (manualOU && typeof manualOU === 'object') {
+  for (const [team, val] of Object.entries(manualOU)) {
+    const T = team.toUpperCase();
+    if (!(T in curOUByTeam)) {
+      const n = Number(val);
+      if (Number.isFinite(n)) curOUByTeam[T] = n;
+    }
+  }
+}
+
+// 3) Preseason O/U fallback (from odds.json)
+for (const t of odds.teams || []) {
+  const T = (t.team || '').toUpperCase();
+  if (!(T in curOUByTeam)) {
+    const n = Number(t.ou_wins);
+    if (Number.isFinite(n)) curOUByTeam[T] = n;
+  }
+}
+
+console.log('curOU teams =', Object.keys(curOUByTeam).length);
+  
   // --- points
   const P_DIV = +(rules.division_winner?.base_points??20);
   const P_WC_SPOT=+(rules.wild_card_spot_points??10);
