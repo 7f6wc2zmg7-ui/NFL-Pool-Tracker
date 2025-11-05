@@ -294,47 +294,80 @@ async function fetchESPNFPIProjectionTable() {
   return out;
 }
 
-// --- Covers.com win totals (static HTML scrape) ---
+// --- Covers.com win totals (static HTML scrape + name normalization) ---
 async function fetchCoversWinTotals() {
   const URL = 'https://www.covers.com/nfl/nfl-odds-win-totals';
-  const UA = {
-    'User-Agent': 'Mozilla/5.0',
-    'Accept': 'text/html,application/xhtml+xml,*/*'
-  };
+  const UA = { 'User-Agent': 'Mozilla/5.0', 'Accept': 'text/html,application/xhtml+xml,*/*' };
 
   const res = await fetch(URL, { headers: UA });
   if (!res.ok) throw new Error(`Covers win totals HTTP ${res.status}`);
   const html = await res.text();
-
-  // Save for debugging (optional)
   try { await fs.writeFile('data/debug-covers-win-totals.html', html, 'utf8'); } catch {}
 
-  // The page renders rows like: "Bills 11.5" (with a logo image before)
-  // We'll scan the “Updated NFL win totals odds” table region and extract pairs.
-  const section = html.split('Updated NFL win totals odds')[1] || html;
-  const rows = [];
-  const rowRx = />([A-Z][A-Za-z .'-]+)<\/a>[^<]*<\/td>[^<]*<td[^>]*>\s*([0-9]+(?:\.[05])?)\s*</g;
-  // Fallback: some rows are rendered as plain text without <a>
-  const rowRx2 = />\s*([A-Z][A-Za-z .'-]+)\s*<\/td>\s*<td[^>]*>\s*([0-9]+(?:\.[05])?)\s*</g;
+  // Canonical map (nicknames/short → full). Keys and values are UPPERCASE.
+  const CANON = {
+    'ARIZONA CARDINALS':'ARIZONA CARDINALS','CARDINALS':'ARIZONA CARDINALS',
+    'ATLANTA FALCONS':'ATLANTA FALCONS','FALCONS':'ATLANTA FALCONS',
+    'BALTIMORE RAVENS':'BALTIMORE RAVENS','RAVENS':'BALTIMORE RAVENS',
+    'BUFFALO BILLS':'BUFFALO BILLS','BILLS':'BUFFALO BILLS',
+    'CAROLINA PANTHERS':'CAROLINA PANTHERS','PANTHERS':'CAROLINA PANTHERS',
+    'CHICAGO BEARS':'CHICAGO BEARS','BEARS':'CHICAGO BEARS',
+    'CINCINNATI BENGALS':'CINCINNATI BENGALS','BENGALS':'CINCINNATI BENGALS',
+    'CLEVELAND BROWNS':'CLEVELAND BROWNS','BROWNS':'CLEVELAND BROWNS',
+    'DALLAS COWBOYS':'DALLAS COWBOYS','COWBOYS':'DALLAS COWBOYS',
+    'DENVER BRONCOS':'DENVER BRONCOS','BRONCOS':'DENVER BRONCOS',
+    'DETROIT LIONS':'DETROIT LIONS','LIONS':'DETROIT LIONS',
+    'GREEN BAY PACKERS':'GREEN BAY PACKERS','PACKERS':'GREEN BAY PACKERS',
+    'HOUSTON TEXANS':'HOUSTON TEXANS','TEXANS':'HOUSTON TEXANS',
+    'INDIANAPOLIS COLTS':'INDIANAPOLIS COLTS','COLTS':'INDIANAPOLIS COLTS',
+    'JACKSONVILLE JAGUARS':'JACKSONVILLE JAGUARS','JAGUARS':'JACKSONVILLE JAGUARS','JAGS':'JACKSONVILLE JAGUARS',
+    'KANSAS CITY CHIEFS':'KANSAS CITY CHIEFS','CHIEFS':'KANSAS CITY CHIEFS',
+    'LAS VEGAS RAIDERS':'LAS VEGAS RAIDERS','RAIDERS':'LAS VEGAS RAIDERS',
+    'LOS ANGELES CHARGERS':'LOS ANGELES CHARGERS','LA CHARGERS':'LOS ANGELES CHARGERS','CHARGERS':'LOS ANGELES CHARGERS',
+    'LOS ANGELES RAMS':'LOS ANGELES RAMS','LA RAMS':'LOS ANGELES RAMS','RAMS':'LOS ANGELES RAMS',
+    'MIAMI DOLPHINS':'MIAMI DOLPHINS','DOLPHINS':'MIAMI DOLPHINS',
+    'MINNESOTA VIKINGS':'MINNESOTA VIKINGS','VIKINGS':'MINNESOTA VIKINGS',
+    'NEW ENGLAND PATRIOTS':'NEW ENGLAND PATRIOTS','PATRIOTS':'NEW ENGLAND PATRIOTS','PATS':'NEW ENGLAND PATRIOTS',
+    'NEW ORLEANS SAINTS':'NEW ORLEANS SAINTS','SAINTS':'NEW ORLEANS SAINTS',
+    'NEW YORK GIANTS':'NEW YORK GIANTS','NY GIANTS':'NEW YORK GIANTS','GIANTS':'NEW YORK GIANTS',
+    'NEW YORK JETS':'NEW YORK JETS','NY JETS':'NEW YORK JETS','JETS':'NEW YORK JETS',
+    'PHILADELPHIA EAGLES':'PHILADELPHIA EAGLES','EAGLES':'PHILADELPHIA EAGLES',
+    'PITTSBURGH STEELERS':'PITTSBURGH STEELERS','STEELERS':'PITTSBURGH STEELERS',
+    'SAN FRANCISCO 49ERS':'SAN FRANCISCO 49ERS','49ERS':'SAN FRANCISCO 49ERS','NINERS':'SAN FRANCISCO 49ERS',
+    'SEATTLE SEAHAWKS':'SEATTLE SEAHAWKS','SEAHAWKS':'SEATTLE SEAHAWKS',
+    'TAMPA BAY BUCCANEERS':'TAMPA BAY BUCCANEERS','BUCCANEERS':'TAMPA BAY BUCCANEERS','BUCS':'TAMPA BAY BUCCANEERS',
+    'TENNESSEE TITANS':'TENNESSEE TITANS','TITANS':'TENNESSEE TITANS',
+    'WASHINGTON COMMANDERS':'WASHINGTON COMMANDERS','COMMANDERS':'WASHINGTON COMMANDERS',
+    'DALLAS':'DALLAS COWBOYS','NYG':'NEW YORK GIANTS','NYJ':'NEW YORK JETS','LAC':'LOS ANGELES CHARGERS','LAR':'LOS ANGELES RAMS','LV':'LAS VEGAS RAIDERS','SF 49ERS':'SAN FRANCISCO 49ERS'
+  };
+  const canon = t => CANON[t] || CANON[t.replace(/\s+/g,' ').trim()] || t;
 
-  let m; 
-  while ((m = rowRx.exec(section)) !== null) rows.push([m[1], m[2]]);
-  if (rows.length < 20) { // fallback if link-version didn't catch all
-    let m2; while ((m2 = rowRx2.exec(section)) !== null) rows.push([m2[1], m2[2]]);
+  // Grab a likely table section
+  const section = html.split('Updated NFL win totals odds')[1] || html;
+
+  // Find rows: team in first <td>/<a>, number in the next <td>
+  const rows = [];
+  const rowRx = /<tr[^>]*>\s*<td[^>]*>[\s\S]*?(?:>([A-Za-z0-9 .'\-]+)<\/a>|>([A-Za-z0-9 .'\-]+)<\/span>|>\s*([A-Za-z0-9 .'\-]+)\s*)[\s\S]*?<\/td>\s*<td[^>]*>\s*([0-9]+(?:\.[05])?)\s*</gi;
+  let m; while ((m = rowRx.exec(section)) !== null) {
+    const name = (m[1] || m[2] || m[3] || '').toUpperCase().trim();
+    const val = Number(m[4]);
+    if (name && Number.isFinite(val)) rows.push([canon(name), val]);
   }
 
   const ou = {};
-  for (const [team, val] of rows) {
-    const T = String(team || '').toUpperCase().trim();
-    const n = Number(val);
-    if (T && Number.isFinite(n)) ou[T] = n;
+  for (const [T, v] of rows) ou[T] = v;
+
+  // If we somehow have < 32, try a laxer pass over the whole page
+  if (Object.keys(ou).length < 32) {
+    const looseRx = />([A-Za-z .'\-]{3,40})<\/(?:a|span|strong|td)>[\s\S]*?([0-9]+(?:\.[05])?)\s*</gi;
+    let m2; while ((m2 = looseRx.exec(html)) !== null) {
+      const T = canon(m2[1].toUpperCase().trim());
+      const v = Number(m2[2]);
+      if (T && Number.isFinite(v) && /[A-Z]/.test(T)) ou[T] = v;
+    }
   }
 
-  return {
-    source: 'Covers.com win totals',
-    url: URL,
-    ou
-  };
+  return { source: 'Covers.com win totals', url: URL, ou };
 }
 
 /* ---------- main ---------- */
