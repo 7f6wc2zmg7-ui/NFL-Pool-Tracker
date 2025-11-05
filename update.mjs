@@ -294,6 +294,49 @@ async function fetchESPNFPIProjectionTable() {
   return out;
 }
 
+// --- Covers.com win totals (static HTML scrape) ---
+async function fetchCoversWinTotals() {
+  const URL = 'https://www.covers.com/nfl/nfl-odds-win-totals';
+  const UA = {
+    'User-Agent': 'Mozilla/5.0',
+    'Accept': 'text/html,application/xhtml+xml,*/*'
+  };
+
+  const res = await fetch(URL, { headers: UA });
+  if (!res.ok) throw new Error(`Covers win totals HTTP ${res.status}`);
+  const html = await res.text();
+
+  // Save for debugging (optional)
+  try { await fs.writeFile('data/debug-covers-win-totals.html', html, 'utf8'); } catch {}
+
+  // The page renders rows like: "Bills 11.5" (with a logo image before)
+  // We'll scan the “Updated NFL win totals odds” table region and extract pairs.
+  const section = html.split('Updated NFL win totals odds')[1] || html;
+  const rows = [];
+  const rowRx = />([A-Z][A-Za-z .'-]+)<\/a>[^<]*<\/td>[^<]*<td[^>]*>\s*([0-9]+(?:\.[05])?)\s*</g;
+  // Fallback: some rows are rendered as plain text without <a>
+  const rowRx2 = />\s*([A-Z][A-Za-z .'-]+)\s*<\/td>\s*<td[^>]*>\s*([0-9]+(?:\.[05])?)\s*</g;
+
+  let m; 
+  while ((m = rowRx.exec(section)) !== null) rows.push([m[1], m[2]]);
+  if (rows.length < 20) { // fallback if link-version didn't catch all
+    let m2; while ((m2 = rowRx2.exec(section)) !== null) rows.push([m2[1], m2[2]]);
+  }
+
+  const ou = {};
+  for (const [team, val] of rows) {
+    const T = String(team || '').toUpperCase().trim();
+    const n = Number(val);
+    if (T && Number.isFinite(n)) ou[T] = n;
+  }
+
+  return {
+    source: 'Covers.com win totals',
+    url: URL,
+    ou
+  };
+}
+
 /* ---------- main ---------- */
 async function main() {
   let nflNextGame = [];
@@ -304,23 +347,27 @@ async function main() {
   try { nflFutures = await fetchESPNFuturesAuto(); }
   catch (e) { console.error('ESPN futures failed:', e?.message || e); }
 
-  let nflFPI = {};
-  try { nflFPI = await fetchESPNFPIProjectionTable(); }
-  catch (e) { console.error('FPI projection table failed:', e?.message || e); }
+  let nflCurrentOU = {};
+try {
+  const c = await fetchCoversWinTotals();
+  nflCurrentOU = c.ou || {};
+  console.log('Covers win totals parsed teams=', Object.keys(nflCurrentOU).length);
+} catch (e) {
+  console.error('Covers win totals failed:', e?.message || e);
+}
 
-  const payload = {
-    generatedAt: new Date().toISOString(),
-    sources: {
-      nflNextGame: 'The Odds API (h2h)',
-      nflFutures: 'ESPN futures (auto-discovered)',
-      nflFPI: 'ESPN FPI projections table scrape'
-    },
-    nflNextGame,
-    nflFutures,
-    nflFPI
-  };
-
-  await fs.writeFile('data/predictions.json', JSON.stringify(payload, null, 2), 'utf8');
+const payload = {
+  generatedAt: new Date().toISOString(),
+  sources: {
+    nflNextGame: 'The Odds API (h2h)',
+    nflFutures: 'ESPN futures (auto-discovered; de-vigged)',
+    nflCurrentOU: 'Covers.com win totals (scraped HTML)'
+  },
+  nflNextGame,
+  nflFutures,
+  nflCurrentOU
+};
+await fs.writeFile('data/predictions.json', JSON.stringify(payload, null, 2), 'utf8');
   console.log(
     'Wrote data/predictions.json.',
     'teamsWithFutures=', Object.keys(nflFutures).length,
