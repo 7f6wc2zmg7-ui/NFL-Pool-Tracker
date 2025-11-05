@@ -156,56 +156,128 @@ async function fetchESPNFuturesAuto() {
   return futures;
 }
 
-/* ---------- ESPN FPI projection table scrape ---------- */
+// --- ESPN FPI projections (uses ?xhr=1 JSON, with HTML inside) ---
 async function fetchESPNFPIProjectionTable() {
-  const url = 'https://www.espn.com/nfl/fpi/_/view/projections';
-  let html = '';
+  const BASE = 'https://www.espn.com/nfl/fpi/_/view/projections';
+  // Helper to turn "Buffalo Bills" -> "BILLS"
+  const nickFromFull = (name) => {
+    if (!name) return null;
+    const parts = String(name).trim().split(/\s+/);
+    return (parts[parts.length - 1] || '').toUpperCase();
+  };
+  const toNum = (s) => {
+    const n = Number(String(s).replace(/[,%]/g,'').trim());
+    return Number.isFinite(n) ? n : null;
+  };
+
+  // 1) Try the XHR JSON endpoint (preferred)
   try {
-    const res = await fetch(url, { headers: { 'User-Agent': 'Mozilla/5.0' } });
+    const res = await fetch(`${BASE}?xhr=1`, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0',
+        'Accept': 'application/json,text/html,*/*'
+      }
+    });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    html = await res.text();
+    const j = await res.json();
+
+    // The JSON typically holds HTML in "content" fields; flatten them
+    const htmlChunks = [];
+    (function collect(node){
+      if (!node || typeof node !== 'object') return;
+      if (typeof node.content === 'string') htmlChunks.push(node.content);
+      for (const v of Array.isArray(node) ? node : Object.values(node)) collect(v);
+    })(j);
+
+    const html = htmlChunks.join('\n');
+    // Save for debugging
+    try { await fs.writeFile('data/debug-fpi-xhr.json', JSON.stringify(j, null, 2), 'utf8'); } catch {}
+    try { await fs.writeFile('data/debug-fpi-xhr.html', html, 'utf8'); } catch {}
+
+    // Parse rows out of the HTML we just collected
+    const out = {};
+    const rowRx = /<tr[^>]*>([\s\S]*?)<\/tr>/gi;
+    let m;
+    while ((m = rowRx.exec(html)) !== null) {
+      const row = m[1];
+      const cells = Array.from(row.matchAll(/<td[^>]*>([\s\S]*?)<\/td>/gi))
+        .map(x => x[1].replace(/<[^>]+>/g, '').replace(/\s+/g,' ').trim());
+      // Expecting at least 9 tds: Team | W-L-T | PROJ W-L | PLAYOFF% | WIN DIV% | MAKE DIV% | MAKE CONF% | MAKE SB% | WIN SB%
+      if (cells.length < 9) continue;
+
+      const teamFull = cells[0];
+      const projWL   = cells[2];   // e.g., "12.0-5.0"
+      const playoff  = toNum(cells[3]);
+      const winDiv   = toNum(cells[4]);
+      const makeConf = toNum(cells[6]);
+      const makeSB   = toNum(cells[7]);
+      const winSB    = toNum(cells[8]);
+
+      if (!teamFull || !projWL) continue;
+      const projWins = toNum(projWL.split('-')[0]);
+      const nick = nickFromFull(teamFull);
+      if (!nick || projWins == null) continue;
+
+      out[nick] = {
+        projected_wins: projWins,
+        playoff: (playoff ?? 0) / 100,
+        div:     (winDiv  ?? 0) / 100,
+        conf:    (makeConf?? 0) / 100,
+        sb:      (makeSB  ?? 0) / 100,
+        win_sb:  (winSB   ?? 0) / 100
+      };
+    }
+
+    console.log('FPI (xhr) parsed teams =', Object.keys(out).length);
+    if (Object.keys(out).length) return out;
   } catch (e) {
-    console.error('FPI fetch failed:', e.message || e);
+    console.error('FPI xhr fetch failed:', e?.message || e);
+  }
+
+  // 2) Fallback to plain HTML (in case xhr=1 is blocked)
+  try {
+    const res = await fetch(BASE, { headers: { 'User-Agent': 'Mozilla/5.0' } });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const html = await res.text();
+    try { await fs.writeFile('data/debug-fpi-page.html', html, 'utf8'); } catch {}
+
+    const out = {};
+    const rowRx = /<tr[^>]*>([\s\S]*?)<\/tr>/gi;
+    let m;
+    while ((m = rowRx.exec(html)) !== null) {
+      const row = m[1];
+      const cells = Array.from(row.matchAll(/<td[^>]*>([\s\S]*?)<\/td>/gi))
+        .map(x => x[1].replace(/<[^>]+>/g, '').replace(/\s+/g,' ').trim());
+      if (cells.length < 9) continue;
+
+      const teamFull = cells[0];
+      const projWL   = cells[2];
+      const playoff  = toNum(cells[3]);
+      const winDiv   = toNum(cells[4]);
+      const makeConf = toNum(cells[6]);
+      const makeSB   = toNum(cells[7]);
+      const winSB    = toNum(cells[8]);
+
+      if (!teamFull || !projWL) continue;
+      const projWins = toNum(projWL.split('-')[0]);
+      const nick = nickFromFull(teamFull);
+      if (!nick || projWins == null) continue;
+
+      out[nick] = {
+        projected_wins: projWins,
+        playoff: (playoff ?? 0) / 100,
+        div:     (winDiv  ?? 0) / 100,
+        conf:    (makeConf?? 0) / 100,
+        sb:      (makeSB  ?? 0) / 100,
+        win_sb:  (winSB   ?? 0) / 100
+      };
+    }
+    console.log('FPI (html) parsed teams =', Object.keys(out).length);
+    return out;
+  } catch (e) {
+    console.error('FPI plain fetch failed:', e?.message || e);
     return {};
   }
-
-  const rows = [];
-  const rowRx = /<tr[^>]*>([\s\S]*?)<\/tr>/g;
-  let m;
-  while ((m = rowRx.exec(html)) !== null) {
-    const row = m[1];
-    const cells = Array.from(row.matchAll(/<td[^>]*>([\s\S]*?)<\/td>/g)).map(
-      x => x[1].replace(/<[^>]+>/g, '').trim()
-    );
-    if (cells.length < 9) continue;
-    const [team, wl, proj, playoffs, divWin, makeDiv, makeConf, makeSB, winSB] = cells;
-    if (!team || !proj) continue;
-    const projWins = parseFloat(proj.split('-')[0]);
-    rows.push({
-      team: team.trim(),
-      projectedWins: projWins,
-      playoffPct: parseFloat(playoffs) || 0,
-      winDivPct: parseFloat(divWin) || 0,
-      makeConfPct: parseFloat(makeConf) || 0,
-      makeSBPct: parseFloat(makeSB) || 0,
-      winSBPct: parseFloat(winSB) || 0
-    });
-  }
-
-  console.log(`FPI projections parsed: ${rows.length} teams`);
-  const out = {};
-  for (const r of rows) {
-    const key = r.team.toUpperCase();
-    out[key] = {
-      projected_wins: r.projectedWins,
-      playoff: r.playoffPct / 100,
-      div: r.winDivPct / 100,
-      conf: r.makeConfPct / 100,
-      sb: r.makeSBPct / 100,
-      win_sb: r.winSBPct / 100
-    };
-  }
-  return out;
 }
 
 /* ---------- main ---------- */
