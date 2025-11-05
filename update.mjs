@@ -171,75 +171,147 @@ async function fetchESPNFuturesAuto(){
   return futures;
 }
 
-// ---------- ESPN FPI rich (scrape) ----------
+// --- ESPN FPI (robust JSON extractor + fallback regex) -----------------
+function nicknameFromDisplayName(name){
+  if (!name) return null;
+  const parts = String(name).trim().split(/\s+/);
+  return (parts[parts.length - 1] || '').toUpperCase(); // "Buffalo Bills" -> "BILLS"
+}
 function num(x){ const n = Number(x); return Number.isFinite(n) ? n : null; }
+
+// Extract a JS object literal from a page given a marker (e.g., "__espnfitt__")
+function extractJSONObjectByMarker(html, marker){
+  const idx = html.indexOf(marker);
+  if (idx < 0) return null;
+  // find first '{' after marker
+  let start = html.indexOf('{', idx);
+  if (start < 0) return null;
+  // brace-match until we close
+  let depth = 0;
+  for (let i = start; i < html.length; i++){
+    const ch = html[i];
+    if (ch === '{') depth++;
+    else if (ch === '}'){
+      depth--;
+      if (depth === 0){
+        const text = html.slice(start, i+1);
+        try {
+          return JSON.parse(text);
+        } catch (e) {
+          // sometimes there’s trailing comments or invalid tokens; try a gentle cleanup
+          // remove trailing ",\n}" patterns, stray undefined/NaN tokens if present
+          const cleaned = text
+            .replace(/\bundefined\b/g, 'null')
+            .replace(/\bNaN\b/g, 'null')
+            .replace(/,(\s*[}\]])/g, '$1');
+          try { return JSON.parse(cleaned); } catch { return null; }
+        }
+      }
+    }
+  }
+  return null;
+}
+
+// Depth-first search for team objects that contain both displayName and projectedWins
+function collectTeamsWithProjections(root){
+  const out = {};
+  function walk(node){
+    if (!node || typeof node !== 'object') return;
+    // Heuristic: team-like blocks
+    if (
+      typeof node.displayName === 'string' &&
+      (node.abbreviation || node.teamAbbr || node.abbr) &&
+      (node.projectedWins != null || node.projWins != null)
+    ){
+      const displayName = node.displayName;
+      const abbr = String(node.abbreviation || node.teamAbbr || node.abbr || '').toUpperCase();
+      const projectedWins = num(node.projectedWins ?? node.projWins);
+      const nick = nicknameFromDisplayName(displayName);
+      if (nick && Number.isFinite(projectedWins)) {
+        // Optional extras if present
+        const projectedLosses = num(node.projectedLosses ?? node.projLosses);
+        const fpi = num(node.fpi ?? node.rating);
+        const fpiRank = num(node.fpiRank ?? node.rank);
+        const offFpi = num(node.offenseFpi ?? node.offFpi);
+        const defFpi = num(node.defenseFpi ?? node.defFpi);
+        const stFpi  = num(node.specialTeamsFpi ?? node.stFpi);
+        const makePO = num(node.makePlayoffs ?? node.playoffPct);
+        const winDiv = num(node.winDivision ?? node.divisionPct);
+        const winConf= num(node.winConference ?? node.conferencePct);
+        const winSB  = num(node.winSuperBowl ?? node.superBowlPct);
+        const sosRem = num(node.sosRemaining ?? node.remainingSos);
+
+        out[nick] = {
+          name: displayName, abbr, nick,
+          projected_wins: projectedWins,
+          projected_losses: projectedLosses,
+          fpi, fpi_rank: fpiRank,
+          off_fpi: offFpi, def_fpi: defFpi, st_fpi: stFpi,
+          make_playoffs: makePO, win_division: winDiv, win_conference: winConf, win_super_bowl: winSB,
+          sos_remaining: sosRem
+        };
+      }
+    }
+    for (const v of Array.isArray(node) ? node : Object.values(node)) walk(v);
+  }
+  walk(root);
+  return out;
+}
 
 async function fetchESPNFPIRich(){
   const url = 'https://www.espn.com/nfl/fpi';
   let html = '';
-  try{
-    const res = await fetch(url, { headers: UA_HEADERS });
+  try {
+    const res = await fetch(url, {
+      headers: {
+        'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Safari/537.36',
+        'Accept':'text/html,application/xhtml+xml',
+        'Accept-Language':'en-US,en;q=0.9',
+        'Cache-Control':'no-cache'
+      }
+    });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     html = await res.text();
-  }catch(e){
+  } catch (e) {
     console.error('FPI fetch failed:', e?.message || e);
     return {};
   }
 
-  // Primary pattern: team block with projectedWins nearby
-  const teamBlockRx = /"displayName"\s*:\s*"([^"]+)"[\s\S]{0,800}?"abbreviation"\s*:\s*"([A-Z0-9]{2,4})"[\s\S]{0,1600}?"projectedWins"\s*:\s*([0-9.]+)/g;
+  // Write debug HTML so we can inspect if needed
+  try { await fs.writeFile('data/debug-fpi.html', html, 'utf8'); } catch {}
 
-  const out = {};
-  let m, hits = 0;
-  while ((m = teamBlockRx.exec(html)) !== null){
-    const displayName = m[1];
-    const abbr = m[2];
-    const projWins = num(m[3]);
-    const nick = nicknameFromDisplayName(displayName);
-    if (!nick || !Number.isFinite(projWins)) continue;
-
-    // harvest a local window around the current match for more fields
-    const start = Math.max(0, teamBlockRx.lastIndex - 2200);
-    const end   = Math.min(html.length, teamBlockRx.lastIndex + 2200);
-    const blob  = html.slice(start, end);
-
-    const get = (label) => {
-      const rx = new RegExp(`"${label}"\\s*:\\s*([0-9.]+)`);
-      const mm = rx.exec(blob);
-      return mm ? num(mm[1]) : null;
-    };
-
-    const projLoss = get('projectedLosses');
-    const fpi      = get('fpi');
-    const fpiRank  = get('fpiRank');
-    const offFPI   = get('offenseFpi');
-    const defFPI   = get('defenseFpi');
-    const stFPI    = get('specialTeamsFpi');
-    const makePO   = get('makePlayoffs');   // often 0–100
-    const winDiv   = get('winDivision');    // 0–100
-    const winConf  = get('winConference');  // 0–100
-    const winSB    = get('winSuperBowl');   // 0–100
-    const sosRem   = get('sosRemaining');
-
-    out[nick] = {
-      name: displayName,
-      abbr,
-      nick,
-      projected_wins: projWins,
-      projected_losses: projLoss,
-      fpi, fpi_rank: fpiRank,
-      off_fpi: offFPI, def_fpi: defFPI, st_fpi: stFPI,
-      make_playoffs: makePO, win_division: winDiv, win_conference: winConf, win_super_bowl: winSB,
-      sos_remaining: sosRem
-    };
-    hits++;
+  // 1) Try to extract a big JSON blob associated with known markers
+  const markers = ['__espnfitt__', 'root.App.main', '__NEXT_DATA__'];
+  let parsed = null;
+  for (const m of markers){
+    parsed = extractJSONObjectByMarker(html, m);
+    if (parsed) break;
   }
 
-  // Fallback diagnostic: how many "projectedWins" tokens exist at all?
-  const pwAll = [...html.matchAll(/"projectedWins"\s*:\s*[0-9.]+/g)].length;
-  console.log(`FPI rich: teams=${Object.keys(out).length}, blocks=${hits}, projectedWinsTokens=${pwAll}`);
+  let teams = {};
+  if (parsed) {
+    teams = collectTeamsWithProjections(parsed);
+  }
 
-  return out;
+  // 2) Fallback: regex on raw HTML if JSON extraction failed or returned too few
+  if (Object.keys(teams).length < 20) {
+    const teamBlockRx = /"displayName"\s*:\s*"([^"]+)"[\s\S]{0,2000}?"abbreviation"\s*:\s*"([A-Z0-9]{2,4})"[\s\S]{0,3000}?"projectedWins"\s*:\s*([0-9.]+)/g;
+    let m, hits = 0;
+    while ((m = teamBlockRx.exec(html)) !== null){
+      const displayName = m[1];
+      const abbr = m[2];
+      const projWins = num(m[3]);
+      const nick = nicknameFromDisplayName(displayName);
+      if (nick && Number.isFinite(projWins)) {
+        teams[nick] = { name: displayName, abbr, nick, projected_wins: projWins };
+        hits++;
+      }
+    }
+    console.log('FPI regex fallback hits:', hits);
+  }
+
+  console.log('FPI rich: teamsParsed=', Object.keys(teams).length);
+  return teams; // keyed by nick (e.g., BILLS) with projected_wins & extras if found
 }
 
 // ---------- ESPN current O/U (season wins) ----------
