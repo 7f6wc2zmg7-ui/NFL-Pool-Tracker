@@ -340,6 +340,7 @@ async function fetchCoversWinTotals() {
 /* ---------- main ---------- */
 async function main() {
   let nflNextGame = [];
+  let nflFPI = {}; // FPI disabled for now
   try { nflNextGame = await fetchNFLOddsH2H(); }
   catch (e) { console.error('H2H fetch failed:', e?.message || e); }
 
