@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2025-11-05T21:32:30.507Z",
+  "generatedAt": "2025-11-05T22:42:04.807Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -54,7 +54,7 @@
     {
       "sport": "NFL",
       "team": "NEW ORLEANS SAINTS",
-      "impliedNextGameWinProb": 0.30920711694593195
+      "impliedNextGameWinProb": 0.3194444444444444
     },
     {
       "sport": "NFL",
@@ -64,7 +64,7 @@
     {
       "sport": "NFL",
       "team": "NEW YORK GIANTS",
-      "impliedNextGameWinProb": 0.27424749163879597
+      "impliedNextGameWinProb": 0.26645768025078376
     },
     {
       "sport": "NFL",
@@ -139,7 +139,7 @@
     {
       "sport": "NFL",
       "team": "GREEN BAY PACKERS",
-      "impliedNextGameWinProb": 0.725752508361204
+      "impliedNextGameWinProb": 0.7335423197492164
     },
     {
       "sport": "NFL",
@@ -181,7 +181,7 @@
     "DETROIT LIONS": {
       "sb": 0.08747830540192691,
       "reach_sb": 0.16799362529317205,
-      "div": 0.39553575197014185
+      "div": 0.4214665421293573
     },
     "PHILADELPHIA EAGLES": {
       "sb": 0.08747830540192691,
@@ -196,7 +196,7 @@
     "GREEN BAY PACKERS": {
       "sb": 0.07873047486173422,
       "reach_sb": 0.15999392885064,
-      "div": 0.45341903274626016
+      "div": 0.4312680896207377
     },
     "INDIANAPOLIS COLTS": {
       "sb": 0.06560872905144519,
@@ -246,7 +246,7 @@
     "CHICAGO BEARS": {
       "sb": 0.01543734801210475,
       "reach_sb": 0.023332447957385004,
-      "div": 0.09295090171298334
+      "div": 0.09272263926845861
     },
     "PITTSBURGH STEELERS": {
       "sb": 0.01290663522323512,
@@ -256,7 +256,7 @@
     "MINNESOTA VIKINGS": {
       "sb": 0.010359273008122923,
       "reach_sb": 0.013769969286325578,
-      "div": 0.058094313570614585
+      "div": 0.05454272898144624
     },
     "HOUSTON TEXANS": {
       "sb": 0.010359273008122923,
