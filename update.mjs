@@ -1,18 +1,18 @@
 // update.mjs — Node 20
-// - Odds API H2H implied win prob
-// - ESPN futures (auto-discover)
-// - ESPN FPI (rich scrape: projected wins + probs + ratings)
-// - ESPN current O/U (your existing hook, optional; kept as stub)
-// - Caches last-good values if a fetch returns 0 teams
+// - Odds API H2H implied win prob (optional)
+// - ESPN futures (auto-discover; de-vigged)
+// - ESPN FPI (rich scrape: projected wins + probs + ratings) with debug dump
+// - ESPN current O/U stub (kept empty unless you wire it)
+// - Cache: preserves last-good values if a section returns empty
 
 import fs from 'node:fs/promises';
 
 const ODDS_API_KEY = process.env.ODDS_API_KEY || '';
 const YEAR = new Date().getFullYear();
 
+// ---------- shared helpers (declare ONCE) ----------
 const U = s => (s ?? '').toUpperCase().trim();
 
-// ---------- helpers ----------
 function mlToProb(mlLike){
   if (mlLike == null) return null;
   const raw = String(mlLike).trim();
@@ -22,6 +22,7 @@ function mlToProb(mlLike){
   if (sign < 0) return (-num) / ((-num) + 100);
   return 100 / (num + 100);
 }
+
 function devigProbMap(raw){ // {TEAM: raw_p}
   const vals = Object.values(raw).filter(v => v > 0);
   const s = vals.reduce((a,b)=>a+b, 0);
@@ -30,6 +31,7 @@ function devigProbMap(raw){ // {TEAM: raw_p}
   for (const [k,v] of Object.entries(raw)) if (v > 0) out[k] = v / s;
   return out;
 }
+
 async function safeJSON(url, init){
   const r = await fetch(url, init);
   if (!r.ok) throw new Error(`${r.status} ${url}`);
@@ -41,11 +43,14 @@ async function tryJSON(urls, init){
   }
   return null;
 }
+
 function nicknameFromDisplayName(name){
   if (!name) return null;
   const parts = String(name).trim().split(/\s+/);
   return (parts[parts.length - 1] || '').toUpperCase(); // "Buffalo Bills" -> "BILLS"
 }
+function num(x){ const n = Number(x); return Number.isFinite(n) ? n : null; }
+
 const UA_HEADERS = {
   'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Safari/537.36',
   'Accept':'text/html,application/xhtml+xml',
@@ -171,22 +176,14 @@ async function fetchESPNFuturesAuto(){
   return futures;
 }
 
-// --- ESPN FPI (robust JSON extractor + fallback regex) -----------------
-function nicknameFromDisplayName(name){
-  if (!name) return null;
-  const parts = String(name).trim().split(/\s+/);
-  return (parts[parts.length - 1] || '').toUpperCase(); // "Buffalo Bills" -> "BILLS"
-}
-function num(x){ const n = Number(x); return Number.isFinite(n) ? n : null; }
-
-// Extract a JS object literal from a page given a marker (e.g., "__espnfitt__")
+// ---------- ESPN FPI (robust JSON extractor + fallback regex) ----------
 function extractJSONObjectByMarker(html, marker){
   const idx = html.indexOf(marker);
   if (idx < 0) return null;
   // find first '{' after marker
   let start = html.indexOf('{', idx);
   if (start < 0) return null;
-  // brace-match until we close
+  // brace-match until close
   let depth = 0;
   for (let i = start; i < html.length; i++){
     const ch = html[i];
@@ -198,8 +195,6 @@ function extractJSONObjectByMarker(html, marker){
         try {
           return JSON.parse(text);
         } catch (e) {
-          // sometimes there’s trailing comments or invalid tokens; try a gentle cleanup
-          // remove trailing ",\n}" patterns, stray undefined/NaN tokens if present
           const cleaned = text
             .replace(/\bundefined\b/g, 'null')
             .replace(/\bNaN\b/g, 'null')
@@ -212,12 +207,10 @@ function extractJSONObjectByMarker(html, marker){
   return null;
 }
 
-// Depth-first search for team objects that contain both displayName and projectedWins
 function collectTeamsWithProjections(root){
   const out = {};
   function walk(node){
     if (!node || typeof node !== 'object') return;
-    // Heuristic: team-like blocks
     if (
       typeof node.displayName === 'string' &&
       (node.abbreviation || node.teamAbbr || node.abbr) &&
@@ -228,7 +221,6 @@ function collectTeamsWithProjections(root){
       const projectedWins = num(node.projectedWins ?? node.projWins);
       const nick = nicknameFromDisplayName(displayName);
       if (nick && Number.isFinite(projectedWins)) {
-        // Optional extras if present
         const projectedLosses = num(node.projectedLosses ?? node.projLosses);
         const fpi = num(node.fpi ?? node.rating);
         const fpiRank = num(node.fpiRank ?? node.rank);
@@ -252,7 +244,7 @@ function collectTeamsWithProjections(root){
         };
       }
     }
-    for (const v of Array.isArray(node) ? node : Object.values(node)) walk(v);
+    for (const v of (Array.isArray(node) ? node : Object.values(node))) walk(v);
   }
   walk(root);
   return out;
@@ -261,26 +253,19 @@ function collectTeamsWithProjections(root){
 async function fetchESPNFPIRich(){
   const url = 'https://www.espn.com/nfl/fpi';
   let html = '';
-  try {
-    const res = await fetch(url, {
-      headers: {
-        'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Safari/537.36',
-        'Accept':'text/html,application/xhtml+xml',
-        'Accept-Language':'en-US,en;q=0.9',
-        'Cache-Control':'no-cache'
-      }
-    });
+  try{
+    const res = await fetch(url, { headers: UA_HEADERS });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     html = await res.text();
-  } catch (e) {
+  }catch(e){
     console.error('FPI fetch failed:', e?.message || e);
     return {};
   }
 
-  // Write debug HTML so we can inspect if needed
+  // Save HTML for inspection if needed
   try { await fs.writeFile('data/debug-fpi.html', html, 'utf8'); } catch {}
 
-  // 1) Try to extract a big JSON blob associated with known markers
+  // Try common markers first
   const markers = ['__espnfitt__', 'root.App.main', '__NEXT_DATA__'];
   let parsed = null;
   for (const m of markers){
@@ -289,11 +274,9 @@ async function fetchESPNFPIRich(){
   }
 
   let teams = {};
-  if (parsed) {
-    teams = collectTeamsWithProjections(parsed);
-  }
+  if (parsed) teams = collectTeamsWithProjections(parsed);
 
-  // 2) Fallback: regex on raw HTML if JSON extraction failed or returned too few
+  // Fallback regex if JSON route found too few
   if (Object.keys(teams).length < 20) {
     const teamBlockRx = /"displayName"\s*:\s*"([^"]+)"[\s\S]{0,2000}?"abbreviation"\s*:\s*"([A-Z0-9]{2,4})"[\s\S]{0,3000}?"projectedWins"\s*:\s*([0-9.]+)/g;
     let m, hits = 0;
@@ -311,13 +294,12 @@ async function fetchESPNFPIRich(){
   }
 
   console.log('FPI rich: teamsParsed=', Object.keys(teams).length);
-  return teams; // keyed by nick (e.g., BILLS) with projected_wins & extras if found
+  return teams; // { BILLS:{...}, 49ERS:{...} }
 }
 
 // ---------- ESPN current O/U (season wins) ----------
 async function fetchESPNCurrentOU() {
-  // If you’ve already got a working implementation, keep it.
-  // Leaving as empty to avoid overwriting with {} unless we actually parse some.
+  // Leave empty unless you’ve implemented this scraper.
   return {};
 }
 
@@ -341,7 +323,7 @@ async function main(){
   try { nflCurrentOU = await fetchESPNCurrentOU(); }
   catch(e){ console.error('Current OU fetch failed:', e?.message || e); }
 
-  // Cache-preserving: if a section came back empty, keep previous non-empty
+  // Cache-preserving: if empty, keep previous non-empty
   if ((!nflFPI || !Object.keys(nflFPI).length) && prev?.nflFPI && Object.keys(prev.nflFPI).length) {
     console.log('Keeping cached nflFPI (empty this run)');
     nflFPI = prev.nflFPI;
