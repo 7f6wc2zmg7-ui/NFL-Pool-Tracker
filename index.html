@@ -1,234 +1,487 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>NFL Pool Tracker ⭐</title>
 <style>
-:root{--bg:#0b0f14;--card:#111820;--muted:#7a8796;--text:#f3f6fa;--border:#1c2632;--pill:#1a2430}
-*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
-.wrap{max-width:1100px;margin:0 auto;padding:16px} h1{margin:0 0 8px;font-size:22px}
-h2{margin:20px 0 8px;font-size:18px}.pill{display:inline-block;padding:2px 8px;border:1px solid var(--border);border-radius:999px;background:var(--pill);font-size:12px;margin-left:8px;color:var(--muted)}
-.meta{color:var(--muted);margin:0 0 12px;font-size:13px}.card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px;margin:10px 0}
-.table-wrap{overflow:auto;border:1px solid var(--border);border-radius:8px} table{border-collapse:collapse;width:100%;min-width:620px}
-th,td{padding:10px;border-bottom:1px solid var(--border);text-align:left;font-size:13px} thead th{position:sticky;top:0;background:var(--card);z-index:1}
-th.small,td.small{font-size:12px;color:var(--muted)} .right{text-align:right}.badge{display:inline-block;padding:2px 6px;border:1px solid var(--border);border-radius:6px;font-size:12px;margin-left:6px;color:var(--muted)}
-.kbd{font-family:ui-monospace,Menlo,Consolas,monospace;background:rgba(255,255,255,.06);padding:1px 6px;border-radius:6px;border:1px solid var(--border)}
-details{border:1px solid var(--border);border-radius:10px;margin:8px 0;background:var(--card)} summary{cursor:pointer;list-style:none;padding:12px 14px;font-weight:600}
-summary::-webkit-details-marker{display:none}.section-pad{padding:0 12px 12px}.grid-2{display:grid;gap:8px}@media(min-width:720px){.grid-2{grid-template-columns:1fr 1fr}}
-#debug{white-space:pre-wrap;font:12px/1.3 ui-monospace,Menlo,Consolas,monospace;color:#9cd1ff;background:#0a111a;border:1px solid #123;padding:8px;border-radius:8px}
-</style></head>
+  :root{
+    /* Notre Dame vibes */
+    --nd-navy:#0C2340; --nd-gold:#C99700;
+    /* App palette */
+    --bg:#0b0f14; --card:#111820; --muted:#8a98a8; --text:#f3f6fa; --accent:#5cc8ff;
+    --border:#1c2632; --pill:#101926;
+    --win:#19d3a3; --loss:#ff6b6b;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  a{color:inherit;text-decoration:none}
+
+  /* Header */
+  .hero{
+    background:linear-gradient(135deg, var(--nd-navy), #0b1830 60%);
+    border-bottom:1px solid #0f1c2e;
+  }
+  .hero .wrap{display:flex;gap:12px;align-items:center;max-width:1100px;margin:0 auto;padding:14px 16px}
+  .brand{
+    display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.2px;font-size:18px
+  }
+  .brand .logo{display:inline-grid;grid-auto-flow:column;gap:6px;align-items:center}
+  /* Tiny inline marks */
+  .logo .nd{
+    width:18px;height:18px;border:2px solid var(--nd-gold);border-radius:3px;display:grid;place-items:center;font-size:12px;
+    color:var(--nd-gold);font-weight:800;line-height:1
+  }
+  .logo .nfl{
+    width:18px;height:18px;border-radius:3px;background:#c00;position:relative;box-shadow:0 0 0 2px #fff inset;
+  }
+  .logo .nfl:before{
+    content:"";position:absolute;inset:3px 3px auto auto;width:6px;height:6px;border-radius:1px;background:#fff;
+    box-shadow:0 7px 0 #fff;
+  }
+
+  .wrap-main{max-width:1100px;margin:0 auto;padding:16px}
+
+  h1{margin:0 0 8px;font-size:22px}
+  h2{margin:20px 0 8px;font-size:18px}
+  .pill{display:inline-block;padding:2px 8px;border:1px solid var(--border);border-radius:999px;background:var(--pill);font-size:12px;margin-left:8px;color:var(--muted)}
+  .meta{color:var(--muted);margin:0 0 12px;font-size:13px}
+  .kbd{font-family:ui-monospace,Menlo,Consolas,monospace;background:rgba(255,255,255,.06);padding:1px 6px;border-radius:6px;border:1px solid var(--border)}
+  .badge{display:inline-block;padding:2px 6px;border:1px solid var(--border);border-radius:6px;font-size:12px;margin-left:6px;color:var(--muted)}
+
+  .card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px;margin:10px 0}
+  .controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .controls label{font-size:13px;color:var(--muted)}
+  .slider{accent-color:var(--nd-gold)}
+
+  .table-wrap{overflow:auto;border:1px solid var(--border);border-radius:8px}
+  table{border-collapse:collapse;width:100%;min-width:760px}
+  th,td{padding:10px;border-bottom:1px solid var(--border);text-align:left;font-size:13px;white-space:nowrap}
+  thead th{position:sticky;top:0;background:var(--card);z-index:1}
+  th.small,td.small{font-size:12px;color:var(--muted)}
+  .right{text-align:right}
+  .subtle{color:var(--muted)}
+  .subtotal{font-weight:600}
+  .owner{font-weight:700;letter-spacing:.2px}
+  .rank{width:44px;text-align:center;font-weight:800;color:var(--nd-gold)}
+  .sticky-first thead th:first-child,
+  .sticky-first tbody td:first-child{position:sticky;left:0;background:var(--card);z-index:2}
+  .zebra tbody tr:nth-child(odd){background:rgba(255,255,255,.02)}
+
+  details{border:1px solid var(--border);border-radius:10px;margin:8px 0;background:var(--card)}
+  summary{cursor:pointer;list-style:none;padding:12px 14px;font-weight:700;letter-spacing:.2px}
+  summary::-webkit-details-marker{display:none}
+  .section-pad{padding:0 12px 12px}
+  .grid-2{display:grid;gap:8px}
+  @media (min-width:720px){ .grid-2{grid-template-columns:1fr 1fr} }
+
+  /* Mobile tweaks */
+  @media (max-width:720px){
+    th,td{padding:8px 10px;font-size:12px}
+    table{min-width:680px}
+    .rank{width:38px}
+    .meta{font-size:12px}
+  }
+
+  /* Tiny legends */
+  .hint{font-size:12px;color:var(--muted)}
+  .chip{display:inline-block;border:1px solid var(--border);border-radius:999px;padding:2px 8px;margin-left:6px}
+</style>
+</head>
 <body>
-<div class="wrap">
-  <h1>🏈 NFL Pool Tracker — v3 <span id="updated" class="pill">Loading…</span></h1>
-  <p class="meta">Data: <span class="kbd">data/predictions.json</span>, <span class="kbd">data/odds.json</span>, <span class="kbd">data/rosters.json</span>, <span class="kbd">data/rules.json</span></p>
+
+<!-- Top bar -->
+<div class="hero">
+  <div class="wrap">
+    <div class="brand">
+      <span class="logo">
+        <span class="nd">ND</span>
+        <span class="nfl"></span>
+      </span>
+      NFL Pool Tracker
+    </div>
+    <div id="updated" class="pill">Loading…</div>
+  </div>
+</div>
+
+<div class="wrap-main">
+  <p class="meta">Data: <span class="kbd">data/predictions.json</span> • <span class="kbd">data/odds.json</span> • <span class="kbd">data/rosters.json</span> • <span class="kbd">data/rules.json</span></p>
 
   <div class="card">
-    <label for="tauRange">Playoff smoothing (TAU):</label>
-    <input type="range" id="tauRange" min="0.3" max="0.8" step="0.05" value="0.65" style="width:200px">
-    <span id="tauVal">0.65</span>
+    <div class="controls">
+      <label for="tauRange">Playoff smoothing (TAU):</label>
+      <input class="slider" type="range" id="tauRange" min="0.3" max="0.8" step="0.05" value="0.65" />
+      <span id="tauVal">0.65</span>
+      <span class="chip">Theme: ND Navy & Gold</span>
+    </div>
   </div>
 
-  <div class="card"><h2>Leaderboard</h2>
-    <div class="table-wrap"><table id="board">
-      <thead><tr><th>Owner</th><th class="right">Projected Points</th><th class="small">Breakdown</th></tr></thead><tbody></tbody></table></div>
+  <!-- Leaderboard -->
+  <div class="card">
+    <h2>Leaderboard</h2>
+    <div class="table-wrap sticky-first zebra">
+      <table id="board">
+        <thead>
+          <tr>
+            <th class="rank">#</th>
+            <th>Owner</th>
+            <th class="right">Projected Points</th>
+            <th class="small">Breakdown</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
   </div>
 
-  <div class="card"><h2>Regular Season</h2>
-    <p class="meta">Columns: Current O/U (ESPN→manual→preseason), Preseason O/U (line), Proj Wins (=Current O/U), WT Pts vs Preseason, Division EV, Total.</p>
+  <!-- Regular Season -->
+  <div class="card">
+    <h2>Regular Season
+      <span class="hint">• O/U source: Covers → Manual → Preseason</span>
+    </h2>
+    <p class="meta">Columns: <b>Current O/U</b>, <b>Pre O/U</b>, <b>WT Points</b>, <b>Division Preseason Odds</b> (ML & %), <b>Division Current Odds</b> (%), <b>Division EV</b>, <b>Total</b>.</p>
     <div id="regular-season" class="grid-2"></div>
   </div>
 
-  <div class="card"><h2>Playoff Detail</h2>
+  <!-- Playoffs -->
+  <div class="card">
+    <h2>Playoff Detail</h2>
     <p class="meta">% by round + EV by round aggregated to subtotal.</p>
     <div id="playoffs" class="grid-2"></div>
   </div>
 
+  <!-- League totals -->
   <div id="leagueTotals" class="card" style="display:none">
     <h2>League totals</h2>
     <p class="meta">Expected counts; TAU <span id="tauShow">—</span></p>
     <div class="table-wrap"><table><tbody id="leagueTotalsBody"></tbody></table></div>
   </div>
-
-  <div class="card"><h2>Debug</h2><div id="debug">Log…</div></div>
 </div>
 
 <script>
-const logEl = document.getElementById('debug');
-const log = (...a)=>{ try{ logEl.textContent += '\\n' + a.map(x=>typeof x==='string'?x:JSON.stringify(x)).join(' ');}catch{} };
-function clamp01(x){return Math.max(0,Math.min(1,Number(x)||0));}
-function pct(x){const v=clamp01(x)*100;return isFinite(v)?v.toFixed(1)+'%':'—';}
-function mlToProb(ml){if(ml==null)return 0;const n=Number(String(ml).replace(/\\s/g,''));if(!isFinite(n))return 0;return n<0?(-n)/((-n)+100):100/(n+100);}
-function mlToMultiplier(ml){const n=Number(ml);if(!isFinite(n))return 0;return n>=0?(n/100):(100/Math.abs(n));}
-function devig(o){const v=Object.values(o).map(x=>+x||0).filter(x=>x>0);const s=v.reduce((a,b)=>a+b,0);if(!s)return{};const out={};for(const[k,vv]of Object.entries(o)){const p=+vv||0;if(p>0)out[k]=p/s;}return out;}
-function winTotalPoints(w,c,r){const bo=+(r.win_total?.base_points_if_over??20),bu=+(r.win_total?.base_points_if_not_over??-20),d=+(r.win_total?.points_per_win_delta??1),eq=!!r.win_total?.equal_counts_as_not_over;if(!isFinite(c))return 0;if(w>c)return bo+(w-c)*d;if(w<c)return bu-(c-w)*d;return eq?bu:0;}
-async function safeJSON(p){try{const r=await fetch(p,{cache:'no-store'});if(!r.ok){log('fetch failed',p,r.status);return null}return await r.json();}catch(e){log('fetch error',p,String(e));return null}}
-let TAU=0.65; const tauSlider=document.getElementById('tauRange'), tauVal=document.getElementById('tauVal');
-if(tauSlider){tauSlider.oninput=e=>{TAU=+e.target.value;tauVal.textContent=TAU.toFixed(2);main();}}
+/* ---------- utils ---------- */
+function clamp01(x){ return Math.max(0, Math.min(1, Number(x)||0)); }
+function pct(x){ const v = clamp01(x)*100; return isFinite(v) ? v.toFixed(1)+'%' : '—'; }
+function mlToProb(ml){
+  if (ml == null) return 0;
+  const n = Number(String(ml).replace(/[()\\s]/g,''));
+  if (!isFinite(n)) return 0;
+  return n < 0 ? (-n)/((-n)+100) : 100/(n+100);
+}
+function mlToMultiplier(ml){
+  const n = Number(String(ml).replace(/[()\\s]/g,''));
+  if (!isFinite(n)) return 0;
+  return n>=0 ? (n/100) : (100/Math.abs(n));
+}
+function devig(obj){
+  const vals = Object.values(obj).map(v=>Number(v)||0).filter(v=>v>0);
+  const s = vals.reduce((a,b)=>a+b,0);
+  if(!s) return {};
+  const out={}; for(const [k,v] of Object.entries(obj)){ const p=Number(v)||0; if(p>0) out[k]=p/s; }
+  return out;
+}
+function winTotalPoints(winsProj, ou, rules){
+  const baseOver = Number(rules.win_total?.base_points_if_over ?? 20);
+  const baseUnder = Number(rules.win_total?.base_points_if_not_over ?? -20);
+  const deltaPts  = Number(rules.win_total?.points_per_win_delta ?? 1);
+  const equalIsNotOver = !!rules.win_total?.equal_counts_as_not_over;
+  if (!isFinite(ou)) return 0;
+  if (winsProj > ou) return baseOver + (winsProj - ou) * deltaPts;
+  if (winsProj < ou) return baseUnder - (ou - winsProj) * deltaPts;
+  return equalIsNotOver ? baseUnder : 0;
+}
+async function safeJSON(path){
+  try{ const r=await fetch(path,{cache:'no-store'}); if(!r.ok) return null; return await r.json(); }
+  catch{ return null; }
+}
 
-/* ------------ MAIN ------------- */
+/* ---------- TAU control ---------- */
+let TAU = 0.65;
+const tauSlider = document.getElementById('tauRange');
+const tauLabel  = document.getElementById('tauVal');
+if(tauSlider){ tauSlider.oninput = e => { TAU = parseFloat(e.target.value); tauLabel.textContent = TAU.toFixed(2); main(); }; }
+
+/* ---------- main ---------- */
 async function main(){
-  log('reload main()');
-  const [pred,rules,rosters,odds]=await Promise.all([
+  const [pred, rules, rosters, odds] = await Promise.all([
     safeJSON('data/predictions.json'),
     safeJSON('data/rules.json'),
     safeJSON('data/rosters.json'),
     safeJSON('data/odds.json')
   ]);
-  if(!pred||!rules||!rosters||!odds){document.getElementById('updated').textContent='Error loading data';return;}
-  document.getElementById('updated').textContent='Updated '+new Date(pred.generatedAt).toLocaleString();
-  log('sources', Object.keys(pred.sources||{}));
-
-  // --- maps
-  const futures=Object.create(null);
-  for(const [team,obj] of Object.entries(pred.nflFutures||{})){const T=team.toUpperCase();futures[T]=futures[T]||{};for(const[k,v] of Object.entries(obj||{}))futures[T][k]=Math.max(futures[T][k]||0,+v||0);}
-  const divGroups={};
-  for(const t of odds.teams||[]){const key=(t.conference+' '+t.division).toUpperCase();divGroups[key]=divGroups[key]||{};divGroups[key][t.team.toUpperCase()]=mlToProb(t.div_ml);}
-  for(const grp of Object.values(divGroups)){const n=devig(grp);for(const [team,p] of Object.entries(n)){futures[team]=futures[team]||{};if(futures[team].div==null)futures[team].div=p;}}
-  const ouByTeam=Object.create(null),divMlByTeam=Object.create(null);
-  for(const t of odds.teams||[]){const T=t.team.toUpperCase();ouByTeam[T]=+t.ou_wins;divMlByTeam[T]=t.div_ml;}
-
-  // --- Current O/U priority: Covers → manual → preseason
-const curOUByTeam = Object.create(null);
-
-// 1) Covers.com current O/U (from predictions.json)
-if (pred.nflCurrentOU && typeof pred.nflCurrentOU === 'object') {
-  for (const [team, val] of Object.entries(pred.nflCurrentOU)) {
-    const T = team.toUpperCase();
-    const n = Number(val);
-    if (Number.isFinite(n)) curOUByTeam[T] = n;
+  if (!pred || !rules || !rosters || !odds) {
+    document.getElementById('updated').textContent = 'Error loading data';
+    return;
   }
-}
+  document.getElementById('updated').textContent = 'Updated ' + new Date(pred.generatedAt).toLocaleString();
 
-// 2) Manual snapshot fallback (optional file you maintain)
-const manualOU = await safeJSON('data/current_ou.manual.json');
-if (manualOU && typeof manualOU === 'object') {
-  for (const [team, val] of Object.entries(manualOU)) {
-    const T = team.toUpperCase();
-    if (!(T in curOUByTeam)) {
-      const n = Number(val);
+  /* maps */
+  const byDivGroup = {};
+  for (const t of odds.teams||[]){
+    const g = (t.conference + ' ' + t.division).toUpperCase();
+    byDivGroup[g] = byDivGroup[g] || {};
+    byDivGroup[g][(t.team||'').toUpperCase()] = mlToProb(t.div_ml);
+  }
+  const preDivProb = {}; // preseason division probability (devigged by division)
+  for (const g of Object.values(byDivGroup)){
+    const d = devig(g);
+    for (const [team,p] of Object.entries(d)) preDivProb[team] = p;
+  }
+
+  const futures = Object.create(null); // current futures (ESPN) — includes .div prob when available
+  for (const [team, obj] of Object.entries(pred.nflFutures || {})) {
+    const T = (team||'').toUpperCase(); futures[T] = futures[T] || {};
+    for (const [k,v] of Object.entries(obj||{})) futures[T][k] = Math.max(futures[T][k]||0, Number(v)||0);
+  }
+
+  // preseason O/U + ML for display
+  const preOUByTeam = Object.create(null);
+  const preDivMLByTeam = Object.create(null);
+  for (const t of odds.teams||[]){
+    const T = (t.team||'').toUpperCase();
+    preOUByTeam[T] = Number(t.ou_wins);
+    preDivMLByTeam[T] = t.div_ml; // keep raw ML string for display
+  }
+
+  // Current O/U (Covers -> manual -> preseason)
+  const curOUByTeam = Object.create(null);
+  if (pred.nflCurrentOU && typeof pred.nflCurrentOU === 'object') {
+    for (const [team, val] of Object.entries(pred.nflCurrentOU)) {
+      const T = team.toUpperCase(); const n = Number(val);
       if (Number.isFinite(n)) curOUByTeam[T] = n;
     }
   }
-}
-
-// 3) Preseason O/U fallback (from odds.json)
-for (const t of odds.teams || []) {
-  const T = (t.team || '').toUpperCase();
-  if (!(T in curOUByTeam)) {
-    const n = Number(t.ou_wins);
-    if (Number.isFinite(n)) curOUByTeam[T] = n;
+  const manualOU = await safeJSON('data/current_ou.manual.json');
+  if (manualOU && typeof manualOU === 'object') {
+    for (const [team, val] of Object.entries(manualOU)) {
+      const T = team.toUpperCase(); if (!(T in curOUByTeam)) {
+        const n = Number(val); if (Number.isFinite(n)) curOUByTeam[T] = n;
+      }
+    }
   }
-}
+  for (const [T, n] of Object.entries(preOUByTeam)) if (!(T in curOUByTeam)) curOUByTeam[T] = n;
 
-console.log('curOU teams =', Object.keys(curOUByTeam).length);
-  
-  // --- points
-  const P_DIV = +(rules.division_winner?.base_points??20);
-  const P_WC_SPOT=+(rules.wild_card_spot_points??10);
-  const P_WC=+(rules.playoff_points?.wc_round??15);
-  const P_DIV_R=+(rules.playoff_points?.divisional_round??30);
-  const P_CONF=+(rules.playoff_points?.conference_champ??50);
-  const P_SBA=+(rules.playoff_points?.super_bowl_appearance??75);
-  const P_SB=+(rules.playoff_points?.super_bowl_win??100);
+  /* points config */
+  const P_DIV = Number(rules.division_winner?.base_points ?? 20);
+  const P_WC_SPOT = Number(rules.wild_card_spot_points ?? 10);
+  const P_WC = Number(rules.playoff_points?.wc_round ?? 15);
+  const P_DIV_R = Number(rules.playoff_points?.divisional_round ?? 30);
+  const P_CONF = Number(rules.playoff_points?.conference_champ ?? 50);
+  const P_SBA = Number(rules.playoff_points?.super_bowl_appearance ?? 75);
+  const P_SB = Number(rules.playoff_points?.super_bowl_win ?? 100);
 
-  const owners={}, board=[];
-  for(const player of rosters.players||[]){
-    let regSub=0, poSub=0, totOwner=0;
-    const regRows=[], poRows=[];
-    for(const pick of player.teams||[]){
-      const name=(pick.name||'').toUpperCase();
-      const preOU=+(ouByTeam[name]??NaN);
-      const curOU=Number.isFinite(curOUByTeam[name])?curOUByTeam[name]:preOU;
-      const projWins=curOU;
-      const wtPts=winTotalPoints(projWins, preOU, rules);
+  /* compute per team and owner */
+  const owners = {}; const leaderboard = [];
 
-      const f=futures[name]||{};
-      const mult=mlToMultiplier(divMlByTeam[name]);
-      const pDiv=clamp01(f.div??0);
-      const divEV = P_DIV * mult * pDiv;
+  for (const player of rosters.players||[]) {
+    let regSubtotal = 0, poSubtotal = 0, totalOwner = 0;
+    const regRows = [], poRows = [];
 
-      // playoff chain (structure-aware)
-      let pSB = clamp01(f.sb??0), pSBA = clamp01(f.reach_sb??0);
+    for (const pick of player.teams||[]) {
+      const name = (pick.name||'').toUpperCase();
+
+      const preOU = preOUByTeam[name];
+      const curOU = Number.isFinite(curOUByTeam[name]) ? curOUByTeam[name] : preOU;
+      const projWins = curOU; // chosen definition
+      const wtPts = winTotalPoints(projWins, preOU, rules);
+
+      // Division odds
+      const preDivML = preDivMLByTeam[name];
+      const preDivPct = preDivProb[name] ?? (isFinite(mlToProb(preDivML)) ? mlToProb(preDivML) : 0);
+      const curDivPct = clamp01((futures[name]?.div) ?? preDivPct);
+
+      // Division EV
+      const mult = mlToMultiplier(preDivML);
+      const divEV = P_DIV * mult * curDivPct;
+
+      // Playoff chain (structure-aware, smoothed by TAU)
+      const f = futures[name] || {};
+      let pSB = clamp01(f.sb ?? 0), pSBA = clamp01(f.reach_sb ?? 0);
+      const pDiv = curDivPct;
       let pPO = clamp01(f.make_playoffs ?? (pDiv + 2*pSBA));
-      if(pPO < pSBA) pPO = pSBA;
+      if (pPO < pSBA) pPO = pSBA;
       const pWCspot = clamp01(Math.max(pPO - pDiv, 0));
-      const BYE=0.25, ADV = clamp01(0.40 + 0.50*(TAU-0.50));
-      let pWCR = clamp01(pWCspot + (1-BYE)*pDiv);
-      let pDivR = clamp01(ADV*pWCR + BYE*pDiv);
-      let pConf = clamp01(ADV*pDivR);
-      pSBA = pSBA || clamp01(ADV*pConf);
+
+      const BYE = 0.25;
+      const ADV = clamp01(0.40 + 0.50*(TAU - 0.50));
+      let pWCR = clamp01(pWCspot + (1 - BYE) * pDiv);
+      let pDivR = clamp01(ADV * pWCR + BYE * pDiv);
+      let pConf = clamp01(ADV * pDivR);
+      pSBA = pSBA || clamp01(ADV * pConf);
       pSBA = Math.max(pSBA,pSB); pConf=Math.max(pConf,pSBA); pDivR=Math.max(pDivR,pConf); pWCR=Math.max(pWCR,pDivR); pWCR=Math.min(pWCR,pPO);
 
       const regPts = wtPts + divEV;
       const poPts  = P_WC_SPOT*pWCspot + P_WC*pWCR + P_DIV_R*pDivR + P_CONF*pConf + P_SBA*pSBA + P_SB*pSB;
-      const teamTot= regPts + poPts;
-      regSub+=regPts; poSub+=poPts; totOwner+=teamTot;
+      const teamTot = regPts + poPts;
 
-      regRows.push({team:name,curOU,preOU,projWins,wtPts,divEV,regPts});
-      poRows.push({team:name,pWCspot,pWCR,pDivR,pConf,pSBA,pSB,poPts});
+      regSubtotal += regPts; poSubtotal += poPts; totalOwner += teamTot;
+
+      regRows.push({
+        team:name,
+        curOU, preOU,
+        wtPts,
+        preDivML, preDivPct, curDivPct,
+        divEV,
+        regPts
+      });
+      poRows.push({
+        team:name,
+        pWCspot,pWCR,pDivR,pConf,pSBA,pSB, poPts
+      });
     }
-    regRows.sort((a,b)=>b.regPts-a.regPts);
-    poRows.sort((a,b)=>b.poPts-a.poPts);
-    owners[player.owner]={regRows,poRows,regSub,poSub,total:totOwner};
-    board.push([player.owner,totOwner,regSub,poSub]);
+
+    regRows.sort((a,b)=>b.regPts - a.regPts);
+    poRows.sort((a,b)=>b.poPts  - a.poPts);
+    owners[player.owner] = { regRows, poRows, regSubtotal, poSubtotal, total: totalOwner };
+    leaderboard.push([player.owner, totalOwner, regSubtotal, poSubtotal]);
   }
 
-  // Leaderboard
-  board.sort((a,b)=>b[1]-a[1]);
-  const lb=document.querySelector('#board tbody'); lb.innerHTML='';
-  for(const r of board){lb.insertAdjacentHTML('beforeend',
-    `<tr><td>${r[0]}</td><td class="right">${r[1].toFixed(1)}</td><td class="small">Reg ${r[2].toFixed(1)} • PO ${r[3].toFixed(1)}</td></tr>`);}
+  /* Leaderboard render with rank */
+  leaderboard.sort((a,b)=>b[1]-a[1]);
+  const lb = document.querySelector('#board tbody'); lb.innerHTML='';
+  leaderboard.forEach((r,i)=>{
+    const rank = i+1;
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td class="rank">${rank}</td>
+                    <td class="owner">${r[0]}</td>
+                    <td class="right">${r[1].toFixed(1)}</td>
+                    <td class="small">Reg ${r[2].toFixed(1)} • PO ${r[3].toFixed(1)}</td>`;
+    lb.appendChild(tr);
+  });
 
-  // Regular season
-  const regHost=document.getElementById('regular-season'); regHost.innerHTML='';
-  for(const [owner,d] of Object.entries(owners)){
-    const el=document.createElement('details'); el.innerHTML=
-    `<summary>${owner}<span class="badge">Subtotal: ${d.regSub.toFixed(1)}</span></summary>
-     <div class="section-pad"><div class="table-wrap"><table>
-     <thead><tr><th>Team</th><th class="right">Current O/U</th><th class="right">Pre O/U</th><th class="right">Proj Wins</th><th class="right">WT Pts</th><th class="right">Div EV</th><th class="right">Total</th></tr></thead>
-     <tbody></tbody>
-     <tfoot><tr><th colspan="6" class="right">Subtotal</th><th class="right">${d.regSub.toFixed(1)}</th></tr></tfoot>
-     </table></div></div>`;
-    const tb=el.querySelector('tbody');
-    for(const r of d.regRows){
-      tb.insertAdjacentHTML('beforeend',
-        `<tr><td>${r.team}</td><td class="right">${r.curOU}</td><td class="right">${r.preOU}</td><td class="right">${r.projWins.toFixed(1)}</td>
-         <td class="right">${r.wtPts.toFixed(1)}</td><td class="right">${r.divEV.toFixed(1)}</td><td class="right">${r.regPts.toFixed(1)}</td></tr>`);
+  /* Regular Season render */
+  const regHost = document.getElementById('regular-season'); regHost.innerHTML='';
+  for (const [owner, data] of Object.entries(owners)){
+    const box = document.createElement('details');
+    box.open = false;
+    box.innerHTML = `
+      <summary>${owner}
+        <span class="badge">Subtotal: ${data.regSubtotal.toFixed(1)}</span>
+      </summary>
+      <div class="section-pad">
+        <div class="table-wrap sticky-first zebra">
+          <table>
+            <thead>
+              <tr>
+                <th>Team</th>
+                <th class="right">Current O/U</th>
+                <th class="right">Pre O/U</th>
+                <th class="right">WT Points</th>
+                <th class="right small">Div Pre (ML)</th>
+                <th class="right small">Div Pre (%)</th>
+                <th class="right small">Div Now (%)</th>
+                <th class="right">Div EV</th>
+                <th class="right">Total</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+            <tfoot>
+              <tr><th colspan="8" class="right">Subtotal</th><th class="right subtotal">${data.regSubtotal.toFixed(1)}</th></tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>`;
+    const tbody = box.querySelector('tbody');
+    for (const r of data.regRows){
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${r.team}</td>
+        <td class="right">${isFinite(r.curOU)?r.curOU.toFixed(1):'—'}</td>
+        <td class="right">${isFinite(r.preOU)?r.preOU.toFixed(1):'—'}</td>
+        <td class="right">${r.wtPts.toFixed(1)}</td>
+        <td class="right small">${r.preDivML ?? '—'}</td>
+        <td class="right small">${pct(r.preDivPct ?? 0)}</td>
+        <td class="right small">${pct(r.curDivPct ?? 0)}</td>
+        <td class="right">${r.divEV.toFixed(1)}</td>
+        <td class="right">${r.regPts.toFixed(1)}</td>`;
+      tbody.appendChild(tr);
     }
-    regHost.appendChild(el);
+    regHost.appendChild(box);
   }
 
-  // Playoffs
-  const poHost=document.getElementById('playoffs'); poHost.innerHTML='';
-  for(const [owner,d] of Object.entries(owners)){
-    const el=document.createElement('details'); el.innerHTML=
-    `<summary>${owner}<span class="badge">Subtotal: ${d.poSub.toFixed(1)}</span></summary>
-     <div class="section-pad"><div class="table-wrap"><table>
-     <thead><tr><th>Team</th><th class="right small">% WC Spot</th><th class="right small">% WC Rnd</th><th class="right small">% Div Rnd</th><th class="right small">% Conf</th><th class="right small">% SB App</th><th class="right small">% SB Win</th><th class="right">PO Pts</th></tr></thead>
-     <tbody></tbody>
-     <tfoot><tr><th colspan="7" class="right">Subtotal</th><th class="right">${d.poSub.toFixed(1)}</th></tr></tfoot>
-     </table></div></div>`;
-    const tb=el.querySelector('tbody');
-    for(const r of d.poRows){
-      tb.insertAdjacentHTML('beforeend',
-        `<tr><td>${r.team}</td><td class="right small">${pct(r.pWCspot)}</td><td class="right small">${pct(r.pWCR)}</td><td class="right small">${pct(r.pDivR)}</td>
-         <td class="right small">${pct(r.pConf)}</td><td class="right small">${pct(r.pSBA)}</td><td class="right small">${pct(r.pSB)}</td><td class="right">${r.poPts.toFixed(1)}</td></tr>`);
+  /* Playoffs render */
+  const poHost = document.getElementById('playoffs'); poHost.innerHTML='';
+  for (const [owner, data] of Object.entries(owners)){
+    const box = document.createElement('details');
+    box.open = false;
+    box.innerHTML = `
+      <summary>${owner}
+        <span class="badge">Subtotal: ${data.poSubtotal.toFixed(1)}</span>
+      </summary>
+      <div class="section-pad">
+        <div class="table-wrap sticky-first zebra">
+          <table>
+            <thead>
+              <tr>
+                <th>Team</th>
+                <th class="right small">% WC Spot</th>
+                <th class="right small">% WC Rnd</th>
+                <th class="right small">% Div Rnd</th>
+                <th class="right small">% Conf</th>
+                <th class="right small">% SB App</th>
+                <th class="right small">% SB Win</th>
+                <th class="right">PO Pts</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+            <tfoot>
+              <tr><th colspan="7" class="right">Subtotal</th><th class="right subtotal">${data.poSubtotal.toFixed(1)}</th></tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>`;
+    const tbody = box.querySelector('tbody');
+    for (const r of data.poRows){
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${r.team}</td>
+        <td class="right small">${pct(r.pWCspot)}</td>
+        <td class="right small">${pct(r.pWCR)}</td>
+        <td class="right small">${pct(r.pDivR)}</td>
+        <td class="right small">${pct(r.pConf)}</td>
+        <td class="right small">${pct(r.pSBA)}</td>
+        <td class="right small">${pct(r.pSB)}</td>
+        <td class="right">${r.poPts.toFixed(1)}</td>`;
+      tbody.appendChild(tr);
     }
-    poHost.appendChild(el);
+    poHost.appendChild(box);
   }
 
-  // League totals
-  const totals={wcSpot:0,wcRound:0,divRound:0,conf:0,sbApp:0,sbWin:0};
-  for(const [,d] of Object.entries(owners)){
-    for(const r of d.poRows){ totals.wcSpot+=r.pWCspot; totals.wcRound+=r.pWCR; totals.divRound+=r.pDivR; totals.conf+=r.pConf; totals.sbApp+=r.pSBA; totals.sbWin+=r.pSB; }
+  /* League totals (sanity) */
+  const totals = { wcSpot:0,wcRound:0,divRound:0,conf:0,sbApp:0,sbWin:0 };
+  for (const [,d] of Object.entries(owners)){
+    for (const r of d.poRows){
+      totals.wcSpot  += r.pWCspot;
+      totals.wcRound += r.pWCR;
+      totals.divRound+= r.pDivR;
+      totals.conf    += r.pConf;
+      totals.sbApp   += r.pSBA;
+      totals.sbWin   += r.pSB;
+    }
   }
-  const tgt={wcSpot:14,wcRound:12,divRound:8,conf:4,sbApp:2,sbWin:1};
-  const b=document.getElementById('leagueTotalsBody'), card=document.getElementById('leagueTotals'); const tauOut=document.getElementById('tauShow');
-  if(b&&card){ card.style.display=''; tauOut.textContent=TAU.toFixed(2);
-    b.innerHTML=['WC Spot','WC Round','Div Round','Conf','SB App','SB Win']
-      .map((label,i)=>{const key=['wcSpot','wcRound','divRound','conf','sbApp','sbWin'][i]; const v=totals[key]; const goal=tgt[key];
-        return `<tr><td>${label}</td><td class="right">${v.toFixed(2)}</td><td class="right small">target ≈ ${goal}</td></tr>`;}).join('');
+  const tgt = { wcSpot:14, wcRound:12, divRound:8, conf:4, sbApp:2, sbWin:1 };
+  const body = document.getElementById('leagueTotalsBody');
+  const card = document.getElementById('leagueTotals');
+  const tauOut = document.getElementById('tauShow');
+  if (body && card){
+    card.style.display = '';
+    if (tauOut) tauOut.textContent = (typeof TAU==='number'?TAU:NaN).toFixed(2);
+    body.innerHTML = [
+      ['WC Spot', totals.wcSpot, tgt.wcSpot],
+      ['WC Round', totals.wcRound, tgt.wcRound],
+      ['Div Round', totals.divRound, tgt.divRound],
+      ['Conf', totals.conf, tgt.conf],
+      ['SB App', totals.sbApp, tgt.sbApp],
+      ['SB Win', totals.sbWin, tgt.sbWin]
+    ].map(([label,val,goal]) =>
+      `<tr><td>${label}</td><td class="right">${val.toFixed(2)}</td><td class="right small">target ≈ ${goal}</td></tr>`
+    ).join('');
   }
 }
-main().catch(e=>{document.getElementById('updated').textContent='Error';log('main crashed',String(e));});
+main().catch(e=>{
+  document.getElementById('updated').textContent = 'Error';
+  console.error(e);
+});
 </script>
-</body></html>
+</body>
+</html>
