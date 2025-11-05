@@ -1,9 +1,10 @@
 {
-  "generatedAt": "2025-11-05T11:35:57.408Z",
+  "generatedAt": "2025-11-05T13:33:00.573Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
-    "nflCurrentOU": "ESPN Season Wins (robust matcher; cached if missing)"
+    "nflCurrentOU": "ESPN Season Wins (robust matcher; cached if missing)",
+    "nflFPI": "ESPN FPI (rich scrape: proj wins, probs, ratings)"
   },
   "nflNextGame": [
     {
@@ -36,7 +37,7 @@
     },
     {
       "team": "BUFFALO BILLS",
-      "impliedNextGameWinProb": 0.6957699520733487
+      "impliedNextGameWinProb": 0.690792883054068
     },
     {
       "team": "CAROLINA PANTHERS",
@@ -64,7 +65,7 @@
     },
     {
       "team": "HOUSTON TEXANS",
-      "impliedNextGameWinProb": 0.7768331562167907
+      "impliedNextGameWinProb": 0.771505376344086
     },
     {
       "team": "JACKSONVILLE JAGUARS",
@@ -72,7 +73,7 @@
     },
     {
       "team": "TAMPA BAY BUCCANEERS",
-      "impliedNextGameWinProb": 0.30423004792665137
+      "impliedNextGameWinProb": 0.30920711694593195
     },
     {
       "team": "NEW ENGLAND PATRIOTS",
@@ -108,7 +109,7 @@
     },
     {
       "team": "PITTSBURGH STEELERS",
-      "impliedNextGameWinProb": 0.7095435684647302
+      "impliedNextGameWinProb": 0.705033164260632
     },
     {
       "team": "GREEN BAY PACKERS",
@@ -120,11 +121,11 @@
     },
     {
       "team": "CINCINNATI BENGALS",
-      "impliedNextGameWinProb": 0.2904564315352697
+      "impliedNextGameWinProb": 0.2949668357393679
     },
     {
       "team": "TENNESSEE TITANS",
-      "impliedNextGameWinProb": 0.22316684378320936
+      "impliedNextGameWinProb": 0.22849462365591394
     },
     {
       "team": "KANSAS CITY CHIEFS",
@@ -297,5 +298,6 @@
       "reach_sb": 0.001679530395355236
     }
   },
-  "nflCurrentOU": {}
+  "nflCurrentOU": {},
+  "nflFPI": {}
 }
