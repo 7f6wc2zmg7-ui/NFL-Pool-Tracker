@@ -156,10 +156,9 @@ async function fetchESPNFuturesAuto() {
   return futures;
 }
 
-// --- ESPN FPI projections (header-indexed; robust TEAM extraction) ---
+// --- ESPN FPI projections (hardy row-scan fallback) ---
 async function fetchESPNFPIProjectionTable() {
   const BASE = 'https://www.espn.com/nfl/fpi/_/view/projections';
-
   const UA = {
     'User-Agent': 'Mozilla/5.0',
     'Accept': 'text/html,application/xhtml+xml,*/*',
@@ -173,12 +172,30 @@ async function fetchESPNFPIProjectionTable() {
     return Number.isFinite(n) ? n : null;
   };
   const normTxt = s => String(s||'')
-    .replace(/<[^>]+>/g,'')     // strip tags
-    .replace(/\u00A0/g,' ')     // nbsp -> space
-    .replace(/\s+/g,' ')        // collapse
+    .replace(/<script[\s\S]*?<\/script>/gi,'')
+    .replace(/<style[\s\S]*?<\/style>/gi,'')
+    .replace(/\u00A0/g,' ')
+    .replace(/\s+/g,' ')
     .trim();
 
-  // Pull full page
+  // Helpers to pull team name from a <td> raw HTML
+  const fromAttr = (raw, attr) => {
+    const m = new RegExp(attr + '="([^"]+)"','i').exec(raw);
+    return m ? m[1].trim() : null;
+  };
+  const fromHrefSlug = raw => {
+    // /nfl/team/_/name/buf/buffalo-bills  →  Buffalo Bills
+    const m = /href="[^"]*\/nfl\/team\/_\/name\/[a-z0-9-]+\/([a-z0-9-]+)"/i.exec(raw);
+    if (!m) return null;
+    return m[1].split('-').map(w => w ? w[0].toUpperCase()+w.slice(1) : '').join(' ').trim();
+  };
+  const extractTeamName = (rawCell) =>
+    fromAttr(rawCell,'aria-label') ||
+    fromAttr(rawCell,'title') ||
+    fromAttr(rawCell,'alt') ||
+    fromHrefSlug(rawCell);
+
+  // Fetch page
   let html = '';
   try {
     const res = await fetch(BASE, { headers: UA });
@@ -189,104 +206,68 @@ async function fetchESPNFPIProjectionTable() {
     return {};
   }
 
-  // Find table with PROJ W-L + WIN SB%
+  // Pick projections table (header contains PROJ W-L and WIN SB%)
   const tables = [];
   const tableRx = /<table[\s\S]*?<\/table>/gi;
   let tm; while ((tm = tableRx.exec(html)) !== null) tables.push(tm[0]);
 
-  let chosen = null, header = [];
+  let chosen = null;
   for (const t of tables) {
-    const thead = t.match(/<thead[\s\S]*?<\/thead>/i)?.[0] || '';
-    const headCells = Array.from(thead.matchAll(/<(th|td)[^>]*>([\s\S]*?)<\/\1>/gi))
+    const head = t.match(/<thead[\s\S]*?<\/thead>/i)?.[0] || '';
+    const headCells = Array.from(head.matchAll(/<(th|td)[^>]*>([\s\S]*?)<\/\1>/gi))
       .map(x => normTxt(x[2]).toUpperCase());
     if (headCells.includes('PROJ W-L') && (headCells.includes('WIN SB%') || headCells.includes('SB WIN%'))) {
-      chosen = t; header = headCells; break;
+      chosen = t; break;
     }
   }
   if (!chosen) {
     console.log('FPI: projections table not found');
     return {};
   }
-  console.log('FPI: matched table header=', header.join(' | '));
 
-  // Header → body index (+1 because TEAM column is not in header)
-  const colIndex = (name) => {
-    const i = header.indexOf(name.toUpperCase());
-    return i >= 0 ? (i + 1) : -1;
-  };
-  const ciProjWL = colIndex('PROJ W-L');
-  const ciPO     = colIndex('PLAYOFF%');
-  const ciDiv    = colIndex('WIN DIV%');
-  const ciConf   = colIndex('MAKE CONF%');
-  const ciSBApp  = colIndex('MAKE SB%');
-  const ciSBWin  = colIndex('WIN SB%');
-
-  // Helpers to extract TEAM from raw HTML of cell[0]
-  const fromAttrs = (s, attr) => {
-    const m = new RegExp(attr + '="([^"]+)"', 'i').exec(s);
-    return m ? m[1].trim() : null;
-  };
-  const fromHrefSlug = (s) => {
-    // e.g. /nfl/team/_/name/buf/buffalo-bills  →  Buffalo Bills
-    const m = /href="[^"]*\/team\/_\/name\/([a-z0-9-]+)\/([a-z0-9-]+)"/i.exec(s);
-    if (m && m[2]) {
-      const slug = m[2].replace(/-/g, ' ');
-      return slug.split(' ').map(w => w ? w[0].toUpperCase()+w.slice(1) : '').join(' ').trim();
-    }
-    return null;
-  };
-  const extractTeamName = (raw, text) => {
-    // Prefer visible text if present
-    if (text && /[A-Za-z]/.test(text)) return text;
-    // Try aria-label, title, alt
-    return (
-      fromAttrs(raw, 'aria-label') ||
-      fromAttrs(raw, 'title') ||
-      fromAttrs(raw, 'alt') ||
-      fromHrefSlug(raw) ||
-      null
-    );
-  };
-
-  // Parse body rows; collect both raw and text cells
-  const out = {};
+  // Parse <tbody> rows that contain a team link
   const bodyHtml = chosen.match(/<tbody[\s\S]*?<\/tbody>/i)?.[0] || chosen;
   const rowRx = /<tr[^>]*>([\s\S]*?)<\/tr>/gi;
-  let rowsSeen = 0, used = 0, skipped = 0;
-  const debugRows = [];
+
+  const out = {};
+  let rows=0, used=0, skipped=0;
+  const firstFew = [];
 
   while (true) {
     const m = rowRx.exec(bodyHtml);
     if (!m) break;
-    rowsSeen++;
+    rows++;
+    const rowHtml = m[1];
+    if (!/\/nfl\/team\/_\/name\//i.test(rowHtml)) { skipped++; continue; } // no team link → skip
 
-    const rawCells  = Array.from(m[1].matchAll(/<(td|th)[^>]*>([\s\S]*?)<\/\1>/gi)).map(x => x[2]);
-    const textCells = rawCells.map(normTxt);
-    if (textCells.length < 3) { skipped++; continue; }
+    // Cells (keep both raw and text)
+    const rawCells  = Array.from(rowHtml.matchAll(/<(td|th)[^>]*>([\s\S]*?)<\/\1>/gi)).map(x => x[2]);
+    const textCells = rawCells.map(c => normTxt(c));
 
-    // TEAM is body col 0 (raw+text)
-    let teamName = extractTeamName(rawCells[0] || '', textCells[0] || '');
+    if (!rawCells.length) { skipped++; continue; }
+
+    // TEAM is first cell (raw)
+    const teamName = extractTeamName(rawCells[0]);
     if (!teamName) { skipped++; continue; }
 
-    // PROJ W-L cell by header-mapped index (+1 offset)
-    let projWlCell = (ciProjWL >= 0 && textCells[ciProjWL]) ? textCells[ciProjWL] : '';
-    if (!/[0-9.]+\s*[–-]\s*[0-9.]+/.test(projWlCell)) {
-      // fallback: find any N–N pattern in row
-      const found = textCells.find(c => /[0-9.]+\s*[–-]\s*[0-9.]+/.test(c));
-      if (found) projWlCell = found;
-    }
-    if (!projWlCell) { skipped++; continue; }
-
-    const projWins = toNum(projWlCell.split(/[–-]/)[0]);
+    // PROJ W-L: look anywhere in row for N–N (accept hyphen or en-dash)
+    const wlMatch = rowHtml.match(/(\d+(?:\.\d+)?)\s*[–-]\s*(\d+(?:\.\d+)?)/);
+    if (!wlMatch) { skipped++; continue; }
+    const projWins = toNum(wlMatch[1]);
     if (projWins == null) { skipped++; continue; }
 
-    const playoff  = (ciPO    >= 0 && textCells[ciPO]    != null) ? toNum(textCells[ciPO])    : null;
-    const winDiv   = (ciDiv   >= 0 && textCells[ciDiv]   != null) ? toNum(textCells[ciDiv])   : null;
-    const makeConf = (ciConf  >= 0 && textCells[ciConf]  != null) ? toNum(textCells[ciConf])  : null;
-    const makeSB   = (ciSBApp >= 0 && textCells[ciSBApp] != null) ? toNum(textCells[ciSBApp]) : null;
-    const winSB    = (ciSBWin >= 0 && textCells[ciSBWin] != null) ? toNum(textCells[ciSBWin]) : null;
+    // Percentages in order after PROJ W-L header: PLAYOFF, WIN DIV, MAKE DIV, MAKE CONF, MAKE SB, WIN SB
+    const percents = Array.from(rowHtml.matchAll(/(\d+(?:\.\d+)?)\s*%/g)).map(x => toNum(x[1]));
+    // Be defensive: ESPN sometimes repeats % elsewhere; we try by relative order:
+    const playoff  = percents[0] ?? null;
+    const winDiv   = percents[1] ?? null;
+    // percents[2] = MAKE DIV (not used in our model)
+    const makeConf = percents[3] ?? null;
+    const makeSB   = percents[4] ?? null;
+    const winSB    = percents[5] ?? null;
 
     const key = teamName.toUpperCase();
+
     out[key] = {
       projected_wins: projWins,
       playoff: (playoff ?? 0) / 100,
@@ -297,12 +278,18 @@ async function fetchESPNFPIProjectionTable() {
     };
     used++;
 
-    if (debugRows.length < 6) debugRows.push({ teamCellRaw: rawCells[0], teamCellText: textCells[0], projWlCell, textCells });
+    if (firstFew.length < 6) {
+      firstFew.push({
+        teamName, projWins,
+        percentsSample: percents.slice(0,6),
+        sampleRowSnippet: normTxt(rowHtml).slice(0,200)
+      });
+    }
   }
 
-  console.log(`FPI (header+offset+team): rows=${rowsSeen} used=${used} skipped=${skipped}`);
+  console.log(`FPI (row-scan fallback): rows=${rows} used=${used} skipped=${skipped}`);
   try { await fs.writeFile('data/debug-fpi-table.html', chosen, 'utf8'); } catch {}
-  try { await fs.writeFile('data/debug-fpi-cells.json', JSON.stringify(debugRows, null, 2), 'utf8'); } catch {}
+  try { await fs.writeFile('data/debug-fpi-cells.json', JSON.stringify(firstFew, null, 2), 'utf8'); } catch {}
 
   return out;
 }
