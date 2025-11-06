@@ -384,9 +384,9 @@ pDivR = Math.max(pDivR, pConf);
 pWCR  = Math.max(pWCR, pDivR);
 pWCR  = Math.min(pWCR, r.pPO);
 
-// WC spot is “playoffs without division”
-const wcCap = Math.max(r.pPO - r.pDiv, 0);
-pWCspot = Math.min(pWCspot, wcCap);
+// WC Spot: playoff probability *excluding* division winners, rescaled to target
+pWCspot = clamp01(r.pPO * F_wcSpot * (1 - r.pDiv));
+    
         // (WC Spot is separate from WCR; keep its scaled value)
     r.pSB = pSB; r.pSBA = pSBA; r.pConf = pConf; r.pDivR = pDivR; r.pWCR = pWCR; r.pWCspot = pWCspot;
 
