@@ -375,20 +375,19 @@ pWCR  = Math.max(pWCR, pDivR);   // WC ≥ Div
     let pDivR = clamp01(r.pDivR * F_divr);
     let pWCR  = clamp01(r.pWCR  * F_wcr);
     let pWCspot = clamp01(r.pWCspot * F_wcSpot);
-    // re-impose chain + bracket caps
+   // re-impose chain + bracket caps
 pSBA  = Math.max(pSBA, pSB);
 pConf = Math.max(pConf, pSBA);
 pDivR = Math.max(pDivR, pConf);
-pWCR  = Math.max(pWCR, pDivR);
-pWCR  = Math.min(pWCR, r.pPO); // can't exceed make-playoffs
 
-// --- NEW: keep WC spot consistent with playoffs minus division ---
+// WC Round definition: includes byes, so WC ≥ Div, and cannot exceed playoffs
+pWCR  = Math.max(pWCR, pDivR);
+pWCR  = Math.min(pWCR, r.pPO);
+
+// WC spot is “playoffs without division”
 const wcCap = Math.max(r.pPO - r.pDiv, 0);
 pWCspot = Math.min(pWCspot, wcCap);
-
-// --- NEW: everyone with a WC spot MUST play in the WC round ---
-pWCR = Math.max(pWCR, pWCspot);       // can't exceed make-playoffs
-    // (WC Spot is separate from WCR; keep its scaled value)
+        // (WC Spot is separate from WCR; keep its scaled value)
     r.pSB = pSB; r.pSBA = pSBA; r.pConf = pConf; r.pDivR = pDivR; r.pWCR = pWCR; r.pWCspot = pWCspot;
 
     // EVs after normalization
