@@ -547,5 +547,20 @@ pWCspot = Math.min(pWCspot, wcCap);
 }
 main().catch(e=>{ const u=document.getElementById('updated'); if(u) u.textContent='Error'; console.error(e); });
 </script>
+  <div id="consoleLog" style="white-space:pre-wrap;
+  background:#111; color:#0f0; font:12px/1.4 ui-monospace;
+  border-top:1px solid #333; padding:8px; max-height:200px; overflow:auto;">
+</div>
+<script>
+  const logDiv = document.getElementById('consoleLog');
+  ['log','error','warn'].forEach(fn=>{
+    const orig = console[fn];
+    console[fn] = (...args)=>{
+      orig(...args);
+      logDiv.textContent += '\\n' + fn.toUpperCase()+': ' +
+        args.map(a=> (typeof a==='object'?JSON.stringify(a):String(a))).join(' ');
+    };
+  });
+</script>
 </body>
 </html>
