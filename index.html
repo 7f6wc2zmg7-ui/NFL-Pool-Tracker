@@ -307,11 +307,17 @@ async function main(){
       regSubtotal += regPts;
 
 // --- raw playoff endpoints and chain ---
+// --- raw playoff endpoints and chain ---
 const f = futures[name] || {};
 let pSB  = clamp01(f.sb ?? 0);
 let pSBA = clamp01(f.reach_sb ?? 0);
-const pDiv = curDivPct;                                // current division title prob
-let pPO   = clamp01(f.make_playoffs ?? (pDiv + 2*pSBA));
+const pDiv = curDivPct;
+
+// define make-playoffs smarter:
+// if we have an explicit number, use it;
+// else approximate as division chance + (SB appearance * 1.2),
+// but never exceed 0.95 baseline
+let pPO = clamp01(f.make_playoffs ?? Math.min(pDiv + 1.2 * pSBA, 0.95));
 if (pPO < pSBA) pPO = pSBA;
 
 // WC spot = playoffs but not division winner
