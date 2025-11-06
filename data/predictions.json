@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2025-11-06T03:42:26.598Z",
+  "generatedAt": "2025-11-06T04:50:17.630Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -329,38 +329,5 @@
       "reach_sb": 0.001679530395355236
     }
   },
-  "nflCurrentOU": {
-    "ARIZONA CARDINALS": 6.5,
-    "ATLANTA FALCONS": 9.5,
-    "BALTIMORE RAVENS": 8.5,
-    "BUFFALO BILLS": 11.5,
-    "CAROLINA PANTHERS": 6.5,
-    "CHICAGO BEARS": 8.5,
-    "CINCINNATI BENGALS": 5.5,
-    "CLEVELAND BROWNS": 5.5,
-    "DALLAS COWBOYS": 6.5,
-    "DENVER BRONCOS": 10.5,
-    "DETROIT LIONS": 10.5,
-    "GREEN BAY PACKERS": 11.5,
-    "HOUSTON TEXANS": 8.5,
-    "INDIANAPOLIS COLTS": 11.5,
-    "JACKSONVILLE JAGUARS": 9.5,
-    "KANSAS CITY CHIEFS": 10.5,
-    "LOS ANGELES CHARGERS": 10.5,
-    "LOS ANGELES RAMS": 10.5,
-    "LAS VEGAS RAIDERS": 7.5,
-    "MIAMI DOLPHINS": 5.5,
-    "MINNESOTA VIKINGS": 8.5,
-    "NEW ENGLAND PATRIOTS": 10.5,
-    "NEW ORLEANS SAINTS": 4.5,
-    "NEW YORK GIANTS": 5.5,
-    "NEW YORK JETS": 4.5,
-    "PHILADELPHIA EAGLES": 10.5,
-    "PITTSBURGH STEELERS": 9.5,
-    "SAN FRANCISCO 49ERS": 10.5,
-    "SEATTLE SEAHAWKS": 10.5,
-    "TAMPA BAY BUCCANEERS": 11.5,
-    "TENNESSEE TITANS": 3.5,
-    "WASHINGTON COMMANDERS": 8.5
-  }
+  "nflCurrentOU": {}
 }
