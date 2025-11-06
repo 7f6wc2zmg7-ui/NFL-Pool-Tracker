@@ -306,26 +306,34 @@ async function main(){
       });
       regSubtotal += regPts;
 
-      /* raw playoff chain (to be normalized league-wide) */
-      const f = futures[name] || {};
-      let pSB  = clamp01(f.sb ?? 0);
-      let pSBA = clamp01(f.reach_sb ?? 0);
-      const pDiv = curDivPct;
-      let pPO   = clamp01(f.make_playoffs ?? (pDiv + 2*pSBA));
-      if (pPO < pSBA) pPO = pSBA;
-      const pWCspot = clamp01(Math.max(pPO - pDiv, 0));
-      // structure-aware smoothing (fixed params now)
-      const BYE = 0.25, ADV = 0.475; // (kept near your prior “felt right” setting)
-      let pWCR  = clamp01(pWCspot + (1 - BYE) * pDiv);
-      let pDivR = clamp01(ADV * pWCR + BYE * pDiv);
-      let pConf = clamp01(ADV * pDivR);
-      if (!f.reach_sb) pSBA = clamp01(Math.max(pSBA, ADV * pConf));
-      // monotone
-      pSBA = Math.max(pSBA, pSB);
-      pConf = Math.max(pConf, pSBA);
-      pDivR = Math.max(pDivR, pConf);
-      pWCR  = Math.max(pWCR, pDivR);
-      pWCR  = Math.min(pWCR, pPO);
+// --- raw playoff endpoints and chain ---
+const f = futures[name] || {};
+let pSB  = clamp01(f.sb ?? 0);
+let pSBA = clamp01(f.reach_sb ?? 0);
+const pDiv = curDivPct;                                // current division title prob
+let pPO   = clamp01(f.make_playoffs ?? (pDiv + 2*pSBA));
+if (pPO < pSBA) pPO = pSBA;
+
+// WC spot = playoffs but not division winner
+const pWCspot = clamp01(Math.max(pPO - pDiv, 0));
+
+// >>> CHANGE: “WC Round” means *reached that stage*, including bye teams
+let pWCR = pPO;
+
+// structure-aware Divisional: winners from WC + bye teams
+const BYE = 0.25;                   // 2 of 8 division winners get byes
+const ADV = 0.475;                  // advancement rate you liked
+const participants = pWCspot + (1 - BYE) * pDiv;     // teams that actually play on WC weekend
+let pDivR = clamp01(ADV * participants + BYE * pDiv);
+
+let pConf = clamp01(ADV * pDivR);
+if (!f.reach_sb) pSBA = clamp01(Math.max(pSBA, ADV * pConf));
+
+// monotone chain
+pSBA = Math.max(pSBA, pSB);
+pConf = Math.max(pConf, pSBA);
+pDivR = Math.max(pDivR, pConf);
+pWCR  = Math.max(pWCR, pDivR);   // WC ≥ Div
 
       const poRow = { owner:player.owner, team:name, pPO, pDiv, pWCspot, pWCR, pDivR, pConf, pSBA, pSB,
                       // placeholders for EVs/poPts to be filled after normalization:
@@ -341,7 +349,7 @@ async function main(){
   }
 
   /* second pass: normalize league totals to exact targets, then compute EVs */
-  const targets = { wcSpot:14, wcr:12, divr:8, conf:4, sba:2, sb:1 };
+  const targets = { wcSpot:14, wcr:14, divr:8, conf:4, sba:2, sb:1 };
 
   function sumField(rows, f){ return rows.reduce((a,r)=>a+(r[f]||0),0); }
   let S_wcSpot = sumField(allPORows,'pWCspot');
@@ -368,11 +376,18 @@ async function main(){
     let pWCR  = clamp01(r.pWCR  * F_wcr);
     let pWCspot = clamp01(r.pWCspot * F_wcSpot);
     // re-impose chain + bracket caps
-    pSBA  = Math.max(pSBA, pSB);
-    pConf = Math.max(pConf, pSBA);
-    pDivR = Math.max(pDivR, pConf);
-    pWCR  = Math.max(pWCR, pDivR);
-    pWCR  = Math.min(pWCR, r.pPO);       // can't exceed make-playoffs
+pSBA  = Math.max(pSBA, pSB);
+pConf = Math.max(pConf, pSBA);
+pDivR = Math.max(pDivR, pConf);
+pWCR  = Math.max(pWCR, pDivR);
+pWCR  = Math.min(pWCR, r.pPO); // can't exceed make-playoffs
+
+// --- NEW: keep WC spot consistent with playoffs minus division ---
+const wcCap = Math.max(r.pPO - r.pDiv, 0);
+pWCspot = Math.min(pWCspot, wcCap);
+
+// --- NEW: everyone with a WC spot MUST play in the WC round ---
+pWCR = Math.max(pWCR, pWCspot);       // can't exceed make-playoffs
     // (WC Spot is separate from WCR; keep its scaled value)
     r.pSB = pSB; r.pSBA = pSBA; r.pConf = pConf; r.pDivR = pDivR; r.pWCR = pWCR; r.pWCspot = pWCspot;
 
