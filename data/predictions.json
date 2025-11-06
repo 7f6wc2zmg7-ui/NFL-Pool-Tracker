@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2025-11-06T13:45:07.363Z",
+  "generatedAt": "2025-11-06T14:48:14.915Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -9,7 +9,7 @@
     {
       "sport": "NFL",
       "team": "DENVER BRONCOS",
-      "impliedNextGameWinProb": 0.4066302458405761
+      "impliedNextGameWinProb": 0.39076376554174075
     },
     {
       "sport": "NFL",
@@ -159,7 +159,7 @@
     {
       "sport": "NFL",
       "team": "KANSAS CITY CHIEFS",
-      "impliedNextGameWinProb": 0.593369754159424
+      "impliedNextGameWinProb": 0.6092362344582594
     },
     {
       "sport": "NFL",
