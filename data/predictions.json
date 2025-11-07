@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2025-11-07T11:31:48.422Z",
+  "generatedAt": "2025-11-07T13:38:04.554Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -44,7 +44,7 @@
     {
       "sport": "NFL",
       "team": "NEW ORLEANS SAINTS",
-      "impliedNextGameWinProb": 0.3194444444444444
+      "impliedNextGameWinProb": 0.31460674157303364
     },
     {
       "sport": "NFL",
