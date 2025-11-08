@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2025-11-08T16:45:02.911Z",
+  "generatedAt": "2025-11-08T17:32:52.405Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -54,7 +54,7 @@
     {
       "sport": "NFL",
       "team": "NEW YORK GIANTS",
-      "impliedNextGameWinProb": 0.27424749163879597
+      "impliedNextGameWinProb": 0.26645768025078376
     },
     {
       "sport": "NFL",
@@ -129,7 +129,7 @@
     {
       "sport": "NFL",
       "team": "GREEN BAY PACKERS",
-      "impliedNextGameWinProb": 0.725752508361204
+      "impliedNextGameWinProb": 0.7335423197492164
     },
     {
       "sport": "NFL",
