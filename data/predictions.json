@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2025-11-09T14:33:13.713Z",
+  "generatedAt": "2025-11-09T15:32:31.457Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -9,12 +9,12 @@
     {
       "sport": "NFL",
       "team": "INDIANAPOLIS COLTS",
-      "impliedNextGameWinProb": 0.725752508361204
+      "impliedNextGameWinProb": 0.8115183246073299
     },
     {
       "sport": "NFL",
       "team": "ATLANTA FALCONS",
-      "impliedNextGameWinProb": 0.27424749163879597
+      "impliedNextGameWinProb": 0.18848167539267016
     },
     {
       "sport": "NFL",
@@ -193,8 +193,7 @@
       "div": 0.4312680896207377
     },
     "INDIANAPOLIS COLTS": {
-      "sb": 0.06560872905144519,
-      "div": 0.7000877653184803
+      "sb": 0.06560872905144519
     },
     "SEATTLE SEAHAWKS": {
       "sb": 0.0562360534726673,
@@ -224,8 +223,7 @@
       "div": 0.2185328161033453
     },
     "JACKSONVILLE JAGUARS": {
-      "sb": 0.019202554844325422,
-      "div": 0.24892009433545964
+      "sb": 0.019202554844325422
     },
     "CHICAGO BEARS": {
       "sb": 0.01543734801210475,
@@ -240,8 +238,7 @@
       "div": 0.05454272898144624
     },
     "HOUSTON TEXANS": {
-      "sb": 0.010359273008122923,
-      "div": 0.04912896598726177
+      "sb": 0.010359273008122923
     },
     "ATLANTA FALCONS": {
       "sb": 0.00521393873256518
@@ -270,8 +267,7 @@
       "div": 0.012301211426292437
     },
     "TENNESSEE TITANS": {
-      "sb": 0.0007865182303869552,
-      "div": 0.0018631743587983506
+      "sb": 0.0007865182303869552
     },
     "LAS VEGAS RAIDERS": {
       "sb": 0.0007865182303869552,
