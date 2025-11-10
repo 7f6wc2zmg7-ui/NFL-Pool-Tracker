@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2025-11-10T18:51:56.261Z",
+  "generatedAt": "2025-11-10T19:29:24.470Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -69,12 +69,12 @@
     {
       "sport": "NFL",
       "team": "PITTSBURGH STEELERS",
-      "impliedNextGameWinProb": 0.6690070210631895
+      "impliedNextGameWinProb": 0.6636481241914618
     },
     {
       "sport": "NFL",
       "team": "CINCINNATI BENGALS",
-      "impliedNextGameWinProb": 0.33099297893681046
+      "impliedNextGameWinProb": 0.33635187580853815
     },
     {
       "sport": "NFL",
@@ -84,12 +84,12 @@
     {
       "sport": "NFL",
       "team": "TENNESSEE TITANS",
-      "impliedNextGameWinProb": 0.2522172949002217
+      "impliedNextGameWinProb": 0.2491874322860238
     },
     {
       "sport": "NFL",
       "team": "HOUSTON TEXANS",
-      "impliedNextGameWinProb": 0.7477827050997783
+      "impliedNextGameWinProb": 0.7508125677139762
     },
     {
       "sport": "NFL",
