@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2025-11-12T20:43:47.041Z",
+  "generatedAt": "2025-11-12T21:36:56.940Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -9,7 +9,7 @@
     {
       "sport": "NFL",
       "team": "NEW ENGLAND PATRIOTS",
-      "impliedNextGameWinProb": 0.6750312469954812
+      "impliedNextGameWinProb": 0.6805555555555556
     },
     {
       "sport": "NFL",
@@ -64,12 +64,12 @@
     {
       "sport": "NFL",
       "team": "CINCINNATI BENGALS",
-      "impliedNextGameWinProb": 0.3249687530045188
+      "impliedNextGameWinProb": 0.3194444444444444
     },
     {
       "sport": "NFL",
       "team": "NEW YORK GIANTS",
-      "impliedNextGameWinProb": 0.18274111675126903
+      "impliedNextGameWinProb": 0.17766497461928932
     },
     {
       "sport": "NFL",
@@ -144,7 +144,7 @@
     {
       "sport": "NFL",
       "team": "DETROIT LIONS",
-      "impliedNextGameWinProb": 0.817258883248731
+      "impliedNextGameWinProb": 0.8223350253807106
     },
     {
       "sport": "NFL",
