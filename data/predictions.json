@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2025-11-12T19:30:45.643Z",
+  "generatedAt": "2025-11-12T20:43:47.041Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -19,12 +19,12 @@
     {
       "sport": "NFL",
       "team": "MIAMI DOLPHINS",
-      "impliedNextGameWinProb": 0.5720596355604638
+      "impliedNextGameWinProb": 0.5829926410466066
     },
     {
       "sport": "NFL",
       "team": "WASHINGTON COMMANDERS",
-      "impliedNextGameWinProb": 0.42794036443953615
+      "impliedNextGameWinProb": 0.4170073589533933
     },
     {
       "sport": "NFL",
@@ -39,7 +39,7 @@
     {
       "sport": "NFL",
       "team": "BUFFALO BILLS",
-      "impliedNextGameWinProb": 0.5634920634920635
+      "impliedNextGameWinProb": 0.5720596355604638
     },
     {
       "sport": "NFL",
@@ -69,7 +69,7 @@
     {
       "sport": "NFL",
       "team": "NEW YORK GIANTS",
-      "impliedNextGameWinProb": 0.17766497461928932
+      "impliedNextGameWinProb": 0.18274111675126903
     },
     {
       "sport": "NFL",
@@ -84,7 +84,7 @@
     {
       "sport": "NFL",
       "team": "HOUSTON TEXANS",
-      "impliedNextGameWinProb": 0.43650793650793646
+      "impliedNextGameWinProb": 0.42794036443953615
     },
     {
       "sport": "NFL",
@@ -144,7 +144,7 @@
     {
       "sport": "NFL",
       "team": "DETROIT LIONS",
-      "impliedNextGameWinProb": 0.8223350253807106
+      "impliedNextGameWinProb": 0.817258883248731
     },
     {
       "sport": "NFL",
