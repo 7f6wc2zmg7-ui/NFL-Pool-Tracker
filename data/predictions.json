@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2025-11-12T15:51:35.993Z",
+  "generatedAt": "2025-11-12T17:01:54.376Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -129,7 +129,7 @@
     {
       "sport": "NFL",
       "team": "DENVER BRONCOS",
-      "impliedNextGameWinProb": 0.3630958183058778
+      "impliedNextGameWinProb": 0.35527082119976705
     },
     {
       "sport": "NFL",
