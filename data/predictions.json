@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2025-11-13T20:44:57.085Z",
+  "generatedAt": "2025-11-13T21:31:06.984Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -14,7 +14,7 @@
     {
       "sport": "NFL",
       "team": "NEW YORK JETS",
-      "impliedNextGameWinProb": 0.12790697674418605
+      "impliedNextGameWinProb": 0.13228346456692913
     },
     {
       "sport": "NFL",
@@ -44,7 +44,7 @@
     {
       "sport": "NFL",
       "team": "TAMPA BAY BUCCANEERS",
-      "impliedNextGameWinProb": 0.299837925445705
+      "impliedNextGameWinProb": 0.30423004792665137
     },
     {
       "sport": "NFL",
@@ -109,7 +109,7 @@
     {
       "sport": "NFL",
       "team": "LOS ANGELES RAMS",
-      "impliedNextGameWinProb": 0.7001620745542949
+      "impliedNextGameWinProb": 0.6957699520733487
     },
     {
       "sport": "NFL",
@@ -124,7 +124,7 @@
     {
       "sport": "NFL",
       "team": "BALTIMORE RAVENS",
-      "impliedNextGameWinProb": 0.8720930232558138
+      "impliedNextGameWinProb": 0.8677165354330709
     },
     {
       "sport": "NFL",
