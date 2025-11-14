@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2025-11-14T20:43:15.312Z",
+  "generatedAt": "2025-11-14T21:33:59.282Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -59,7 +59,7 @@
     {
       "sport": "NFL",
       "team": "NEW YORK GIANTS",
-      "impliedNextGameWinProb": 0.17766497461928932
+      "impliedNextGameWinProb": 0.18274111675126903
     },
     {
       "sport": "NFL",
@@ -69,7 +69,7 @@
     {
       "sport": "NFL",
       "team": "TENNESSEE TITANS",
-      "impliedNextGameWinProb": 0.16835016835016833
+      "impliedNextGameWinProb": 0.16290068313189698
     },
     {
       "sport": "NFL",
@@ -104,7 +104,7 @@
     {
       "sport": "NFL",
       "team": "SEATTLE SEAHAWKS",
-      "impliedNextGameWinProb": 0.8316498316498315
+      "impliedNextGameWinProb": 0.8370993168681029
     },
     {
       "sport": "NFL",
@@ -134,7 +134,7 @@
     {
       "sport": "NFL",
       "team": "DETROIT LIONS",
-      "impliedNextGameWinProb": 0.8223350253807106
+      "impliedNextGameWinProb": 0.817258883248731
     },
     {
       "sport": "NFL",
@@ -176,7 +176,7 @@
     "LOS ANGELES RAMS": {
       "sb": 0.09869561511442207,
       "reach_sb": 0.18523653935939768,
-      "div": 0.4681427833592549
+      "div": 0.4899211218229624
     },
     "PHILADELPHIA EAGLES": {
       "sb": 0.09869561511442207,
@@ -191,7 +191,7 @@
     "SEATTLE SEAHAWKS": {
       "sb": 0.08772943565726406,
       "reach_sb": 0.16230249162918653,
-      "div": 0.456724666691956
+      "div": 0.43502509760178476
     },
     "BUFFALO BILLS": {
       "sb": 0.07895649209153767,
@@ -236,7 +236,7 @@
     "SAN FRANCISCO 49ERS": {
       "sb": 0.019257680997936014,
       "reach_sb": 0.037047307871879535,
-      "div": 0.07202196667065461
+      "div": 0.07194645844952595
     },
     "CHICAGO BEARS": {
       "sb": 0.010389012117307587,
@@ -286,7 +286,7 @@
     "ARIZONA CARDINALS": {
       "sb": 0.0026231392721441085,
       "reach_sb": 0.00843651565399237,
-      "div": 0.0031105832781345845
+      "div": 0.003107322125727034
     },
     "WASHINGTON COMMANDERS": {
       "sb": 0.0015759778860586359,
