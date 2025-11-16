@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2025-11-16T14:37:45.827Z",
+  "generatedAt": "2025-11-16T15:33:33.313Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -9,12 +9,12 @@
     {
       "sport": "NFL",
       "team": "MIAMI DOLPHINS",
-      "impliedNextGameWinProb": 0.5715249662618084
+      "impliedNextGameWinProb": 0.5893794380981784
     },
     {
       "sport": "NFL",
       "team": "WASHINGTON COMMANDERS",
-      "impliedNextGameWinProb": 0.42847503373819157
+      "impliedNextGameWinProb": 0.4106205619018215
     },
     {
       "sport": "NFL",
@@ -39,7 +39,7 @@
     {
       "sport": "NFL",
       "team": "MINNESOTA VIKINGS",
-      "impliedNextGameWinProb": 0.3249687530045188
+      "impliedNextGameWinProb": 0.31460674157303364
     },
     {
       "sport": "NFL",
@@ -64,7 +64,7 @@
     {
       "sport": "NFL",
       "team": "GREEN BAY PACKERS",
-      "impliedNextGameWinProb": 0.6750312469954812
+      "impliedNextGameWinProb": 0.6853932584269663
     },
     {
       "sport": "NFL",
@@ -84,7 +84,7 @@
     {
       "sport": "NFL",
       "team": "LOS ANGELES CHARGERS",
-      "impliedNextGameWinProb": 0.593369754159424
+      "impliedNextGameWinProb": 0.5829926410466066
     },
     {
       "sport": "NFL",
@@ -194,6 +194,7 @@
     },
     "BUFFALO BILLS": {
       "sb": 0.07895649209153767,
+      "div": 0.2944374247010079,
       "reach_sb": 0.18091746109711626
     },
     "INDIANAPOLIS COLTS": {
@@ -218,6 +219,7 @@
     },
     "NEW ENGLAND PATRIOTS": {
       "sb": 0.04155604846923035,
+      "div": 0.7017425288707355,
       "reach_sb": 0.10110093414250615
     },
     "LOS ANGELES CHARGERS": {
@@ -305,6 +307,7 @@
     },
     "MIAMI DOLPHINS": {
       "sb": 0.000788776144770606,
+      "div": 0.0019100232141282948,
       "reach_sb": 0.0017152853098029983
     },
     "NEW ORLEANS SAINTS": {
@@ -318,6 +321,7 @@
     },
     "NEW YORK JETS": {
       "sb": 0.000788776144770606,
+      "div": 0.0019100232141282948,
       "reach_sb": 0.0017152853098029983
     }
   },
