@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2025-11-16T15:33:33.313Z",
+  "generatedAt": "2025-11-16T16:45:57.862Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -9,12 +9,12 @@
     {
       "sport": "NFL",
       "team": "MIAMI DOLPHINS",
-      "impliedNextGameWinProb": 0.5893794380981784
+      "impliedNextGameWinProb": 0.4007285974499089
     },
     {
       "sport": "NFL",
       "team": "WASHINGTON COMMANDERS",
-      "impliedNextGameWinProb": 0.4106205619018215
+      "impliedNextGameWinProb": 0.599271402550091
     },
     {
       "sport": "NFL",
@@ -39,7 +39,7 @@
     {
       "sport": "NFL",
       "team": "MINNESOTA VIKINGS",
-      "impliedNextGameWinProb": 0.31460674157303364
+      "impliedNextGameWinProb": 0.30920711694593195
     },
     {
       "sport": "NFL",
@@ -64,7 +64,7 @@
     {
       "sport": "NFL",
       "team": "GREEN BAY PACKERS",
-      "impliedNextGameWinProb": 0.6853932584269663
+      "impliedNextGameWinProb": 0.690792883054068
     },
     {
       "sport": "NFL",
