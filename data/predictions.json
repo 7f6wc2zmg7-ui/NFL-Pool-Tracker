@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2025-11-16T04:47:28.567Z",
+  "generatedAt": "2025-11-16T05:40:42.349Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -124,7 +124,7 @@
     {
       "sport": "NFL",
       "team": "KANSAS CITY CHIEFS",
-      "impliedNextGameWinProb": 0.6369041816941223
+      "impliedNextGameWinProb": 0.6224665518611737
     },
     {
       "sport": "NFL",
@@ -159,7 +159,7 @@
     {
       "sport": "NFL",
       "team": "INDIANAPOLIS COLTS",
-      "impliedNextGameWinProb": 0.3630958183058778
+      "impliedNextGameWinProb": 0.3775334481388264
     },
     {
       "sport": "NFL",
