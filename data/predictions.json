@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2025-11-17T04:49:48.720Z",
+  "generatedAt": "2025-11-17T05:45:33.861Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -89,22 +89,22 @@
     {
       "sport": "NFL",
       "team": "TENNESSEE TITANS",
-      "impliedNextGameWinProb": 0.16290068313189698
+      "impliedNextGameWinProb": 0.15349887133182846
     },
     {
       "sport": "NFL",
       "team": "SEATTLE SEAHAWKS",
-      "impliedNextGameWinProb": 0.8370993168681029
+      "impliedNextGameWinProb": 0.8465011286681716
     },
     {
       "sport": "NFL",
       "team": "ARIZONA CARDINALS",
-      "impliedNextGameWinProb": 0.43650793650793646
+      "impliedNextGameWinProb": 0.42794036443953615
     },
     {
       "sport": "NFL",
       "team": "JACKSONVILLE JAGUARS",
-      "impliedNextGameWinProb": 0.5634920634920635
+      "impliedNextGameWinProb": 0.5720596355604638
     },
     {
       "sport": "NFL",
