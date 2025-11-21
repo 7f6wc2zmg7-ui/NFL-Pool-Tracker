@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2025-11-21T13:39:22.539Z",
+  "generatedAt": "2025-11-21T14:44:50.658Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -185,7 +185,7 @@
     },
     "BUFFALO BILLS": {
       "sb": 0.08033890375005691,
-      "div": 0.2243439044283452,
+      "div": 0.22271707404972663,
       "reach_sb": 0.13946949331358632
     },
     "DETROIT LIONS": {
@@ -220,7 +220,7 @@
     },
     "NEW ENGLAND PATRIOTS": {
       "sb": 0.04725817867650406,
-      "div": 0.7718498616641877,
+      "div": 0.7744480074910949,
       "reach_sb": 0.11954527998307399
     },
     "SAN FRANCISCO 49ERS": {
@@ -305,7 +305,7 @@
     },
     "MIAMI DOLPHINS": {
       "sb": 0.0008025864510495196,
-      "div": 0.0019031169537334673,
+      "div": 0.0018893164964298166,
       "reach_sb": 0.001670293333096842
     },
     "NEW ORLEANS SAINTS": {
@@ -320,7 +320,7 @@
     },
     "NEW YORK JETS": {
       "sb": 0.0008025864510495196,
-      "div": 0.0019031169537334673,
+      "div": 0.0009456019627485895,
       "reach_sb": 0.0008359809789026154
     },
     "WASHINGTON COMMANDERS": {
