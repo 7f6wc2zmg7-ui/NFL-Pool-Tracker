@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2025-11-21T19:29:36.410Z",
+  "generatedAt": "2025-11-21T20:42:26.345Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -9,7 +9,7 @@
     {
       "sport": "NFL",
       "team": "BALTIMORE RAVENS",
-      "impliedNextGameWinProb": 0.771505376344086
+      "impliedNextGameWinProb": 0.7768331562167907
     },
     {
       "sport": "NFL",
@@ -29,7 +29,7 @@
     {
       "sport": "NFL",
       "team": "CINCINNATI BENGALS",
-      "impliedNextGameWinProb": 0.22849462365591394
+      "impliedNextGameWinProb": 0.22316684378320936
     },
     {
       "sport": "NFL",
