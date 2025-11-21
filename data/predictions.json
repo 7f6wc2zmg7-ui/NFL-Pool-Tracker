@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2025-11-21T17:39:39.167Z",
+  "generatedAt": "2025-11-21T18:50:39.435Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -34,7 +34,7 @@
     {
       "sport": "NFL",
       "team": "NEW ENGLAND PATRIOTS",
-      "impliedNextGameWinProb": 0.7571884984025559
+      "impliedNextGameWinProb": 0.7508125677139762
     },
     {
       "sport": "NFL",
@@ -44,7 +44,7 @@
     {
       "sport": "NFL",
       "team": "NEW YORK GIANTS",
-      "impliedNextGameWinProb": 0.2428115015974441
+      "impliedNextGameWinProb": 0.2491874322860238
     },
     {
       "sport": "NFL",
@@ -205,7 +205,7 @@
     },
     "BALTIMORE RAVENS": {
       "sb": 0.05738493125004064,
-      "div": 0.7052671683017432,
+      "div": 0.7082970193480915,
       "reach_sb": 0.12874107075100277
     },
     "DENVER BRONCOS": {
@@ -255,12 +255,12 @@
     },
     "PITTSBURGH STEELERS": {
       "sb": 0.007954346905946229,
-      "div": 0.2686732069720926,
+      "div": 0.26233222938818207,
       "reach_sb": 0.023244915552264385
     },
     "CINCINNATI BENGALS": {
       "sb": 0.00399696038557497,
-      "div": 0.02293551766834937,
+      "div": 0.026233222938818204,
       "reach_sb": 0.005541834171400781
     },
     "DALLAS COWBOYS": {
@@ -290,7 +290,7 @@
     },
     "CLEVELAND BROWNS": {
       "sb": 0.0008025864510495196,
-      "div": 0.0031241070578150306,
+      "div": 0.0031375283249084895,
       "reach_sb": 0.001670293333096842
     },
     "TENNESSEE TITANS": {
