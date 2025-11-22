@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2025-11-22T15:33:08.989Z",
+  "generatedAt": "2025-11-22T16:46:32.088Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -195,7 +195,7 @@
     },
     "INDIANAPOLIS COLTS": {
       "sb": 0.07303536704550628,
-      "div": 0.7279129009992563,
+      "div": 0.7209478323750426,
       "reach_sb": 0.16678546689407286
     },
     "SEATTLE SEAHAWKS": {
@@ -240,7 +240,7 @@
     },
     "HOUSTON TEXANS": {
       "sb": 0.01959485457318461,
-      "div": 0.09358880155704724,
+      "div": 0.09923978259413542,
       "reach_sb": 0.039710825450969725
     },
     "CHICAGO BEARS": {
@@ -250,7 +250,7 @@
     },
     "JACKSONVILLE JAGUARS": {
       "sb": 0.01057090838816538,
-      "div": 0.17826438391818522,
+      "div": 0.17957674945605456,
       "reach_sb": 0.03207412824886017
     },
     "PITTSBURGH STEELERS": {
@@ -295,7 +295,7 @@
     },
     "TENNESSEE TITANS": {
       "sb": 0.0008025864510495196,
-      "div": 0.00023391352551124033,
+      "div": 0.00023563557476737978,
       "reach_sb": 0.0008330942402301342
     },
     "LAS VEGAS RAIDERS": {
