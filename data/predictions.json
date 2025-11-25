@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2025-11-25T14:48:54.777Z",
+  "generatedAt": "2025-11-25T15:48:16.554Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -79,12 +79,12 @@
     {
       "sport": "NFL",
       "team": "CLEVELAND BROWNS",
-      "impliedNextGameWinProb": 0.299837925445705
+      "impliedNextGameWinProb": 0.3194444444444444
     },
     {
       "sport": "NFL",
       "team": "SAN FRANCISCO 49ERS",
-      "impliedNextGameWinProb": 0.7001620745542949
+      "impliedNextGameWinProb": 0.6805555555555556
     },
     {
       "sport": "NFL",
@@ -170,12 +170,12 @@
   "nflFutures": {
     "LOS ANGELES RAMS": {
       "sb": 0.1465596598446055,
-      "reach_sb": 0.27963769337940514,
+      "reach_sb": 0.2805028312254745,
       "div": 0.7329842931937173
     },
     "PHILADELPHIA EAGLES": {
       "sb": 0.11515401844933289,
-      "reach_sb": 0.19739131297369775,
+      "reach_sb": 0.19800199851209965,
       "div": 0.9650753105712349
     },
     "KANSAS CITY CHIEFS": {
@@ -185,7 +185,7 @@
     },
     "SEATTLE SEAHAWKS": {
       "sb": 0.07327982992230275,
-      "reach_sb": 0.13981884668970257,
+      "reach_sb": 0.14025141561273724,
       "div": 0.18848167539267016
     },
     "BUFFALO BILLS": {
@@ -195,7 +195,7 @@
     },
     "DETROIT LIONS": {
       "sb": 0.06717317742877751,
-      "reach_sb": 0.11185507735176205,
+      "reach_sb": 0.1122011324901898,
       "div": 0.36761162625531835
     },
     "INDIANAPOLIS COLTS": {
@@ -220,17 +220,17 @@
     },
     "GREEN BAY PACKERS": {
       "sb": 0.05037988307158314,
-      "reach_sb": 0.10486413501727693,
+      "reach_sb": 0.10518856170955294,
       "div": 0.39957785462534595
     },
     "SAN FRANCISCO 49ERS": {
       "sb": 0.02239105914292584,
-      "reach_sb": 0.052432067508638464,
+      "reach_sb": 0.04950049962802491,
       "div": 0.07853403141361257
     },
     "TAMPA BAY BUCCANEERS": {
       "sb": 0.02239105914292584,
-      "reach_sb": 0.044153320007274496,
+      "reach_sb": 0.04428992071981176,
       "div": 0.8200926374931022
     },
     "LOS ANGELES CHARGERS": {
@@ -245,7 +245,7 @@
     },
     "CHICAGO BEARS": {
       "sb": 0.015805453512653535,
-      "reach_sb": 0.0364744817451398,
+      "reach_sb": 0.036587325812018415,
       "div": 0.22975726640957395
     },
     "JACKSONVILLE JAGUARS": {
@@ -255,7 +255,7 @@
     },
     "DALLAS COWBOYS": {
       "sb": 0.00798097157569634,
-      "reach_sb": 0.013752673444888779,
+      "reach_sb": 0.013795221207810222,
       "div": 0.03144277624764345
     },
     "PITTSBURGH STEELERS": {
@@ -270,22 +270,22 @@
     },
     "MINNESOTA VIKINGS": {
       "sb": 0.004010338950971792,
-      "reach_sb": 0.0016744772058647013,
+      "reach_sb": 0.0016796576720088292,
       "div": 0.00305325270976178
     },
     "CAROLINA PANTHERS": {
       "sb": 0.004010338950971792,
-      "reach_sb": 0.011038330001818624,
+      "reach_sb": 0.01107248017995294,
       "div": 0.15946245729032543
     },
     "ATLANTA FALCONS": {
       "sb": 0.0016089383815276052,
-      "reach_sb": 0.0016744772058647013,
+      "reach_sb": 0.0016796576720088292,
       "div": 0.015684831864622176
     },
     "ARIZONA CARDINALS": {
       "sb": 0.0016089383815276052,
-      "reach_sb": 0.0016744772058647013
+      "reach_sb": 0.0016796576720088292
     },
     "CLEVELAND BROWNS": {
       "sb": 0.0008052728562890412,
@@ -309,7 +309,7 @@
     },
     "NEW ORLEANS SAINTS": {
       "sb": 0.0008052728562890412,
-      "reach_sb": 0.0016744772058647013,
+      "reach_sb": 0.0016796576720088292,
       "div": 0.0047600733519500135
     },
     "NEW YORK JETS": {
@@ -319,12 +319,12 @@
     },
     "WASHINGTON COMMANDERS": {
       "sb": 0.0008052728562890412,
-      "reach_sb": 0.0016744772058647013,
+      "reach_sb": 0.0016796576720088292,
       "div": 0.003238292570355306
     },
     "NEW YORK GIANTS": {
       "sb": 0.0002014691649950838,
-      "reach_sb": 0.00020967585107178592,
+      "reach_sb": 0.000210324542283535,
       "div": 0.00024362061076654517
     }
   },
