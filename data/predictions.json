@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2025-11-25T17:45:22.311Z",
+  "generatedAt": "2025-11-25T18:55:35.020Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -69,22 +69,22 @@
     {
       "sport": "NFL",
       "team": "CAROLINA PANTHERS",
-      "impliedNextGameWinProb": 0.16290068313189698
+      "impliedNextGameWinProb": 0.15999999999999998
     },
     {
       "sport": "NFL",
       "team": "LOS ANGELES RAMS",
-      "impliedNextGameWinProb": 0.8370993168681029
+      "impliedNextGameWinProb": 0.84
     },
     {
       "sport": "NFL",
       "team": "CLEVELAND BROWNS",
-      "impliedNextGameWinProb": 0.3194444444444444
+      "impliedNextGameWinProb": 0.30920711694593195
     },
     {
       "sport": "NFL",
       "team": "SAN FRANCISCO 49ERS",
-      "impliedNextGameWinProb": 0.6805555555555556
+      "impliedNextGameWinProb": 0.690792883054068
     },
     {
       "sport": "NFL",
@@ -149,12 +149,12 @@
     {
       "sport": "NFL",
       "team": "WASHINGTON COMMANDERS",
-      "impliedNextGameWinProb": 0.27424749163879597
+      "impliedNextGameWinProb": 0.26645768025078376
     },
     {
       "sport": "NFL",
       "team": "DENVER BRONCOS",
-      "impliedNextGameWinProb": 0.725752508361204
+      "impliedNextGameWinProb": 0.7335423197492164
     },
     {
       "sport": "NFL",
