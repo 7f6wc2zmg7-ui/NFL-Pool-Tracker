@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2025-11-26T17:42:39.577Z",
+  "generatedAt": "2025-11-26T18:52:10.389Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -24,7 +24,7 @@
     {
       "sport": "NFL",
       "team": "KANSAS CITY CHIEFS",
-      "impliedNextGameWinProb": 0.6853932584269663
+      "impliedNextGameWinProb": 0.6750312469954812
     },
     {
       "sport": "NFL",
@@ -34,7 +34,7 @@
     {
       "sport": "NFL",
       "team": "CINCINNATI BENGALS",
-      "impliedNextGameWinProb": 0.22849462365591394
+      "impliedNextGameWinProb": 0.22316684378320936
     },
     {
       "sport": "NFL",
@@ -79,12 +79,12 @@
     {
       "sport": "NFL",
       "team": "CLEVELAND BROWNS",
-      "impliedNextGameWinProb": 0.644729178800233
+      "impliedNextGameWinProb": 0.6574752261956054
     },
     {
       "sport": "NFL",
       "team": "SAN FRANCISCO 49ERS",
-      "impliedNextGameWinProb": 0.6805555555555556
+      "impliedNextGameWinProb": 0.6750312469954812
     },
     {
       "sport": "NFL",
@@ -94,12 +94,12 @@
     {
       "sport": "NFL",
       "team": "HOUSTON TEXANS",
-      "impliedNextGameWinProb": 0.31460674157303364
+      "impliedNextGameWinProb": 0.3249687530045188
     },
     {
       "sport": "NFL",
       "team": "TENNESSEE TITANS",
-      "impliedNextGameWinProb": 0.35527082119976705
+      "impliedNextGameWinProb": 0.34252477380439467
     },
     {
       "sport": "NFL",
@@ -134,7 +134,7 @@
     {
       "sport": "NFL",
       "team": "BUFFALO BILLS",
-      "impliedNextGameWinProb": 0.771505376344086
+      "impliedNextGameWinProb": 0.7768331562167907
     },
     {
       "sport": "NFL",
@@ -200,7 +200,7 @@
     },
     "INDIANAPOLIS COLTS": {
       "sb": 0.06717317742877751,
-      "div": 0.648496786466013,
+      "div": 0.6428880189743192,
       "reach_sb": 0.14613959268961998
     },
     "BALTIMORE RAVENS": {
@@ -240,7 +240,7 @@
     },
     "HOUSTON TEXANS": {
       "sb": 0.019660442174276347,
-      "div": 0.11708969755636348,
+      "div": 0.1092489444008647,
       "reach_sb": 0.04001441228406261
     },
     "CHICAGO BEARS": {
@@ -250,7 +250,7 @@
     },
     "JACKSONVILLE JAGUARS": {
       "sb": 0.013214395559759513,
-      "div": 0.23417939511272695,
+      "div": 0.24763094064196,
       "reach_sb": 0.044226455682384994
     },
     "DALLAS COWBOYS": {
@@ -294,7 +294,7 @@
     },
     "TENNESSEE TITANS": {
       "sb": 0.0008052728562890412,
-      "div": 0.00023412086489650285,
+      "div": 0.00023209598285612348,
       "reach_sb": 0.0008394631947705445
     },
     "LAS VEGAS RAIDERS": {
