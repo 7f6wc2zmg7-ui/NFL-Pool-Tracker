@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2025-11-30T15:34:46.198Z",
+  "generatedAt": "2025-11-30T16:48:04.364Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -19,7 +19,7 @@
     },
     "INDIANAPOLIS COLTS": {
       "sb": 0.080545004108867,
-      "div": 0.6428880189743192,
+      "div": 0.6334953473919489,
       "reach_sb": 0.15370086225435173
     },
     "GREEN BAY PACKERS": {
@@ -84,12 +84,12 @@
     },
     "JACKSONVILLE JAGUARS": {
       "sb": 0.022373612252463055,
-      "div": 0.24763094064196,
+      "div": 0.24937594627492593,
       "reach_sb": 0.04449235486310181
     },
     "HOUSTON TEXANS": {
       "sb": 0.019645122953382197,
-      "div": 0.1092489444008647,
+      "div": 0.11689497481637154,
       "reach_sb": 0.04449235486310181
     },
     "DALLAS COWBOYS": {
@@ -124,7 +124,7 @@
     },
     "TENNESSEE TITANS": {
       "sb": 0.0008046453956929771,
-      "div": 0.00023209598285612348,
+      "div": 0.0002337315167535547,
       "reach_sb": 0.0008445102321667677
     },
     "LAS VEGAS RAIDERS": {
