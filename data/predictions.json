@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2025-11-30T20:41:58.233Z",
+  "generatedAt": "2025-11-30T21:32:45.564Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -15,8 +15,7 @@
       "div": 0.8760944704111805
     },
     "GREEN BAY PACKERS": {
-      "sb": 0.07407553153469108,
-      "div": 0.5422797007535911
+      "sb": 0.07407553153469108
     },
     "SEATTLE SEAHAWKS": {
       "sb": 0.07407553153469108
@@ -31,30 +30,25 @@
       "sb": 0.06267929591396938
     },
     "DENVER BRONCOS": {
-      "sb": 0.058202203348685845,
-      "div": 0.7584430460907624
+      "sb": 0.058202203348685845
     },
     "KANSAS CITY CHIEFS": {
-      "sb": 0.05432205645877346,
-      "div": 0.08517274849147599
+      "sb": 0.05432205645877346
     },
     "BALTIMORE RAVENS": {
       "sb": 0.04793122628715305
     },
     "DETROIT LIONS": {
-      "sb": 0.03880146889912389,
-      "div": 0.09785498359463296
+      "sb": 0.03880146889912389
     },
     "SAN FRANCISCO 49ERS": {
       "sb": 0.03133964795698469
     },
     "CHICAGO BEARS": {
-      "sb": 0.02628486602843877,
-      "div": 0.35754705544192816
+      "sb": 0.02628486602843877
     },
     "LOS ANGELES CHARGERS": {
-      "sb": 0.02628486602843877,
-      "div": 0.1561500389010393
+      "sb": 0.02628486602843877
     },
     "HOUSTON TEXANS": {
       "sb": 0.02628486602843877
@@ -72,10 +66,10 @@
     "PITTSBURGH STEELERS": {
       "sb": 0.010721458511600024
     },
-    "CINCINNATI BENGALS": {
+    "CAROLINA PANTHERS": {
       "sb": 0.008067632147342593
     },
-    "CAROLINA PANTHERS": {
+    "CINCINNATI BENGALS": {
       "sb": 0.002031997124393022
     },
     "ATLANTA FALCONS": {
@@ -88,15 +82,13 @@
       "sb": 0.0008140168300515503
     },
     "LAS VEGAS RAIDERS": {
-      "sb": 0.0008140168300515503,
-      "div": 0.00023416651672237838
+      "sb": 0.0008140168300515503
     },
     "MIAMI DOLPHINS": {
       "sb": 0.0008140168300515503
     },
     "MINNESOTA VIKINGS": {
-      "sb": 0.0008140168300515503,
-      "div": 0.0023182602098479133
+      "sb": 0.0008140168300515503
     },
     "NEW ORLEANS SAINTS": {
       "sb": 0.0008140168300515503
