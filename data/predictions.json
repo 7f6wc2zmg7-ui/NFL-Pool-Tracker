@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2025-12-01T15:47:43.369Z",
+  "generatedAt": "2025-12-01T16:59:15.328Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -39,22 +39,22 @@
     {
       "sport": "NFL",
       "team": "BALTIMORE RAVENS",
-      "impliedNextGameWinProb": 0.7220792588780237
+      "impliedNextGameWinProb": 0.705033164260632
     },
     {
       "sport": "NFL",
       "team": "PITTSBURGH STEELERS",
-      "impliedNextGameWinProb": 0.27792074112197634
+      "impliedNextGameWinProb": 0.2949668357393679
     },
     {
       "sport": "NFL",
       "team": "BUFFALO BILLS",
-      "impliedNextGameWinProb": 0.7095435684647302
+      "impliedNextGameWinProb": 0.7135512302607419
     },
     {
       "sport": "NFL",
       "team": "CINCINNATI BENGALS",
-      "impliedNextGameWinProb": 0.2904564315352697
+      "impliedNextGameWinProb": 0.28644876973925815
     },
     {
       "sport": "NFL",
@@ -89,12 +89,12 @@
     {
       "sport": "NFL",
       "team": "MINNESOTA VIKINGS",
-      "impliedNextGameWinProb": 0.4891657638136511
+      "impliedNextGameWinProb": 0.4739134147382802
     },
     {
       "sport": "NFL",
       "team": "WASHINGTON COMMANDERS",
-      "impliedNextGameWinProb": 0.5108342361863488
+      "impliedNextGameWinProb": 0.5260865852617197
     },
     {
       "sport": "NFL",
@@ -129,12 +129,12 @@
     {
       "sport": "NFL",
       "team": "GREEN BAY PACKERS",
-      "impliedNextGameWinProb": 0.6853932584269663
+      "impliedNextGameWinProb": 0.7220792588780237
     },
     {
       "sport": "NFL",
       "team": "CHICAGO BEARS",
-      "impliedNextGameWinProb": 0.31460674157303364
+      "impliedNextGameWinProb": 0.27792074112197634
     },
     {
       "sport": "NFL",
@@ -149,12 +149,12 @@
     {
       "sport": "NFL",
       "team": "LOS ANGELES CHARGERS",
-      "impliedNextGameWinProb": 0.3962430290578221
+      "impliedNextGameWinProb": 0.4066302458405761
     },
     {
       "sport": "NFL",
       "team": "PHILADELPHIA EAGLES",
-      "impliedNextGameWinProb": 0.6037569709421778
+      "impliedNextGameWinProb": 0.593369754159424
     }
   ],
   "nflFutures": {
