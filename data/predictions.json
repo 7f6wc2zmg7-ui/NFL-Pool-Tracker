@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2025-12-02T07:43:55.275Z",
+  "generatedAt": "2025-12-02T09:00:05.858Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -39,12 +39,12 @@
     {
       "sport": "NFL",
       "team": "BUFFALO BILLS",
-      "impliedNextGameWinProb": 0.705033164260632
+      "impliedNextGameWinProb": 0.7001620745542949
     },
     {
       "sport": "NFL",
       "team": "CINCINNATI BENGALS",
-      "impliedNextGameWinProb": 0.2949668357393679
+      "impliedNextGameWinProb": 0.299837925445705
     },
     {
       "sport": "NFL",
