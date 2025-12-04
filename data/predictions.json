@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2025-12-04T10:40:59.471Z",
+  "generatedAt": "2025-12-04T11:31:17.013Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -104,7 +104,7 @@
     {
       "sport": "NFL",
       "team": "DENVER BRONCOS",
-      "impliedNextGameWinProb": 0.4675324675324675
+      "impliedNextGameWinProb": 0.4891657638136511
     },
     {
       "sport": "NFL",
@@ -119,7 +119,7 @@
     {
       "sport": "NFL",
       "team": "GREEN BAY PACKERS",
-      "impliedNextGameWinProb": 0.5324675324675325
+      "impliedNextGameWinProb": 0.5108342361863488
     },
     {
       "sport": "NFL",
