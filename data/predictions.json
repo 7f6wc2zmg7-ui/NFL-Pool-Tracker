@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2025-12-04T19:29:54.475Z",
+  "generatedAt": "2025-12-04T20:36:30.655Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -109,7 +109,7 @@
     {
       "sport": "NFL",
       "team": "ARIZONA CARDINALS",
-      "impliedNextGameWinProb": 0.2522172949002217
+      "impliedNextGameWinProb": 0.2491874322860238
     },
     {
       "sport": "NFL",
@@ -134,7 +134,7 @@
     {
       "sport": "NFL",
       "team": "HOUSTON TEXANS",
-      "impliedNextGameWinProb": 0.7477827050997783
+      "impliedNextGameWinProb": 0.7508125677139762
     },
     {
       "sport": "NFL",
