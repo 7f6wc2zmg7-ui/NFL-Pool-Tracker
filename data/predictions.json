@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2025-12-08T04:46:19.740Z",
+  "generatedAt": "2025-12-08T05:37:19.885Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -9,7 +9,7 @@
     {
       "sport": "NFL",
       "team": "LOS ANGELES CHARGERS",
-      "impliedNextGameWinProb": 0.4572564612326044
+      "impliedNextGameWinProb": 0.3690596562184025
     },
     {
       "sport": "NFL",
@@ -25,6 +25,16 @@
       "sport": "NFL",
       "team": "ATLANTA FALCONS",
       "impliedNextGameWinProb": 0.33635187580853815
+    },
+    {
+      "sport": "NFL",
+      "team": "HOUSTON TEXANS",
+      "impliedNextGameWinProb": 0.8118668596237336
+    },
+    {
+      "sport": "NFL",
+      "team": "ARIZONA CARDINALS",
+      "impliedNextGameWinProb": 0.18813314037626627
     },
     {
       "sport": "NFL",
@@ -65,6 +75,11 @@
       "sport": "NFL",
       "team": "NEW YORK JETS",
       "impliedNextGameWinProb": 0.15999999999999998
+    },
+    {
+      "sport": "NFL",
+      "team": "KANSAS CITY CHIEFS",
+      "impliedNextGameWinProb": 0.6309403437815976
     },
     {
       "sport": "NFL",
