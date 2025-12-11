@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2025-12-11T18:48:34.685Z",
+  "generatedAt": "2025-12-11T19:31:28.593Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -69,7 +69,7 @@
     {
       "sport": "NFL",
       "team": "KANSAS CITY CHIEFS",
-      "impliedNextGameWinProb": 0.84
+      "impliedNextGameWinProb": 0.8316498316498315
     },
     {
       "sport": "NFL",
@@ -144,7 +144,7 @@
     {
       "sport": "NFL",
       "team": "TENNESSEE TITANS",
-      "impliedNextGameWinProb": 0.15999999999999998
+      "impliedNextGameWinProb": 0.16835016835016833
     },
     {
       "sport": "NFL",
