@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2025-12-12T02:23:34.470Z",
+  "generatedAt": "2025-12-12T04:03:45.750Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -9,12 +9,12 @@
     {
       "sport": "NFL",
       "team": "TAMPA BAY BUCCANEERS",
-      "impliedNextGameWinProb": 0.6378504672897196
+      "impliedNextGameWinProb": 0.9492697924673329
     },
     {
       "sport": "NFL",
       "team": "ATLANTA FALCONS",
-      "impliedNextGameWinProb": 0.3621495327102804
+      "impliedNextGameWinProb": 0.05073020753266718
     },
     {
       "sport": "NFL",
