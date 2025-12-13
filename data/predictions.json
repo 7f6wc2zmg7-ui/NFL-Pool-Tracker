@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2025-12-13T20:32:43.916Z",
+  "generatedAt": "2025-12-13T21:28:44.848Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -9,7 +9,7 @@
     {
       "sport": "NFL",
       "team": "HOUSTON TEXANS",
-      "impliedNextGameWinProb": 0.8524590163934427
+      "impliedNextGameWinProb": 0.8579439252336449
     },
     {
       "sport": "NFL",
@@ -74,7 +74,7 @@
     {
       "sport": "NFL",
       "team": "LAS VEGAS RAIDERS",
-      "impliedNextGameWinProb": 0.1475409836065574
+      "impliedNextGameWinProb": 0.14205607476635515
     },
     {
       "sport": "NFL",
