@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2025-12-13T19:25:19.858Z",
+  "generatedAt": "2025-12-13T20:32:43.916Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -34,7 +34,7 @@
     {
       "sport": "NFL",
       "team": "BUFFALO BILLS",
-      "impliedNextGameWinProb": 0.7957758771164253
+      "impliedNextGameWinProb": 0.8042929292929294
     },
     {
       "sport": "NFL",
@@ -44,7 +44,7 @@
     {
       "sport": "NFL",
       "team": "CLEVELAND BROWNS",
-      "impliedNextGameWinProb": 0.2042241228835748
+      "impliedNextGameWinProb": 0.19570707070707072
     },
     {
       "sport": "NFL",
