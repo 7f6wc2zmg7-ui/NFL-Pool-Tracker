@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2025-12-14T19:26:18.115Z",
+  "generatedAt": "2025-12-14T20:33:21.597Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -8,83 +8,53 @@
   "nflNextGame": [
     {
       "sport": "NFL",
-      "team": "JACKSONVILLE JAGUARS",
-      "impliedNextGameWinProb": 0.9492697924673329
-    },
-    {
-      "sport": "NFL",
-      "team": "NEW YORK JETS",
-      "impliedNextGameWinProb": 0.05073020753266718
-    },
-    {
-      "sport": "NFL",
       "team": "NEW YORK GIANTS",
-      "impliedNextGameWinProb": 0.2418207681365576
+      "impliedNextGameWinProb": 0.0686070686070686
     },
     {
       "sport": "NFL",
       "team": "WASHINGTON COMMANDERS",
-      "impliedNextGameWinProb": 0.7581792318634424
+      "impliedNextGameWinProb": 0.9313929313929314
     },
     {
       "sport": "NFL",
       "team": "KANSAS CITY CHIEFS",
-      "impliedNextGameWinProb": 0.8542857142857143
+      "impliedNextGameWinProb": 0.5101214574898786
     },
     {
       "sport": "NFL",
       "team": "LOS ANGELES CHARGERS",
-      "impliedNextGameWinProb": 0.1457142857142857
-    },
-    {
-      "sport": "NFL",
-      "team": "HOUSTON TEXANS",
-      "impliedNextGameWinProb": 0.9627252530239446
-    },
-    {
-      "sport": "NFL",
-      "team": "ARIZONA CARDINALS",
-      "impliedNextGameWinProb": 0.0372747469760553
+      "impliedNextGameWinProb": 0.48987854251012153
     },
     {
       "sport": "NFL",
       "team": "CINCINNATI BENGALS",
-      "impliedNextGameWinProb": 0.10013531799729364
+      "impliedNextGameWinProb": 0.04206580591420241
     },
     {
       "sport": "NFL",
       "team": "BALTIMORE RAVENS",
-      "impliedNextGameWinProb": 0.8998646820027064
-    },
-    {
-      "sport": "NFL",
-      "team": "PHILADELPHIA EAGLES",
-      "impliedNextGameWinProb": 0.9363295880149812
-    },
-    {
-      "sport": "NFL",
-      "team": "LAS VEGAS RAIDERS",
-      "impliedNextGameWinProb": 0.06367041198501872
-    },
-    {
-      "sport": "NFL",
-      "team": "NEW ENGLAND PATRIOTS",
-      "impliedNextGameWinProb": 0.8647058823529411
-    },
-    {
-      "sport": "NFL",
-      "team": "BUFFALO BILLS",
-      "impliedNextGameWinProb": 0.13529411764705881
-    },
-    {
-      "sport": "NFL",
-      "team": "CHICAGO BEARS",
       "impliedNextGameWinProb": 0.9579341940857976
     },
     {
       "sport": "NFL",
+      "team": "NEW ENGLAND PATRIOTS",
+      "impliedNextGameWinProb": 0.5203045685279188
+    },
+    {
+      "sport": "NFL",
+      "team": "BUFFALO BILLS",
+      "impliedNextGameWinProb": 0.4796954314720812
+    },
+    {
+      "sport": "NFL",
+      "team": "CHICAGO BEARS",
+      "impliedNextGameWinProb": 0.9877928317947343
+    },
+    {
+      "sport": "NFL",
       "team": "CLEVELAND BROWNS",
-      "impliedNextGameWinProb": 0.04206580591420241
+      "impliedNextGameWinProb": 0.01220716820526579
     },
     {
       "sport": "NFL",
@@ -109,12 +79,12 @@
     {
       "sport": "NFL",
       "team": "LOS ANGELES RAMS",
-      "impliedNextGameWinProb": 0.6805555555555556
+      "impliedNextGameWinProb": 0.6750312469954812
     },
     {
       "sport": "NFL",
       "team": "DETROIT LIONS",
-      "impliedNextGameWinProb": 0.3194444444444444
+      "impliedNextGameWinProb": 0.3249687530045188
     },
     {
       "sport": "NFL",
@@ -129,12 +99,12 @@
     {
       "sport": "NFL",
       "team": "SAN FRANCISCO 49ERS",
-      "impliedNextGameWinProb": 0.863013698630137
+      "impliedNextGameWinProb": 0.8677165354330709
     },
     {
       "sport": "NFL",
       "team": "TENNESSEE TITANS",
-      "impliedNextGameWinProb": 0.136986301369863
+      "impliedNextGameWinProb": 0.13228346456692913
     },
     {
       "sport": "NFL",
