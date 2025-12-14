@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2025-12-14T22:32:40.037Z",
+  "generatedAt": "2025-12-14T23:29:42.226Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -9,52 +9,52 @@
     {
       "sport": "NFL",
       "team": "LOS ANGELES RAMS",
-      "impliedNextGameWinProb": 0.623003194888179
+      "impliedNextGameWinProb": 0.48987854251012153
     },
     {
       "sport": "NFL",
       "team": "DETROIT LIONS",
-      "impliedNextGameWinProb": 0.37699680511182115
+      "impliedNextGameWinProb": 0.5101214574898786
     },
     {
       "sport": "NFL",
       "team": "DENVER BRONCOS",
-      "impliedNextGameWinProb": 0.32558139534883723
-    },
-    {
-      "sport": "NFL",
-      "team": "GREEN BAY PACKERS",
-      "impliedNextGameWinProb": 0.6744186046511629
-    },
-    {
-      "sport": "NFL",
-      "team": "SEATTLE SEAHAWKS",
-      "impliedNextGameWinProb": 0.6693026599568656
-    },
-    {
-      "sport": "NFL",
-      "team": "INDIANAPOLIS COLTS",
-      "impliedNextGameWinProb": 0.3306973400431344
-    },
-    {
-      "sport": "NFL",
-      "team": "NEW ORLEANS SAINTS",
       "impliedNextGameWinProb": 0.4007285974499089
     },
     {
       "sport": "NFL",
-      "team": "CAROLINA PANTHERS",
+      "team": "GREEN BAY PACKERS",
       "impliedNextGameWinProb": 0.599271402550091
     },
     {
       "sport": "NFL",
+      "team": "SEATTLE SEAHAWKS",
+      "impliedNextGameWinProb": 0.5893794380981784
+    },
+    {
+      "sport": "NFL",
+      "team": "INDIANAPOLIS COLTS",
+      "impliedNextGameWinProb": 0.4106205619018215
+    },
+    {
+      "sport": "NFL",
+      "team": "NEW ORLEANS SAINTS",
+      "impliedNextGameWinProb": 0.17154811715481172
+    },
+    {
+      "sport": "NFL",
+      "team": "CAROLINA PANTHERS",
+      "impliedNextGameWinProb": 0.8284518828451883
+    },
+    {
+      "sport": "NFL",
       "team": "SAN FRANCISCO 49ERS",
-      "impliedNextGameWinProb": 0.9202453987730062
+      "impliedNextGameWinProb": 0.9860974153136761
     },
     {
       "sport": "NFL",
       "team": "TENNESSEE TITANS",
-      "impliedNextGameWinProb": 0.07975460122699386
+      "impliedNextGameWinProb": 0.013902584686323799
     },
     {
       "sport": "NFL",
