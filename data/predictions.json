@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2025-12-15T18:48:47.940Z",
+  "generatedAt": "2025-12-15T19:31:08.560Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -29,22 +29,22 @@
     {
       "sport": "NFL",
       "team": "WASHINGTON COMMANDERS",
-      "impliedNextGameWinProb": 0.2904564315352697
+      "impliedNextGameWinProb": 0.2949668357393679
     },
     {
       "sport": "NFL",
       "team": "PHILADELPHIA EAGLES",
-      "impliedNextGameWinProb": 0.7095435684647302
+      "impliedNextGameWinProb": 0.705033164260632
     },
     {
       "sport": "NFL",
       "team": "CHICAGO BEARS",
-      "impliedNextGameWinProb": 0.4572564612326044
+      "impliedNextGameWinProb": 0.4675324675324675
     },
     {
       "sport": "NFL",
       "team": "GREEN BAY PACKERS",
-      "impliedNextGameWinProb": 0.5427435387673957
+      "impliedNextGameWinProb": 0.5324675324675325
     },
     {
       "sport": "NFL",
