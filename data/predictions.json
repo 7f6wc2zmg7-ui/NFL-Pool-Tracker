@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2025-12-15T04:52:18.798Z",
+  "generatedAt": "2025-12-15T05:40:54.689Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -49,12 +49,12 @@
     {
       "sport": "NFL",
       "team": "CLEVELAND BROWNS",
-      "impliedNextGameWinProb": 0.18274111675126903
+      "impliedNextGameWinProb": 0.17287630402384502
     },
     {
       "sport": "NFL",
       "team": "BUFFALO BILLS",
-      "impliedNextGameWinProb": 0.817258883248731
+      "impliedNextGameWinProb": 0.827123695976155
     },
     {
       "sport": "NFL",
@@ -159,12 +159,12 @@
     {
       "sport": "NFL",
       "team": "INDIANAPOLIS COLTS",
-      "impliedNextGameWinProb": 0.30423004792665137
+      "impliedNextGameWinProb": 0.31460674157303364
     },
     {
       "sport": "NFL",
       "team": "SAN FRANCISCO 49ERS",
-      "impliedNextGameWinProb": 0.6957699520733487
+      "impliedNextGameWinProb": 0.6853932584269663
     }
   ],
   "nflFutures": {
