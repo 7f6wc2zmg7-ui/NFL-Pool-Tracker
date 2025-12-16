@@ -1,21 +1,11 @@
 {
-  "generatedAt": "2025-12-16T04:04:34.190Z",
+  "generatedAt": "2025-12-16T04:48:34.399Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
     "nflCurrentOU": "Covers.com win totals (scraped HTML)"
   },
   "nflNextGame": [
-    {
-      "sport": "NFL",
-      "team": "PITTSBURGH STEELERS",
-      "impliedNextGameWinProb": 0.2559309849029475
-    },
-    {
-      "sport": "NFL",
-      "team": "MIAMI DOLPHINS",
-      "impliedNextGameWinProb": 0.4956702459300312
-    },
     {
       "sport": "NFL",
       "team": "SEATTLE SEAHAWKS",
@@ -65,6 +55,11 @@
       "sport": "NFL",
       "team": "TAMPA BAY BUCCANEERS",
       "impliedNextGameWinProb": 0.5829926410466066
+    },
+    {
+      "sport": "NFL",
+      "team": "MIAMI DOLPHINS",
+      "impliedNextGameWinProb": 0.4956702459300312
     },
     {
       "sport": "NFL",
@@ -135,6 +130,11 @@
       "sport": "NFL",
       "team": "DETROIT LIONS",
       "impliedNextGameWinProb": 0.7440690150970525
+    },
+    {
+      "sport": "NFL",
+      "team": "PITTSBURGH STEELERS",
+      "impliedNextGameWinProb": 0.2559309849029475
     },
     {
       "sport": "NFL",
