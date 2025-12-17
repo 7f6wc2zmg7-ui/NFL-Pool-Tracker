@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2025-12-17T18:49:03.744Z",
+  "generatedAt": "2025-12-17T19:30:26.389Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -59,7 +59,7 @@
     {
       "sport": "NFL",
       "team": "MIAMI DOLPHINS",
-      "impliedNextGameWinProb": 0.3194444444444444
+      "impliedNextGameWinProb": 0.34252477380439467
     },
     {
       "sport": "NFL",
