@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2025-12-16T23:31:23.423Z",
+  "generatedAt": "2025-12-17T02:19:16.435Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -94,7 +94,7 @@
     {
       "sport": "NFL",
       "team": "MINNESOTA VIKINGS",
-      "impliedNextGameWinProb": 0.3484712230215828
+      "impliedNextGameWinProb": 0.35358219336888475
     },
     {
       "sport": "NFL",
@@ -129,7 +129,7 @@
     {
       "sport": "NFL",
       "team": "DETROIT LIONS",
-      "impliedNextGameWinProb": 0.6515287769784173
+      "impliedNextGameWinProb": 0.6464178066311151
     },
     {
       "sport": "NFL",
