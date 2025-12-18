@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2025-12-18T02:20:17.453Z",
+  "generatedAt": "2025-12-18T04:02:44.713Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -34,7 +34,7 @@
     {
       "sport": "NFL",
       "team": "GREEN BAY PACKERS",
-      "impliedNextGameWinProb": 0.551441114716549
+      "impliedNextGameWinProb": 0.5996387718242023
     },
     {
       "sport": "NFL",
@@ -149,7 +149,7 @@
     {
       "sport": "NFL",
       "team": "BALTIMORE RAVENS",
-      "impliedNextGameWinProb": 0.448558885283451
+      "impliedNextGameWinProb": 0.4003612281757977
     },
     {
       "sport": "NFL",
