@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2025-12-19T19:27:49.151Z",
+  "generatedAt": "2025-12-19T20:35:14.414Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -44,12 +44,12 @@
     {
       "sport": "NFL",
       "team": "TAMPA BAY BUCCANEERS",
-      "impliedNextGameWinProb": 0.7600000000000001
+      "impliedNextGameWinProb": 0.7571884984025559
     },
     {
       "sport": "NFL",
       "team": "MIAMI DOLPHINS",
-      "impliedNextGameWinProb": 0.24000000000000005
+      "impliedNextGameWinProb": 0.2428115015974441
     },
     {
       "sport": "NFL",
@@ -74,7 +74,7 @@
     {
       "sport": "NFL",
       "team": "KANSAS CITY CHIEFS",
-      "impliedNextGameWinProb": 0.3249687530045188
+      "impliedNextGameWinProb": 0.31460674157303364
     },
     {
       "sport": "NFL",
@@ -109,7 +109,7 @@
     {
       "sport": "NFL",
       "team": "DENVER BRONCOS",
-      "impliedNextGameWinProb": 0.6750312469954812
+      "impliedNextGameWinProb": 0.6853932584269663
     },
     {
       "sport": "NFL",
