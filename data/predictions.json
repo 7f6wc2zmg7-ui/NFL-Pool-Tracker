@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2025-12-21T14:32:34.437Z",
+  "generatedAt": "2025-12-21T15:30:33.817Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -9,7 +9,7 @@
     {
       "sport": "NFL",
       "team": "CLEVELAND BROWNS",
-      "impliedNextGameWinProb": 0.35527082119976705
+      "impliedNextGameWinProb": 0.3835616438356164
     },
     {
       "sport": "NFL",
@@ -54,7 +54,7 @@
     {
       "sport": "NFL",
       "team": "KANSAS CITY CHIEFS",
-      "impliedNextGameWinProb": 0.31460674157303364
+      "impliedNextGameWinProb": 0.30920711694593195
     },
     {
       "sport": "NFL",
@@ -89,7 +89,7 @@
     {
       "sport": "NFL",
       "team": "DENVER BRONCOS",
-      "impliedNextGameWinProb": 0.6853932584269663
+      "impliedNextGameWinProb": 0.690792883054068
     },
     {
       "sport": "NFL",
@@ -104,7 +104,7 @@
     {
       "sport": "NFL",
       "team": "PITTSBURGH STEELERS",
-      "impliedNextGameWinProb": 0.644729178800233
+      "impliedNextGameWinProb": 0.6164383561643836
     },
     {
       "sport": "NFL",
