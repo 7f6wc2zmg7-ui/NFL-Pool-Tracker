@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2025-12-21T22:33:37.172Z",
+  "generatedAt": "2025-12-21T23:30:11.120Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -9,42 +9,42 @@
     {
       "sport": "NFL",
       "team": "DENVER BRONCOS",
-      "impliedNextGameWinProb": 0.39325842696629215
+      "impliedNextGameWinProb": 0.05073020753266718
     },
     {
       "sport": "NFL",
       "team": "JACKSONVILLE JAGUARS",
-      "impliedNextGameWinProb": 0.6067415730337079
+      "impliedNextGameWinProb": 0.9492697924673329
     },
     {
       "sport": "NFL",
       "team": "ARIZONA CARDINALS",
-      "impliedNextGameWinProb": 0.449438202247191
+      "impliedNextGameWinProb": 0.16585365853658535
     },
     {
       "sport": "NFL",
       "team": "ATLANTA FALCONS",
-      "impliedNextGameWinProb": 0.550561797752809
+      "impliedNextGameWinProb": 0.8341463414634146
     },
     {
       "sport": "NFL",
       "team": "HOUSTON TEXANS",
-      "impliedNextGameWinProb": 0.8882882882882883
+      "impliedNextGameWinProb": 0.7581792318634424
     },
     {
       "sport": "NFL",
       "team": "LAS VEGAS RAIDERS",
-      "impliedNextGameWinProb": 0.11171171171171172
+      "impliedNextGameWinProb": 0.2418207681365576
     },
     {
       "sport": "NFL",
       "team": "DETROIT LIONS",
-      "impliedNextGameWinProb": 0.7520040080160321
+      "impliedNextGameWinProb": 0.4693877551020409
     },
     {
       "sport": "NFL",
       "team": "PITTSBURGH STEELERS",
-      "impliedNextGameWinProb": 0.24799599198396793
+      "impliedNextGameWinProb": 0.5306122448979592
     },
     {
       "sport": "NFL",
