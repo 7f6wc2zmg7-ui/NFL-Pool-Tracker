@@ -1,21 +1,11 @@
 {
-  "generatedAt": "2025-12-23T04:07:04.145Z",
+  "generatedAt": "2025-12-23T04:49:52.397Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
     "nflCurrentOU": "Covers.com win totals (scraped HTML)"
   },
   "nflNextGame": [
-    {
-      "sport": "NFL",
-      "team": "INDIANAPOLIS COLTS",
-      "impliedNextGameWinProb": 0.027079617317982814
-    },
-    {
-      "sport": "NFL",
-      "team": "SAN FRANCISCO 49ERS",
-      "impliedNextGameWinProb": 0.9729203826820173
-    },
     {
       "sport": "NFL",
       "team": "WASHINGTON COMMANDERS",
@@ -98,6 +88,16 @@
     },
     {
       "sport": "NFL",
+      "team": "INDIANAPOLIS COLTS",
+      "impliedNextGameWinProb": 0.28644876973925815
+    },
+    {
+      "sport": "NFL",
+      "team": "JACKSONVILLE JAGUARS",
+      "impliedNextGameWinProb": 0.7135512302607419
+    },
+    {
+      "sport": "NFL",
       "team": "MIAMI DOLPHINS",
       "impliedNextGameWinProb": 0.30920711694593195
     },
@@ -145,6 +145,16 @@
       "sport": "NFL",
       "team": "PHILADELPHIA EAGLES",
       "impliedNextGameWinProb": 0.4572564612326044
+    },
+    {
+      "sport": "NFL",
+      "team": "SAN FRANCISCO 49ERS",
+      "impliedNextGameWinProb": 0.5996387718242023
+    },
+    {
+      "sport": "NFL",
+      "team": "CHICAGO BEARS",
+      "impliedNextGameWinProb": 0.4003612281757977
     },
     {
       "sport": "NFL",
