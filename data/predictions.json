@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-01-02T19:24:16.472Z",
+  "generatedAt": "2026-01-02T20:34:58.199Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -59,12 +59,12 @@
     {
       "sport": "NFL",
       "team": "MINNESOTA VIKINGS",
-      "impliedNextGameWinProb": 0.771505376344086
+      "impliedNextGameWinProb": 0.7913616398243045
     },
     {
       "sport": "NFL",
       "team": "GREEN BAY PACKERS",
-      "impliedNextGameWinProb": 0.22849462365591394
+      "impliedNextGameWinProb": 0.20863836017569545
     },
     {
       "sport": "NFL",
@@ -129,12 +129,12 @@
     {
       "sport": "NFL",
       "team": "LAS VEGAS RAIDERS",
-      "impliedNextGameWinProb": 0.2904564315352697
+      "impliedNextGameWinProb": 0.2949668357393679
     },
     {
       "sport": "NFL",
       "team": "KANSAS CITY CHIEFS",
-      "impliedNextGameWinProb": 0.7095435684647302
+      "impliedNextGameWinProb": 0.705033164260632
     },
     {
       "sport": "NFL",
