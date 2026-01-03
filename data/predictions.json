@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-01-03T14:33:07.753Z",
+  "generatedAt": "2026-01-03T15:31:53.529Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -49,12 +49,12 @@
     {
       "sport": "NFL",
       "team": "NEW YORK GIANTS",
-      "impliedNextGameWinProb": 0.3775334481388264
+      "impliedNextGameWinProb": 0.3835616438356164
     },
     {
       "sport": "NFL",
       "team": "DALLAS COWBOYS",
-      "impliedNextGameWinProb": 0.6224665518611737
+      "impliedNextGameWinProb": 0.6164383561643836
     },
     {
       "sport": "NFL",
