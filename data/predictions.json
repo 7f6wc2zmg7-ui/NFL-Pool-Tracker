@@ -1,21 +1,11 @@
 {
-  "generatedAt": "2026-01-04T02:39:44.605Z",
+  "generatedAt": "2026-01-04T04:19:13.115Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
     "nflCurrentOU": "Covers.com win totals (scraped HTML)"
   },
   "nflNextGame": [
-    {
-      "sport": "NFL",
-      "team": "SAN FRANCISCO 49ERS",
-      "impliedNextGameWinProb": 0.23000633044946192
-    },
-    {
-      "sport": "NFL",
-      "team": "SEATTLE SEAHAWKS",
-      "impliedNextGameWinProb": 0.769993669550538
-    },
     {
       "sport": "NFL",
       "team": "ATLANTA FALCONS",
@@ -49,12 +39,12 @@
     {
       "sport": "NFL",
       "team": "MINNESOTA VIKINGS",
-      "impliedNextGameWinProb": 0.817258883248731
+      "impliedNextGameWinProb": 0.8223350253807106
     },
     {
       "sport": "NFL",
       "team": "GREEN BAY PACKERS",
-      "impliedNextGameWinProb": 0.18274111675126903
+      "impliedNextGameWinProb": 0.17766497461928932
     },
     {
       "sport": "NFL",
@@ -79,12 +69,12 @@
     {
       "sport": "NFL",
       "team": "LOS ANGELES RAMS",
-      "impliedNextGameWinProb": 0.8081570996978852
+      "impliedNextGameWinProb": 0.8677165354330709
     },
     {
       "sport": "NFL",
       "team": "ARIZONA CARDINALS",
-      "impliedNextGameWinProb": 0.19184290030211482
+      "impliedNextGameWinProb": 0.13228346456692913
     },
     {
       "sport": "NFL",
@@ -109,12 +99,12 @@
     {
       "sport": "NFL",
       "team": "DENVER BRONCOS",
-      "impliedNextGameWinProb": 0.9039548022598869
+      "impliedNextGameWinProb": 0.9082568807339451
     },
     {
       "sport": "NFL",
       "team": "LOS ANGELES CHARGERS",
-      "impliedNextGameWinProb": 0.096045197740113
+      "impliedNextGameWinProb": 0.09174311926605505
     },
     {
       "sport": "NFL",
@@ -139,12 +129,12 @@
     {
       "sport": "NFL",
       "team": "PHILADELPHIA EAGLES",
-      "impliedNextGameWinProb": 0.6750312469954812
+      "impliedNextGameWinProb": 0.6690070210631895
     },
     {
       "sport": "NFL",
       "team": "WASHINGTON COMMANDERS",
-      "impliedNextGameWinProb": 0.3249687530045188
+      "impliedNextGameWinProb": 0.33099297893681046
     },
     {
       "sport": "NFL",
