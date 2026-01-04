@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-01-04T07:33:00.697Z",
+  "generatedAt": "2026-01-04T08:42:26.220Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -69,12 +69,12 @@
     {
       "sport": "NFL",
       "team": "LOS ANGELES RAMS",
-      "impliedNextGameWinProb": 0.8720930232558138
+      "impliedNextGameWinProb": 0.8677165354330709
     },
     {
       "sport": "NFL",
       "team": "ARIZONA CARDINALS",
-      "impliedNextGameWinProb": 0.12790697674418605
+      "impliedNextGameWinProb": 0.13228346456692913
     },
     {
       "sport": "NFL",
