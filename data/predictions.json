@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-01-05T02:39:11.056Z",
+  "generatedAt": "2026-01-05T04:34:12.611Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -9,12 +9,32 @@
     {
       "sport": "NFL",
       "team": "PITTSBURGH STEELERS",
-      "impliedNextGameWinProb": 0.22168674698795182
+      "impliedNextGameWinProb": 0.14070351758793967
     },
     {
       "sport": "NFL",
       "team": "BALTIMORE RAVENS",
-      "impliedNextGameWinProb": 0.7783132530120482
+      "impliedNextGameWinProb": 0.8592964824120602
+    },
+    {
+      "sport": "NFL",
+      "team": "CAROLINA PANTHERS",
+      "impliedNextGameWinProb": 0.17766497461928932
+    },
+    {
+      "sport": "NFL",
+      "team": "LOS ANGELES RAMS",
+      "impliedNextGameWinProb": 0.8223350253807106
+    },
+    {
+      "sport": "NFL",
+      "team": "CHICAGO BEARS",
+      "impliedNextGameWinProb": 0.4891657638136511
+    },
+    {
+      "sport": "NFL",
+      "team": "GREEN BAY PACKERS",
+      "impliedNextGameWinProb": 0.5108342361863488
     },
     {
       "sport": "NFL",
@@ -28,23 +48,13 @@
     },
     {
       "sport": "NFL",
-      "team": "CAROLINA PANTHERS",
-      "impliedNextGameWinProb": 0.16290068313189698
+      "team": "PHILADELPHIA EAGLES",
+      "impliedNextGameWinProb": 0.6309403437815976
     },
     {
       "sport": "NFL",
-      "team": "LOS ANGELES RAMS",
-      "impliedNextGameWinProb": 0.8370993168681029
-    },
-    {
-      "sport": "NFL",
-      "team": "CHICAGO BEARS",
-      "impliedNextGameWinProb": 0.5
-    },
-    {
-      "sport": "NFL",
-      "team": "GREEN BAY PACKERS",
-      "impliedNextGameWinProb": 0.5
+      "team": "SAN FRANCISCO 49ERS",
+      "impliedNextGameWinProb": 0.3690596562184025
     },
     {
       "sport": "NFL",
@@ -55,16 +65,6 @@
       "sport": "NFL",
       "team": "LOS ANGELES CHARGERS",
       "impliedNextGameWinProb": 0.3775334481388264
-    },
-    {
-      "sport": "NFL",
-      "team": "PHILADELPHIA EAGLES",
-      "impliedNextGameWinProb": 0.6164383561643836
-    },
-    {
-      "sport": "NFL",
-      "team": "SAN FRANCISCO 49ERS",
-      "impliedNextGameWinProb": 0.3835616438356164
     }
   ],
   "nflFutures": {},
