@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-01-06T18:48:17.724Z",
+  "generatedAt": "2026-01-06T19:29:20.248Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -59,12 +59,12 @@
     {
       "sport": "NFL",
       "team": "PITTSBURGH STEELERS",
-      "impliedNextGameWinProb": 0.39076376554174075
+      "impliedNextGameWinProb": 0.3835616438356164
     },
     {
       "sport": "NFL",
       "team": "HOUSTON TEXANS",
-      "impliedNextGameWinProb": 0.6092362344582594
+      "impliedNextGameWinProb": 0.6164383561643836
     }
   ],
   "nflFutures": {},
