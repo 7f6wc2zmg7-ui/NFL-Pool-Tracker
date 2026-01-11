@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-01-11T02:39:10.593Z",
+  "generatedAt": "2026-01-11T04:18:06.220Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -9,12 +9,12 @@
     {
       "sport": "NFL",
       "team": "CHICAGO BEARS",
-      "impliedNextGameWinProb": 0.07975460122699386
+      "impliedNextGameWinProb": 0.5
     },
     {
       "sport": "NFL",
       "team": "GREEN BAY PACKERS",
-      "impliedNextGameWinProb": 0.9202453987730062
+      "impliedNextGameWinProb": 0.5
     },
     {
       "sport": "NFL",
