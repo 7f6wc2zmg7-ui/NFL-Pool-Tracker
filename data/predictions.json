@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-01-11T13:41:49.134Z",
+  "generatedAt": "2026-01-11T14:33:28.467Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -29,12 +29,12 @@
     {
       "sport": "NFL",
       "team": "NEW ENGLAND PATRIOTS",
-      "impliedNextGameWinProb": 0.6309403437815976
+      "impliedNextGameWinProb": 0.6369041816941223
     },
     {
       "sport": "NFL",
       "team": "LOS ANGELES CHARGERS",
-      "impliedNextGameWinProb": 0.3690596562184025
+      "impliedNextGameWinProb": 0.3630958183058778
     },
     {
       "sport": "NFL",
