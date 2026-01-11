@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-01-11T18:44:53.012Z",
+  "generatedAt": "2026-01-11T19:26:58.005Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -9,22 +9,22 @@
     {
       "sport": "NFL",
       "team": "JACKSONVILLE JAGUARS",
-      "impliedNextGameWinProb": 0.6378504672897196
+      "impliedNextGameWinProb": 0.4204398447606727
     },
     {
       "sport": "NFL",
       "team": "BUFFALO BILLS",
-      "impliedNextGameWinProb": 0.3621495327102804
+      "impliedNextGameWinProb": 0.5795601552393274
     },
     {
       "sport": "NFL",
       "team": "PHILADELPHIA EAGLES",
-      "impliedNextGameWinProb": 0.690792883054068
+      "impliedNextGameWinProb": 0.6853932584269663
     },
     {
       "sport": "NFL",
       "team": "SAN FRANCISCO 49ERS",
-      "impliedNextGameWinProb": 0.30920711694593195
+      "impliedNextGameWinProb": 0.31460674157303364
     },
     {
       "sport": "NFL",
