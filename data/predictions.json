@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-01-12T17:37:34.626Z",
+  "generatedAt": "2026-01-12T18:49:31.022Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -29,12 +29,12 @@
     {
       "sport": "NFL",
       "team": "SEATTLE SEAHAWKS",
-      "impliedNextGameWinProb": 0.7508125677139762
+      "impliedNextGameWinProb": 0.7440690150970525
     },
     {
       "sport": "NFL",
       "team": "SAN FRANCISCO 49ERS",
-      "impliedNextGameWinProb": 0.2491874322860238
+      "impliedNextGameWinProb": 0.2559309849029475
     },
     {
       "sport": "NFL",
