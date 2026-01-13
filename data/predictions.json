@@ -1,21 +1,11 @@
 {
-  "generatedAt": "2026-01-13T02:25:30.780Z",
+  "generatedAt": "2026-01-13T04:09:57.689Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
     "nflCurrentOU": "Covers.com win totals (scraped HTML)"
   },
   "nflNextGame": [
-    {
-      "sport": "NFL",
-      "team": "PITTSBURGH STEELERS",
-      "impliedNextGameWinProb": 0.37699680511182115
-    },
-    {
-      "sport": "NFL",
-      "team": "HOUSTON TEXANS",
-      "impliedNextGameWinProb": 0.623003194888179
-    },
     {
       "sport": "NFL",
       "team": "DENVER BRONCOS",
