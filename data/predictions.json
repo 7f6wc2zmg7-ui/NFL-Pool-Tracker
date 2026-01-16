@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-01-16T02:28:44.799Z",
+  "generatedAt": "2026-01-16T04:09:47.762Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -9,12 +9,12 @@
     {
       "sport": "NFL",
       "team": "DENVER BRONCOS",
-      "impliedNextGameWinProb": 0.5108342361863488
+      "impliedNextGameWinProb": 0.5217391304347826
     },
     {
       "sport": "NFL",
       "team": "BUFFALO BILLS",
-      "impliedNextGameWinProb": 0.4891657638136511
+      "impliedNextGameWinProb": 0.4782608695652174
     },
     {
       "sport": "NFL",
