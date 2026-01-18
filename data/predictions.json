@@ -1,21 +1,11 @@
 {
-  "generatedAt": "2026-01-18T04:13:45.138Z",
+  "generatedAt": "2026-01-18T04:52:20.978Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
     "nflCurrentOU": "Covers.com win totals (scraped HTML)"
   },
   "nflNextGame": [
-    {
-      "sport": "NFL",
-      "team": "SEATTLE SEAHAWKS",
-      "impliedNextGameWinProb": 0.7446808510638298
-    },
-    {
-      "sport": "NFL",
-      "team": "SAN FRANCISCO 49ERS",
-      "impliedNextGameWinProb": 0.2553191489361702
-    },
     {
       "sport": "NFL",
       "team": "NEW ENGLAND PATRIOTS",
