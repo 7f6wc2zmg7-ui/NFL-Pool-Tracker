@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-01-20T04:14:50.019Z",
+  "generatedAt": "2026-01-20T04:57:18.364Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -9,12 +9,12 @@
     {
       "sport": "NFL",
       "team": "DENVER BRONCOS",
-      "impliedNextGameWinProb": 0.30920711694593195
+      "impliedNextGameWinProb": 0.31460674157303364
     },
     {
       "sport": "NFL",
       "team": "NEW ENGLAND PATRIOTS",
-      "impliedNextGameWinProb": 0.690792883054068
+      "impliedNextGameWinProb": 0.6853932584269663
     },
     {
       "sport": "NFL",
