@@ -1,32 +1,11 @@
 {
-  "generatedAt": "2026-01-24T14:34:12.438Z",
+  "generatedAt": "2026-01-24T15:32:24.933Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
     "nflCurrentOU": "Covers.com win totals (scraped HTML)"
   },
-  "nflNextGame": [
-    {
-      "sport": "NFL",
-      "team": "DENVER BRONCOS",
-      "impliedNextGameWinProb": 0.34252477380439467
-    },
-    {
-      "sport": "NFL",
-      "team": "NEW ENGLAND PATRIOTS",
-      "impliedNextGameWinProb": 0.6574752261956054
-    },
-    {
-      "sport": "NFL",
-      "team": "SEATTLE SEAHAWKS",
-      "impliedNextGameWinProb": 0.5634920634920635
-    },
-    {
-      "sport": "NFL",
-      "team": "LOS ANGELES RAMS",
-      "impliedNextGameWinProb": 0.43650793650793646
-    }
-  ],
+  "nflNextGame": [],
   "nflFutures": {},
   "nflCurrentOU": {
     "ARIZONA CARDINALS": 6.5,
