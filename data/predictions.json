@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-02-07T23:46:21.165Z",
+  "generatedAt": "2026-02-08T03:34:07.460Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -9,12 +9,12 @@
     {
       "sport": "NFL",
       "team": "NEW ENGLAND PATRIOTS",
-      "impliedNextGameWinProb": 0.33099297893681046
+      "impliedNextGameWinProb": 0.3194444444444444
     },
     {
       "sport": "NFL",
       "team": "SEATTLE SEAHAWKS",
-      "impliedNextGameWinProb": 0.6690070210631895
+      "impliedNextGameWinProb": 0.6805555555555556
     }
   ],
   "nflFutures": {},
