@@ -1,12 +1,103 @@
 {
-  "generatedAt": "2026-02-19T15:06:11.423Z",
+  "generatedAt": "2026-02-19T16:02:10.616Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
     "nflCurrentOU": "Covers.com win totals (scraped HTML)"
   },
   "nflNextGame": [],
-  "nflFutures": {},
+  "nflFutures": {
+    "LOS ANGELES": {
+      "sb": 0.08639225974693585
+    },
+    "SEATTLE": {
+      "sb": 0.08639225974693585
+    },
+    "BUFFALO": {
+      "sb": 0.07853841795175985
+    },
+    "BALTIMORE": {
+      "sb": 0.06645558442071987
+    },
+    "DETROIT": {
+      "sb": 0.05759483983129056
+    },
+    "GREEN BAY": {
+      "sb": 0.05759483983129056
+    },
+    "KANSAS CITY": {
+      "sb": 0.05759483983129056
+    },
+    "NEW ENGLAND": {
+      "sb": 0.05759483983129056
+    },
+    "PHILADELPHIA": {
+      "sb": 0.05759483983129056
+    },
+    "SAN FRANCISCO": {
+      "sb": 0.045469610393124124
+    },
+    "DENVER": {
+      "sb": 0.04319612987346792
+    },
+    "HOUSTON": {
+      "sb": 0.04113917130806468
+    },
+    "JACKSONVILLE": {
+      "sb": 0.03756185206388515
+    },
+    "CHICAGO": {
+      "sb": 0.03322779221035994
+    },
+    "CINCINNATI": {
+      "sb": 0.029790434395495117
+    },
+    "DALLAS": {
+      "sb": 0.0239978499297044
+    },
+    "TAMPA BAY": {
+      "sb": 0.021071282865106303
+    },
+    "INDIANAPOLIS": {
+      "sb": 0.014162665532284565
+    },
+    "MINNESOTA": {
+      "sb": 0.014162665532284565
+    },
+    "PITTSBURGH": {
+      "sb": 0.014162665532284565
+    },
+    "WASHINGTON": {
+      "sb": 0.014162665532284565
+    },
+    "NEW YORK": {
+      "sb": 0.012167923908019133
+    },
+    "ATLANTA": {
+      "sb": 0.008553689083855034
+    },
+    "TENNESSEE": {
+      "sb": 0.008553689083855034
+    },
+    "NEW ORLEANS": {
+      "sb": 0.008553689083855034
+    },
+    "CAROLINA": {
+      "sb": 0.008553689083855034
+    },
+    "CLEVELAND": {
+      "sb": 0.005721341705095089
+    },
+    "LAS VEGAS": {
+      "sb": 0.004298122375469444
+    },
+    "MIAMI": {
+      "sb": 0.0028701747424231174
+    },
+    "ARIZONA": {
+      "sb": 0.0028701747424231174
+    }
+  },
   "nflCurrentOU": {
     "ARIZONA CARDINALS": 6.5,
     "ATLANTA FALCONS": 9.5,
