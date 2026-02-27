@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-02-26T23:44:48.219Z",
+  "generatedAt": "2026-02-27T02:52:08.458Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -34,7 +34,7 @@
     },
     "KANSAS CITY": {
       "sb": 0.05768813861885286,
-      "div": 0.3555628379485499,
+      "div": 0.36649214659685864,
       "reach_sb": 0.10808766243191746
     },
     "PHILADELPHIA": {
@@ -59,7 +59,7 @@
     },
     "DENVER": {
       "sb": 0.04120581329918061,
-      "div": 0.2844502703588399,
+      "div": 0.2931937172774869,
       "reach_sb": 0.07860920904139451
     },
     "HOUSTON": {
@@ -144,7 +144,6 @@
     },
     "LAS VEGAS": {
       "sb": 0.004305084971556183,
-      "div": 0.02982139931181386,
       "reach_sb": 0.008561399004508313
     },
     "MIAMI": {
