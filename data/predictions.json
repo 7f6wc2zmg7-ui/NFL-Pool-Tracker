@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-05T20:53:05.103Z",
+  "generatedAt": "2026-03-05T21:50:13.977Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -30,7 +30,7 @@
     "GREEN BAY PACKERS": {
       "sb": 0.05683336332498749,
       "reach_sb": 0.10801338653068547,
-      "div": 0.33564796888579124
+      "div": 0.3301609274961066
     },
     "KANSAS CITY CHIEFS": {
       "sb": 0.05429920812574414,
@@ -45,7 +45,7 @@
     "DETROIT LIONS": {
       "sb": 0.07233337150452955,
       "reach_sb": 0.10165965791123338,
-      "div": 0.34831392997582106
+      "div": 0.34884928188267866
     },
     "LOS ANGELES CHARGERS": {
       "sb": 0.05090550761788513,
@@ -80,7 +80,7 @@
     "CHICAGO BEARS": {
       "sb": 0.031326466226390855,
       "reach_sb": 0.0617219351603917,
-      "div": 0.2006591118338969
+      "div": 0.20543346599757742
     },
     "CINCINNATI BENGALS": {
       "sb": 0.030602580251916346,
@@ -105,7 +105,7 @@
     "MINNESOTA VIKINGS": {
       "sb": 0.013352264293215772,
       "reach_sb": 0.027874422330499478,
-      "div": 0.11537898930449073
+      "div": 0.1155563246236373
     },
     "PITTSBURGH STEELERS": {
       "sb": 0.014208340831246873,
