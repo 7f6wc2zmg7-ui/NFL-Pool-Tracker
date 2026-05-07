@@ -1,11 +1,22 @@
 {
-  "generatedAt": "2026-05-07T17:03:31.971Z",
+  "generatedAt": "2026-05-07T18:58:09.384Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
     "nflCurrentOU": "Covers.com win totals (scraped HTML)"
   },
-  "nflNextGame": [],
+  "nflNextGame": [
+    {
+      "sport": "NFL",
+      "team": "LOS ANGELES RAMS",
+      "impliedNextGameWinProb": 0.5720596355604638
+    },
+    {
+      "sport": "NFL",
+      "team": "SAN FRANCISCO 49ERS",
+      "impliedNextGameWinProb": 0.42794036443953615
+    }
+  ],
   "nflFutures": {
     "LOS ANGELES RAMS": {
       "sb": 0.09086025528248494,
