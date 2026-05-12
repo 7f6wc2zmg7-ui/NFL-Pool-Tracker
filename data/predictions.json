@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-12T12:16:05.182Z",
+  "generatedAt": "2026-05-12T14:51:11.749Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -38,6 +38,11 @@
     },
     {
       "sport": "NFL",
+      "team": "BALTIMORE RAVENS",
+      "impliedNextGameWinProb": 0.551441114716549
+    },
+    {
+      "sport": "NFL",
       "team": "PHILADELPHIA EAGLES",
       "impliedNextGameWinProb": 0.5324675324675325
     }
@@ -63,25 +68,25 @@
       "div": 0.5231511443195859,
       "reach_sb": 0.14382817377790605
     },
-    "GREEN BAY PACKERS": {
-      "sb": 0.0525207037348149,
-      "reach_sb": 0.09583488524624235,
-      "div": 0.3133504698444725
-    },
     "KANSAS CITY CHIEFS": {
       "sb": 0.05077648960029324,
       "div": 0.35456450861667443,
       "reach_sb": 0.10152576972558075
     },
-    "LOS ANGELES CHARGERS": {
-      "sb": 0.05077648960029324,
-      "div": 0.31788542151839777,
-      "reach_sb": 0.09588544918527071
+    "GREEN BAY PACKERS": {
+      "sb": 0.0525207037348149,
+      "reach_sb": 0.09583488524624235,
+      "div": 0.3133504698444725
     },
     "PHILADELPHIA EAGLES": {
       "sb": 0.0525207037348149,
       "reach_sb": 0.1014722314371978,
       "div": 0.4297351540671363
+    },
+    "LOS ANGELES CHARGERS": {
+      "sb": 0.05077648960029324,
+      "div": 0.31788542151839777,
+      "reach_sb": 0.09588544918527071
     },
     "NEW ENGLAND PATRIOTS": {
       "sb": 0.04778963727086423,
@@ -168,15 +173,15 @@
       "reach_sb": 0.02395872131156059,
       "div": 0.22493821148372165
     },
-    "ATLANTA FALCONS": {
-      "sb": 0.006714246558716462,
-      "reach_sb": 0.015402035128860379,
-      "div": 0.16768121219695614
-    },
     "TENNESSEE TITANS": {
       "sb": 0.006714246558716462,
       "div": 0.10266982088543426,
       "reach_sb": 0.01541016147620422
+    },
+    "ATLANTA FALCONS": {
+      "sb": 0.006714246558716462,
+      "reach_sb": 0.015402035128860379,
+      "div": 0.16768121219695614
     },
     "CLEVELAND BROWNS": {
       "sb": 0.005587308907959032,
