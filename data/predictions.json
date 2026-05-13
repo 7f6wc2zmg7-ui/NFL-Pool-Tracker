@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-13T10:42:26.023Z",
+  "generatedAt": "2026-05-13T13:27:36.612Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -53,6 +53,31 @@
     },
     {
       "sport": "NFL",
+      "team": "JACKSONVILLE JAGUARS",
+      "impliedNextGameWinProb": 0.4826358742837298
+    },
+    {
+      "sport": "NFL",
+      "team": "PHILADELPHIA EAGLES",
+      "impliedNextGameWinProb": 0.4782608695652174
+    },
+    {
+      "sport": "NFL",
+      "team": "HOUSTON TEXANS",
+      "impliedNextGameWinProb": 0.5173641257162701
+    },
+    {
+      "sport": "NFL",
+      "team": "NEW ORLEANS SAINTS",
+      "impliedNextGameWinProb": 0.448558885283451
+    },
+    {
+      "sport": "NFL",
+      "team": "PITTSBURGH STEELERS",
+      "impliedNextGameWinProb": 0.551441114716549
+    },
+    {
+      "sport": "NFL",
       "team": "ATLANTA FALCONS",
       "impliedNextGameWinProb": 0.33099297893681046
     },
@@ -60,11 +85,6 @@
       "sport": "NFL",
       "team": "CINCINNATI BENGALS",
       "impliedNextGameWinProb": 0.6690070210631895
-    },
-    {
-      "sport": "NFL",
-      "team": "PHILADELPHIA EAGLES",
-      "impliedNextGameWinProb": 0.4782608695652174
     }
   ],
   "nflFutures": {
