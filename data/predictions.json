@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-13T22:37:28.815Z",
+  "generatedAt": "2026-05-14T00:14:10.369Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -14,7 +14,7 @@
     {
       "sport": "NFL",
       "team": "SAN FRANCISCO 49ERS",
-      "impliedNextGameWinProb": 0.6369041816941223
+      "impliedNextGameWinProb": 0.644729178800233
     },
     {
       "sport": "NFL",
@@ -89,12 +89,12 @@
     {
       "sport": "NFL",
       "team": "ATLANTA FALCONS",
-      "impliedNextGameWinProb": 0.33099297893681046
+      "impliedNextGameWinProb": 0.33635187580853815
     },
     {
       "sport": "NFL",
       "team": "CINCINNATI BENGALS",
-      "impliedNextGameWinProb": 0.6690070210631895
+      "impliedNextGameWinProb": 0.6636481241914618
     },
     {
       "sport": "NFL",
@@ -104,7 +104,7 @@
     {
       "sport": "NFL",
       "team": "MINNESOTA VIKINGS",
-      "impliedNextGameWinProb": 0.3630958183058778
+      "impliedNextGameWinProb": 0.35527082119976705
     },
     {
       "sport": "NFL",
@@ -143,20 +143,20 @@
       "reach_sb": 0.09583488524624235,
       "div": 0.3133504698444725
     },
-    "PHILADELPHIA EAGLES": {
-      "sb": 0.0525207037348149,
-      "reach_sb": 0.1014722314371978,
-      "div": 0.4297351540671363
+    "NEW ENGLAND PATRIOTS": {
+      "sb": 0.04822173083811298,
+      "div": 0.4013377926421405,
+      "reach_sb": 0.09588544918527071
     },
     "LOS ANGELES CHARGERS": {
       "sb": 0.04822173083811298,
       "div": 0.31788542151839777,
       "reach_sb": 0.09588544918527071
     },
-    "NEW ENGLAND PATRIOTS": {
-      "sb": 0.04822173083811298,
-      "div": 0.4013377926421405,
-      "reach_sb": 0.09588544918527071
+    "PHILADELPHIA EAGLES": {
+      "sb": 0.0525207037348149,
+      "reach_sb": 0.1014722314371978,
+      "div": 0.4297351540671363
     },
     "SAN FRANCISCO 49ERS": {
       "sb": 0.04634179741307197,
@@ -238,15 +238,15 @@
       "reach_sb": 0.02395872131156059,
       "div": 0.22493821148372165
     },
-    "TENNESSEE TITANS": {
-      "sb": 0.006774953919404303,
-      "div": 0.10266982088543426,
-      "reach_sb": 0.01541016147620422
-    },
     "ATLANTA FALCONS": {
       "sb": 0.006774953919404303,
       "reach_sb": 0.015402035128860379,
       "div": 0.16768121219695614
+    },
+    "TENNESSEE TITANS": {
+      "sb": 0.006774953919404303,
+      "div": 0.10266982088543426,
+      "reach_sb": 0.01541016147620422
     },
     "CLEVELAND BROWNS": {
       "sb": 0.005587308907959032,
