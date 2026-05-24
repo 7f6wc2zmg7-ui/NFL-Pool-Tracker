@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-24T17:15:15.397Z",
+  "generatedAt": "2026-05-24T18:10:40.617Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -203,14 +203,14 @@
       "reach_sb": 0.09592774913877813,
       "div": 0.30225474743686553
     },
-    "LOS ANGELES CHARGERS": {
-      "sb": 0.04821881658030383,
-      "div": 0.31788542151839777,
-      "reach_sb": 0.09575831545819946
-    },
     "NEW ENGLAND PATRIOTS": {
       "sb": 0.04821881658030383,
       "div": 0.4024239571689122,
+      "reach_sb": 0.09575831545819946
+    },
+    "LOS ANGELES CHARGERS": {
+      "sb": 0.04821881658030383,
+      "div": 0.31788542151839777,
       "reach_sb": 0.09575831545819946
     },
     "SAN FRANCISCO 49ERS": {
@@ -293,15 +293,15 @@
       "reach_sb": 0.023981937284694534,
       "div": 0.22493821148372165
     },
-    "TENNESSEE TITANS": {
-      "sb": 0.0067745444782245055,
-      "div": 0.10256353522703637,
-      "reach_sb": 0.014128276051209759
-    },
     "ATLANTA FALCONS": {
       "sb": 0.0067745444782245055,
       "reach_sb": 0.015416959683017914,
       "div": 0.16768121219695614
+    },
+    "TENNESSEE TITANS": {
+      "sb": 0.0067745444782245055,
+      "div": 0.10256353522703637,
+      "reach_sb": 0.014128276051209759
     },
     "CLEVELAND BROWNS": {
       "sb": 0.006562612389272484,
@@ -329,38 +329,5 @@
       "div": 0.010144780242624708
     }
   },
-  "nflCurrentOU": {
-    "ARIZONA CARDINALS": 4.5,
-    "ATLANTA FALCONS": 7.5,
-    "BALTIMORE RAVENS": 11.5,
-    "BUFFALO BILLS": 10.5,
-    "CAROLINA PANTHERS": 6.5,
-    "CHICAGO BEARS": 9.5,
-    "CINCINNATI BENGALS": 9.5,
-    "CLEVELAND BROWNS": 6.5,
-    "DALLAS COWBOYS": 8.5,
-    "DENVER BRONCOS": 9.5,
-    "DETROIT LIONS": 10.5,
-    "GREEN BAY PACKERS": 10.5,
-    "HOUSTON TEXANS": 9.5,
-    "INDIANAPOLIS COLTS": 8.5,
-    "JACKSONVILLE JAGUARS": 9.5,
-    "KANSAS CITY CHIEFS": 10.5,
-    "LOS ANGELES CHARGERS": 10.5,
-    "LOS ANGELES RAMS": 11.5,
-    "LAS VEGAS RAIDERS": 5.5,
-    "MIAMI DOLPHINS": 4.5,
-    "MINNESOTA VIKINGS": 8.5,
-    "NEW ENGLAND PATRIOTS": 9.5,
-    "NEW ORLEANS SAINTS": 7.5,
-    "NEW YORK GIANTS": 7.5,
-    "NEW YORK JETS": 5.5,
-    "PHILADELPHIA EAGLES": 10.5,
-    "PITTSBURGH STEELERS": 8.5,
-    "SAN FRANCISCO 49ERS": 10.5,
-    "SEATTLE SEAHAWKS": 10.5,
-    "TAMPA BAY BUCCANEERS": 8.5,
-    "TENNESSEE TITANS": 6.5,
-    "WASHINGTON COMMANDERS": 7.5
-  }
+  "nflCurrentOU": {}
 }
