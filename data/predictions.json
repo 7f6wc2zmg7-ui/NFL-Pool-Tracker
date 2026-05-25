@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-25T00:13:08.895Z",
+  "generatedAt": "2026-05-25T04:49:58.744Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -203,14 +203,14 @@
       "reach_sb": 0.09592774913877813,
       "div": 0.30225474743686553
     },
-    "LOS ANGELES CHARGERS": {
-      "sb": 0.04821881658030383,
-      "div": 0.31788542151839777,
-      "reach_sb": 0.09575831545819946
-    },
     "NEW ENGLAND PATRIOTS": {
       "sb": 0.04821881658030383,
       "div": 0.4024239571689122,
+      "reach_sb": 0.09575831545819946
+    },
+    "LOS ANGELES CHARGERS": {
+      "sb": 0.04821881658030383,
+      "div": 0.31788542151839777,
       "reach_sb": 0.09575831545819946
     },
     "SAN FRANCISCO 49ERS": {
@@ -293,15 +293,15 @@
       "reach_sb": 0.023981937284694534,
       "div": 0.22493821148372165
     },
-    "TENNESSEE TITANS": {
-      "sb": 0.0067745444782245055,
-      "div": 0.10256353522703637,
-      "reach_sb": 0.014128276051209759
-    },
     "ATLANTA FALCONS": {
       "sb": 0.0067745444782245055,
       "reach_sb": 0.015416959683017914,
       "div": 0.16768121219695614
+    },
+    "TENNESSEE TITANS": {
+      "sb": 0.0067745444782245055,
+      "div": 0.10256353522703637,
+      "reach_sb": 0.014128276051209759
     },
     "CLEVELAND BROWNS": {
       "sb": 0.006562612389272484,
