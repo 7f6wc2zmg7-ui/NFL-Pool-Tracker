@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-27T16:45:46.060Z",
+  "generatedAt": "2026-05-27T19:32:47.212Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -64,7 +64,7 @@
     {
       "sport": "NFL",
       "team": "CHICAGO BEARS",
-      "impliedNextGameWinProb": 0.7600000000000001
+      "impliedNextGameWinProb": 0.7659021045164341
     },
     {
       "sport": "NFL",
@@ -201,7 +201,7 @@
     "GREEN BAY PACKERS": {
       "sb": 0.04821881658030383,
       "reach_sb": 0.09592774913877813,
-      "div": 0.30225474743686553
+      "div": 0.2925437031751694
     },
     "NEW ENGLAND PATRIOTS": {
       "sb": 0.04821881658030383,
@@ -226,7 +226,7 @@
     "DETROIT LIONS": {
       "sb": 0.052938406606798036,
       "reach_sb": 0.08633497422490033,
-      "div": 0.32460457031071827
+      "div": 0.3291116660720656
     },
     "DENVER BRONCOS": {
       "sb": 0.03903428008881739,
@@ -241,7 +241,7 @@
     "CHICAGO BEARS": {
       "sb": 0.0345250477870422,
       "reach_sb": 0.061667838732071656,
-      "div": 0.2194945189720095
+      "div": 0.2247591865858009
     },
     "DALLAS COWBOYS": {
       "sb": 0.03152768776404482,
@@ -261,7 +261,7 @@
     "MINNESOTA VIKINGS": {
       "sb": 0.019367709734194404,
       "reach_sb": 0.03753694531517405,
-      "div": 0.15364616328040664
+      "div": 0.15358544416696393
     },
     "PITTSBURGH STEELERS": {
       "sb": 0.019367709734194404,
