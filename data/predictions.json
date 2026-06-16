@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-16T21:18:21.892Z",
+  "generatedAt": "2026-06-16T23:46:50.367Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -64,7 +64,7 @@
     {
       "sport": "NFL",
       "team": "CHICAGO BEARS",
-      "impliedNextGameWinProb": 0.7659021045164341
+      "impliedNextGameWinProb": 0.7600000000000001
     },
     {
       "sport": "NFL",
