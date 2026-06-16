@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-16T17:20:04.104Z",
+  "generatedAt": "2026-06-16T21:18:21.892Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -266,7 +266,7 @@
     "TAMPA BAY BUCCANEERS": {
       "sb": 0.016752824419460622,
       "reach_sb": 0.03919050357325172,
-      "div": 0.35471025657048416
+      "div": 0.34842631908407007
     },
     "INDIANAPOLIS COLTS": {
       "sb": 0.015438877406169595,
@@ -286,17 +286,17 @@
     "NEW ORLEANS SAINTS": {
       "sb": 0.010225749970320122,
       "reach_sb": 0.02268923891082994,
-      "div": 0.252670319748838
+      "div": 0.25201246092656027
     },
     "CAROLINA PANTHERS": {
       "sb": 0.00905037641051321,
       "reach_sb": 0.02268923891082994,
-      "div": 0.22493821148372165
+      "div": 0.22435255667852316
     },
     "ATLANTA FALCONS": {
       "sb": 0.006507295435658259,
       "reach_sb": 0.015396269260920315,
-      "div": 0.16768121219695614
+      "div": 0.17520866331084664
     },
     "TENNESSEE TITANS": {
       "sb": 0.006507295435658259,
