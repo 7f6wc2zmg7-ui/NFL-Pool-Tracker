@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-18T01:39:40.083Z",
+  "generatedAt": "2026-06-18T07:04:50.164Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -329,5 +329,38 @@
       "div": 0.009127999830039268
     }
   },
-  "nflCurrentOU": {}
+  "nflCurrentOU": {
+    "ARIZONA CARDINALS": 4.5,
+    "ATLANTA FALCONS": 7.5,
+    "BALTIMORE RAVENS": 11.5,
+    "BUFFALO BILLS": 10.5,
+    "CAROLINA PANTHERS": 6.5,
+    "CHICAGO BEARS": 9.5,
+    "CINCINNATI BENGALS": 9.5,
+    "CLEVELAND BROWNS": 6.5,
+    "DALLAS COWBOYS": 8.5,
+    "DENVER BRONCOS": 9.5,
+    "DETROIT LIONS": 10.5,
+    "GREEN BAY PACKERS": 10.5,
+    "HOUSTON TEXANS": 9.5,
+    "INDIANAPOLIS COLTS": 8.5,
+    "JACKSONVILLE JAGUARS": 9.5,
+    "KANSAS CITY CHIEFS": 10.5,
+    "LOS ANGELES CHARGERS": 10.5,
+    "LOS ANGELES RAMS": 11.5,
+    "LAS VEGAS RAIDERS": 5.5,
+    "MIAMI DOLPHINS": 4.5,
+    "MINNESOTA VIKINGS": 8.5,
+    "NEW ENGLAND PATRIOTS": 9.5,
+    "NEW ORLEANS SAINTS": 7.5,
+    "NEW YORK GIANTS": 7.5,
+    "NEW YORK JETS": 5.5,
+    "PHILADELPHIA EAGLES": 10.5,
+    "PITTSBURGH STEELERS": 8.5,
+    "SAN FRANCISCO 49ERS": 10.5,
+    "SEATTLE SEAHAWKS": 10.5,
+    "TAMPA BAY BUCCANEERS": 8.5,
+    "TENNESSEE TITANS": 6.5,
+    "WASHINGTON COMMANDERS": 7.5
+  }
 }
