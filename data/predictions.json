@@ -1,11 +1,21 @@
 {
-  "generatedAt": "2026-06-23T05:13:49.981Z",
+  "generatedAt": "2026-06-23T08:37:53.291Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
     "nflCurrentOU": "Covers.com win totals (scraped HTML)"
   },
   "nflNextGame": [
+    {
+      "sport": "NFL",
+      "team": "SEATTLE SEAHAWKS",
+      "impliedNextGameWinProb": 0.644729178800233
+    },
+    {
+      "sport": "NFL",
+      "team": "NEW ENGLAND PATRIOTS",
+      "impliedNextGameWinProb": 0.7819063004846527
+    },
     {
       "sport": "NFL",
       "team": "LOS ANGELES RAMS",
@@ -45,6 +55,16 @@
       "sport": "NFL",
       "team": "BUFFALO BILLS",
       "impliedNextGameWinProb": 0.705033164260632
+    },
+    {
+      "sport": "NFL",
+      "team": "CAROLINA PANTHERS",
+      "impliedNextGameWinProb": 0.4826358742837298
+    },
+    {
+      "sport": "NFL",
+      "team": "CHICAGO BEARS",
+      "impliedNextGameWinProb": 0.5996387718242023
     },
     {
       "sport": "NFL",
@@ -138,33 +158,13 @@
     },
     {
       "sport": "NFL",
-      "team": "CAROLINA PANTHERS",
-      "impliedNextGameWinProb": 0.4826358742837298
-    },
-    {
-      "sport": "NFL",
-      "team": "CHICAGO BEARS",
-      "impliedNextGameWinProb": 0.5996387718242023
-    },
-    {
-      "sport": "NFL",
-      "team": "NEW ENGLAND PATRIOTS",
-      "impliedNextGameWinProb": 0.7819063004846527
+      "team": "NEW YORK JETS",
+      "impliedNextGameWinProb": 0.21809369951534735
     },
     {
       "sport": "NFL",
       "team": "TENNESSEE TITANS",
       "impliedNextGameWinProb": 0.6037569709421778
-    },
-    {
-      "sport": "NFL",
-      "team": "SEATTLE SEAHAWKS",
-      "impliedNextGameWinProb": 0.644729178800233
-    },
-    {
-      "sport": "NFL",
-      "team": "NEW YORK JETS",
-      "impliedNextGameWinProb": 0.21809369951534735
     }
   ],
   "nflFutures": {
