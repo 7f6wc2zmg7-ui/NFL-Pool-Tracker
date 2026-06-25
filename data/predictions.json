@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-25T05:15:00.913Z",
+  "generatedAt": "2026-06-25T08:31:11.742Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -193,15 +193,15 @@
       "div": 0.35456450861667443,
       "reach_sb": 0.09916381829869318
     },
-    "PHILADELPHIA EAGLES": {
-      "sb": 0.05079888694933221,
-      "reach_sb": 0.09370717264061608,
-      "div": 0.4286579305144581
-    },
     "NEW ENGLAND PATRIOTS": {
       "sb": 0.048016695027961125,
       "div": 0.4191324299458194,
       "reach_sb": 0.10031688595332915
+    },
+    "PHILADELPHIA EAGLES": {
+      "sb": 0.05079888694933221,
+      "reach_sb": 0.09370717264061608,
+      "div": 0.4286579305144581
     },
     "LOS ANGELES CHARGERS": {
       "sb": 0.04534910085974106,
@@ -293,15 +293,15 @@
       "reach_sb": 0.022105281751119688,
       "div": 0.22435255667852316
     },
-    "TENNESSEE TITANS": {
-      "sb": 0.006507295435658259,
-      "div": 0.10236032742589207,
-      "reach_sb": 0.015405807485689833
-    },
     "ATLANTA FALCONS": {
       "sb": 0.006507295435658259,
       "reach_sb": 0.015394749790958355,
       "div": 0.17520866331084664
+    },
+    "TENNESSEE TITANS": {
+      "sb": 0.006507295435658259,
+      "div": 0.10236032742589207,
+      "reach_sb": 0.015405807485689833
     },
     "LAS VEGAS RAIDERS": {
       "sb": 0.00540585308261814,
