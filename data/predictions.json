@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-20T18:17:59.372Z",
+  "generatedAt": "2026-07-20T20:39:47.269Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -18,6 +18,26 @@
     },
     {
       "sport": "NFL",
+      "team": "LOS ANGELES RAMS",
+      "impliedNextGameWinProb": 0.7913616398243045
+    },
+    {
+      "sport": "NFL",
+      "team": "SAN FRANCISCO 49ERS",
+      "impliedNextGameWinProb": 0.3775334481388264
+    },
+    {
+      "sport": "NFL",
+      "team": "PITTSBURGH STEELERS",
+      "impliedNextGameWinProb": 0.5634920634920635
+    },
+    {
+      "sport": "NFL",
+      "team": "ATLANTA FALCONS",
+      "impliedNextGameWinProb": 0.43650793650793646
+    },
+    {
+      "sport": "NFL",
       "team": "INDIANAPOLIS COLTS",
       "impliedNextGameWinProb": 0.3775334481388264
     },
@@ -28,18 +48,18 @@
     },
     {
       "sport": "NFL",
-      "team": "KANSAS CITY CHIEFS",
-      "impliedNextGameWinProb": 0.8223350253807106
+      "team": "HOUSTON TEXANS",
+      "impliedNextGameWinProb": 0.4782608695652174
     },
     {
       "sport": "NFL",
-      "team": "DENVER BRONCOS",
-      "impliedNextGameWinProb": 0.42794036443953615
+      "team": "BUFFALO BILLS",
+      "impliedNextGameWinProb": 0.5217391304347826
     },
     {
       "sport": "NFL",
-      "team": "JACKSONVILLE JAGUARS",
-      "impliedNextGameWinProb": 0.43650793650793646
+      "team": "CAROLINA PANTHERS",
+      "impliedNextGameWinProb": 0.448558885283451
     },
     {
       "sport": "NFL",
@@ -48,8 +68,8 @@
     },
     {
       "sport": "NFL",
-      "team": "PHILADELPHIA EAGLES",
-      "impliedNextGameWinProb": 0.4826358742837298
+      "team": "CINCINNATI BENGALS",
+      "impliedNextGameWinProb": 0.6309403437815976
     },
     {
       "sport": "NFL",
@@ -58,18 +78,93 @@
     },
     {
       "sport": "NFL",
-      "team": "GREEN BAY PACKERS",
-      "impliedNextGameWinProb": 0.5996387718242023
+      "team": "JACKSONVILLE JAGUARS",
+      "impliedNextGameWinProb": 0.43650793650793646
     },
     {
       "sport": "NFL",
-      "team": "LOS ANGELES RAMS",
-      "impliedNextGameWinProb": 0.7913616398243045
+      "team": "CLEVELAND BROWNS",
+      "impliedNextGameWinProb": 0.2491874322860238
+    },
+    {
+      "sport": "NFL",
+      "team": "DETROIT LIONS",
+      "impliedNextGameWinProb": 0.7335423197492164
+    },
+    {
+      "sport": "NFL",
+      "team": "NEW ORLEANS SAINTS",
+      "impliedNextGameWinProb": 0.26645768025078376
+    },
+    {
+      "sport": "NFL",
+      "team": "TENNESSEE TITANS",
+      "impliedNextGameWinProb": 0.5634920634920635
+    },
+    {
+      "sport": "NFL",
+      "team": "NEW YORK JETS",
+      "impliedNextGameWinProb": 0.43650793650793646
+    },
+    {
+      "sport": "NFL",
+      "team": "LOS ANGELES CHARGERS",
+      "impliedNextGameWinProb": 0.817258883248731
     },
     {
       "sport": "NFL",
       "team": "ARIZONA CARDINALS",
       "impliedNextGameWinProb": 0.17766497461928932
+    },
+    {
+      "sport": "NFL",
+      "team": "MINNESOTA VIKINGS",
+      "impliedNextGameWinProb": 0.4891657638136511
+    },
+    {
+      "sport": "NFL",
+      "team": "GREEN BAY PACKERS",
+      "impliedNextGameWinProb": 0.5996387718242023
+    },
+    {
+      "sport": "NFL",
+      "team": "LAS VEGAS RAIDERS",
+      "impliedNextGameWinProb": 0.6369041816941223
+    },
+    {
+      "sport": "NFL",
+      "team": "MIAMI DOLPHINS",
+      "impliedNextGameWinProb": 0.3630958183058778
+    },
+    {
+      "sport": "NFL",
+      "team": "PHILADELPHIA EAGLES",
+      "impliedNextGameWinProb": 0.4826358742837298
+    },
+    {
+      "sport": "NFL",
+      "team": "WASHINGTON COMMANDERS",
+      "impliedNextGameWinProb": 0.34252477380439467
+    },
+    {
+      "sport": "NFL",
+      "team": "NEW YORK GIANTS",
+      "impliedNextGameWinProb": 0.42794036443953615
+    },
+    {
+      "sport": "NFL",
+      "team": "DALLAS COWBOYS",
+      "impliedNextGameWinProb": 0.5720596355604638
+    },
+    {
+      "sport": "NFL",
+      "team": "KANSAS CITY CHIEFS",
+      "impliedNextGameWinProb": 0.8223350253807106
+    },
+    {
+      "sport": "NFL",
+      "team": "DENVER BRONCOS",
+      "impliedNextGameWinProb": 0.43650793650793646
     }
   ],
   "nflFutures": {
