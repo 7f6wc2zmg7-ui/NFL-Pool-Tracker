@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-21T20:35:29.191Z",
+  "generatedAt": "2026-07-21T22:11:08.237Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -14,7 +14,7 @@
     {
       "sport": "NFL",
       "team": "NEW ENGLAND PATRIOTS",
-      "impliedNextGameWinProb": 0.771505376344086
+      "impliedNextGameWinProb": 0.7659021045164341
     },
     {
       "sport": "NFL",
@@ -129,7 +129,7 @@
     {
       "sport": "NFL",
       "team": "LAS VEGAS RAIDERS",
-      "impliedNextGameWinProb": 0.22849462365591394
+      "impliedNextGameWinProb": 0.23409789548356585
     },
     {
       "sport": "NFL",
