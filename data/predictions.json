@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-22T09:37:42.407Z",
+  "generatedAt": "2026-07-22T12:02:44.006Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -175,7 +175,7 @@
     },
     "BUFFALO BILLS": {
       "sb": 0.07411454496782326,
-      "div": 0.5122729699337794,
+      "div": 0.5262241758610493,
       "reach_sb": 0.14143036380305418
     },
     "BALTIMORE RAVENS": {
@@ -195,7 +195,7 @@
     },
     "NEW ENGLAND PATRIOTS": {
       "sb": 0.0479564702732974,
-      "div": 0.4191324299458194,
+      "div": 0.4058460964157112,
       "reach_sb": 0.10031688595332915
     },
     "PHILADELPHIA EAGLES": {
@@ -315,12 +315,12 @@
     },
     "NEW YORK JETS": {
       "sb": 0.004350180926600273,
-      "div": 0.04610456729404014,
+      "div": 0.045657685846767514,
       "reach_sb": 0.009916381829869318
     },
     "MIAMI DOLPHINS": {
       "sb": 0.002615889527291194,
-      "div": 0.022490032826361042,
+      "div": 0.022272041876471957,
       "reach_sb": 0.005713412047673051
     },
     "ARIZONA CARDINALS": {
