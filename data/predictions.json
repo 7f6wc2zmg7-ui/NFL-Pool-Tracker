@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-22T00:04:56.808Z",
+  "generatedAt": "2026-07-22T03:43:32.364Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -29,7 +29,7 @@
     {
       "sport": "NFL",
       "team": "PITTSBURGH STEELERS",
-      "impliedNextGameWinProb": 0.5634920634920635
+      "impliedNextGameWinProb": 0.551441114716549
     },
     {
       "sport": "NFL",
@@ -39,7 +39,7 @@
     {
       "sport": "NFL",
       "team": "INDIANAPOLIS COLTS",
-      "impliedNextGameWinProb": 0.43650793650793646
+      "impliedNextGameWinProb": 0.448558885283451
     },
     {
       "sport": "NFL",
