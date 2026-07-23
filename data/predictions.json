@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-23T18:36:47.247Z",
+  "generatedAt": "2026-07-23T20:19:11.262Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -44,7 +44,7 @@
     {
       "sport": "NFL",
       "team": "BALTIMORE RAVENS",
-      "impliedNextGameWinProb": 0.7659021045164341
+      "impliedNextGameWinProb": 0.771505376344086
     },
     {
       "sport": "NFL",
@@ -69,7 +69,7 @@
     {
       "sport": "NFL",
       "team": "CINCINNATI BENGALS",
-      "impliedNextGameWinProb": 0.6750312469954812
+      "impliedNextGameWinProb": 0.6805555555555556
     },
     {
       "sport": "NFL",
@@ -134,7 +134,7 @@
     {
       "sport": "NFL",
       "team": "MIAMI DOLPHINS",
-      "impliedNextGameWinProb": 0.3249687530045188
+      "impliedNextGameWinProb": 0.3194444444444444
     },
     {
       "sport": "NFL",
