@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T14:10:02.572Z",
+  "generatedAt": "2026-07-24T15:42:35.141Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -114,7 +114,7 @@
     {
       "sport": "NFL",
       "team": "ARIZONA CARDINALS",
-      "impliedNextGameWinProb": 0.27424749163879597
+      "impliedNextGameWinProb": 0.26645768025078376
     },
     {
       "sport": "NFL",
