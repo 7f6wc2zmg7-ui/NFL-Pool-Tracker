@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-26T00:11:35.555Z",
+  "generatedAt": "2026-07-26T03:53:17.155Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -44,7 +44,7 @@
     {
       "sport": "NFL",
       "team": "BALTIMORE RAVENS",
-      "impliedNextGameWinProb": 0.771505376344086
+      "impliedNextGameWinProb": 0.7659021045164341
     },
     {
       "sport": "NFL",
