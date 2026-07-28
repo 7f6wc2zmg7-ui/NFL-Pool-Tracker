@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-28T16:49:16.389Z",
+  "generatedAt": "2026-07-28T18:43:30.120Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -109,7 +109,7 @@
     {
       "sport": "NFL",
       "team": "LOS ANGELES CHARGERS",
-      "impliedNextGameWinProb": 0.43650793650793646
+      "impliedNextGameWinProb": 0.448558885283451
     },
     {
       "sport": "NFL",
@@ -159,7 +159,7 @@
     {
       "sport": "NFL",
       "team": "KANSAS CITY CHIEFS",
-      "impliedNextGameWinProb": 0.5634920634920635
+      "impliedNextGameWinProb": 0.551441114716549
     },
     {
       "sport": "NFL",
