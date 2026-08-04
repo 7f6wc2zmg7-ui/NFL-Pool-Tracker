@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-04T17:02:43.830Z",
+  "generatedAt": "2026-08-04T18:50:01.595Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -144,7 +144,7 @@
     {
       "sport": "NFL",
       "team": "WASHINGTON COMMANDERS",
-      "impliedNextGameWinProb": 0.4739134147382802
+      "impliedNextGameWinProb": 0.4675324675324675
     },
     {
       "sport": "NFL",
@@ -154,7 +154,7 @@
     {
       "sport": "NFL",
       "team": "DALLAS COWBOYS",
-      "impliedNextGameWinProb": 0.5260865852617197
+      "impliedNextGameWinProb": 0.5324675324675325
     },
     {
       "sport": "NFL",
