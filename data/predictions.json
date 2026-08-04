@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-04T20:41:48.439Z",
+  "generatedAt": "2026-08-04T22:21:00.625Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -14,7 +14,7 @@
     {
       "sport": "NFL",
       "team": "NEW ENGLAND PATRIOTS",
-      "impliedNextGameWinProb": 0.8081570996978852
+      "impliedNextGameWinProb": 0.817258883248731
     },
     {
       "sport": "NFL",
@@ -134,7 +134,7 @@
     {
       "sport": "NFL",
       "team": "MIAMI DOLPHINS",
-      "impliedNextGameWinProb": 0.19184290030211482
+      "impliedNextGameWinProb": 0.18274111675126903
     },
     {
       "sport": "NFL",
