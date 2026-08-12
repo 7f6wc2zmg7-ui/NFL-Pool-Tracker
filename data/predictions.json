@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-12T21:01:15.391Z",
+  "generatedAt": "2026-08-12T22:01:06.569Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -14,7 +14,7 @@
     {
       "sport": "NFL",
       "team": "NEW ENGLAND PATRIOTS",
-      "impliedNextGameWinProb": 0.8118668596237336
+      "impliedNextGameWinProb": 0.817258883248731
     },
     {
       "sport": "NFL",
@@ -24,7 +24,7 @@
     {
       "sport": "NFL",
       "team": "SAN FRANCISCO 49ERS",
-      "impliedNextGameWinProb": 0.771505376344086
+      "impliedNextGameWinProb": 0.7659021045164341
     },
     {
       "sport": "NFL",
@@ -54,7 +54,7 @@
     {
       "sport": "NFL",
       "team": "BUFFALO BILLS",
-      "impliedNextGameWinProb": 0.7957758771164253
+      "impliedNextGameWinProb": 0.7913616398243045
     },
     {
       "sport": "NFL",
@@ -104,7 +104,7 @@
     {
       "sport": "NFL",
       "team": "NEW YORK JETS",
-      "impliedNextGameWinProb": 0.2042241228835748
+      "impliedNextGameWinProb": 0.20863836017569545
     },
     {
       "sport": "NFL",
@@ -114,7 +114,7 @@
     {
       "sport": "NFL",
       "team": "ARIZONA CARDINALS",
-      "impliedNextGameWinProb": 0.22849462365591394
+      "impliedNextGameWinProb": 0.23409789548356585
     },
     {
       "sport": "NFL",
@@ -134,7 +134,7 @@
     {
       "sport": "NFL",
       "team": "MIAMI DOLPHINS",
-      "impliedNextGameWinProb": 0.18813314037626627
+      "impliedNextGameWinProb": 0.18274111675126903
     },
     {
       "sport": "NFL",
