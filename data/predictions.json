@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-13T19:18:04.144Z",
+  "generatedAt": "2026-08-13T21:00:49.718Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -171,7 +171,7 @@
     "LOS ANGELES RAMS": {
       "sb": 0.12560388596043381,
       "reach_sb": 0.21825468058067543,
-      "div": 0.46096399141698297
+      "div": 0.47143052026402466
     },
     "BUFFALO BILLS": {
       "sb": 0.07422047806752907,
@@ -186,7 +186,7 @@
     "SEATTLE SEAHAWKS": {
       "sb": 0.0680354382285683,
       "reach_sb": 0.12315799832766684,
-      "div": 0.30227146978162817
+      "div": 0.29219427559826167
     },
     "KANSAS CITY CHIEFS": {
       "sb": 0.04802501522016587,
@@ -226,7 +226,7 @@
     "SAN FRANCISCO 49ERS": {
       "sb": 0.040821262937140994,
       "reach_sb": 0.08133075361261019,
-      "div": 0.2276365389713496
+      "div": 0.22726221435420352
     },
     "CINCINNATI BENGALS": {
       "sb": 0.038877393273467606,
@@ -326,7 +326,7 @@
     "ARIZONA CARDINALS": {
       "sb": 0.0016295913348160075,
       "reach_sb": 0.00428908451887397,
-      "div": 0.009127999830039268
+      "div": 0.009112989783510142
     }
   },
   "nflCurrentOU": {
