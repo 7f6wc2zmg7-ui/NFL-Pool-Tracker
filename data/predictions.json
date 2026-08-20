@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-20T19:44:13.235Z",
+  "generatedAt": "2026-08-20T20:44:38.407Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -24,7 +24,7 @@
     {
       "sport": "NFL",
       "team": "SAN FRANCISCO 49ERS",
-      "impliedNextGameWinProb": 0.771505376344086
+      "impliedNextGameWinProb": 0.7768331562167907
     },
     {
       "sport": "NFL",
@@ -114,7 +114,7 @@
     {
       "sport": "NFL",
       "team": "ARIZONA CARDINALS",
-      "impliedNextGameWinProb": 0.22849462365591394
+      "impliedNextGameWinProb": 0.22316684378320936
     },
     {
       "sport": "NFL",
