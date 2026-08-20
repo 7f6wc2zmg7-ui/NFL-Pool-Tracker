@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-19T23:34:47.311Z",
+  "generatedAt": "2026-08-20T01:49:53.605Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -201,7 +201,7 @@
     "PHILADELPHIA EAGLES": {
       "sb": 0.13224456923822955,
       "reach_sb": 0.09370717264061608,
-      "div": 0.4174830010372248
+      "div": 0.4162740064342118
     },
     "LOS ANGELES CHARGERS": {
       "sb": 0.09847999836889434,
@@ -246,7 +246,7 @@
     "DALLAS COWBOYS": {
       "sb": 0.031400971490108454,
       "reach_sb": 0.06157899916383342,
-      "div": 0.2915754292958395
+      "div": 0.3002632177558249
     },
     "JACKSONVILLE JAGUARS": {
       "sb": 0.02633629866912322,
@@ -276,12 +276,12 @@
     "WASHINGTON COMMANDERS": {
       "sb": 0.028928499520862714,
       "reach_sb": 0.02780987059011832,
-      "div": 0.15973262648380776
+      "div": 0.15263380235921098
     },
     "NEW YORK GIANTS": {
       "sb": 0.0114989473062369,
       "reach_sb": 0.023947388563712996,
-      "div": 0.13120894318312779
+      "div": 0.13082897345075228
     },
     "NEW ORLEANS SAINTS": {
       "sb": 0.008971706140030988,
