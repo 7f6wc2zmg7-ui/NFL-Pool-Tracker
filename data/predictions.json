@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-20T16:49:19.766Z",
+  "generatedAt": "2026-08-20T17:43:36.833Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -54,7 +54,7 @@
     {
       "sport": "NFL",
       "team": "BUFFALO BILLS",
-      "impliedNextGameWinProb": 0.7867435158501441
+      "impliedNextGameWinProb": 0.7913616398243045
     },
     {
       "sport": "NFL",
@@ -104,7 +104,7 @@
     {
       "sport": "NFL",
       "team": "NEW YORK JETS",
-      "impliedNextGameWinProb": 0.2132564841498559
+      "impliedNextGameWinProb": 0.20863836017569545
     },
     {
       "sport": "NFL",
