@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-22T18:47:26.833Z",
+  "generatedAt": "2026-08-22T19:33:10.152Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -69,7 +69,7 @@
     {
       "sport": "NFL",
       "team": "CINCINNATI BENGALS",
-      "impliedNextGameWinProb": 0.7477827050997783
+      "impliedNextGameWinProb": 0.7440690150970525
     },
     {
       "sport": "NFL",
@@ -84,7 +84,7 @@
     {
       "sport": "NFL",
       "team": "CLEVELAND BROWNS",
-      "impliedNextGameWinProb": 0.2522172949002217
+      "impliedNextGameWinProb": 0.2559309849029475
     },
     {
       "sport": "NFL",
