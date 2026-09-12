@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-11T21:42:48.819Z",
+  "generatedAt": "2026-09-12T00:16:39.467Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -44,7 +44,7 @@
     {
       "sport": "NFL",
       "team": "CHICAGO BEARS",
-      "impliedNextGameWinProb": 0.4739134147382802
+      "impliedNextGameWinProb": 0.4675324675324675
     },
     {
       "sport": "NFL",
@@ -99,7 +99,7 @@
     {
       "sport": "NFL",
       "team": "MINNESOTA VIKINGS",
-      "impliedNextGameWinProb": 0.5260865852617197
+      "impliedNextGameWinProb": 0.5324675324675325
     },
     {
       "sport": "NFL",
@@ -193,6 +193,11 @@
       "div": 0.3176970084751736,
       "reach_sb": 0.09322782277690253
     },
+    "CINCINNATI BENGALS": {
+      "sb": 0.05402698418311226,
+      "div": 0.3496848806269695,
+      "reach_sb": 0.091265131771073
+    },
     "HOUSTON TEXANS": {
       "sb": 0.04297533197265844,
       "div": 0.4489302226896842,
@@ -201,32 +206,27 @@
     "DETROIT LIONS": {
       "sb": 0.06303148154696431,
       "reach_sb": 0.09588006452842732,
-      "div": 0.3346904052986571
-    },
-    "CINCINNATI BENGALS": {
-      "sb": 0.05402698418311226,
-      "div": 0.3496848806269695,
-      "reach_sb": 0.091265131771073
+      "div": 0.3356935607800287
     },
     "NEW ENGLAND PATRIOTS": {
       "sb": 0.04082656537402552,
       "div": 0.351301235274039,
       "reach_sb": 0.091265131771073
     },
-    "GREEN BAY PACKERS": {
-      "sb": 0.0420209876979762,
-      "reach_sb": 0.08377869716076174,
-      "div": 0.27070547487391383
-    },
     "DENVER BRONCOS": {
       "sb": 0.03888244321335764,
       "div": 0.29720042728322693,
       "reach_sb": 0.081029789890205
     },
+    "GREEN BAY PACKERS": {
+      "sb": 0.0420209876979762,
+      "reach_sb": 0.08377869716076174,
+      "div": 0.2715168506309056
+    },
     "CHICAGO BEARS": {
       "sb": 0.032885990372329206,
       "reach_sb": 0.06512608156647894,
-      "div": 0.22725891717810048
+      "div": 0.22794007213458736
     },
     "DALLAS COWBOYS": {
       "sb": 0.03140505028771194,
@@ -241,7 +241,7 @@
     "MINNESOTA VIKINGS": {
       "sb": 0.01844823850155053,
       "reach_sb": 0.03922366276162936,
-      "div": 0.16734520264932856
+      "div": 0.16484951645447837
     },
     "PITTSBURGH STEELERS": {
       "sb": 0.01844823850155053,
