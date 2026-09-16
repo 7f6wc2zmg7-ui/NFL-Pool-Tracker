@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-16T16:52:08.497Z",
+  "generatedAt": "2026-09-16T20:06:08.071Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -208,30 +208,30 @@
       "reach_sb": 0.09032241193036689,
       "div": 0.364329735435323
     },
-    "CINCINNATI BENGALS": {
-      "sb": 0.06292113239630598,
-      "div": 0.3377145804170043,
-      "reach_sb": 0.09272606195747882
-    },
     "HOUSTON TEXANS": {
       "sb": 0.0406598447294429,
       "div": 0.3915976759529231,
       "reach_sb": 0.07839567056405027
+    },
+    "CINCINNATI BENGALS": {
+      "sb": 0.06292113239630598,
+      "div": 0.3377145804170043,
+      "reach_sb": 0.09272606195747882
     },
     "LOS ANGELES CHARGERS": {
       "sb": 0.03872366164708847,
       "div": 0.18709058826373165,
       "reach_sb": 0.054752531822511295
     },
-    "DENVER BRONCOS": {
-      "sb": 0.03872366164708847,
-      "div": 0.2546510784700792,
-      "reach_sb": 0.066334798169581
-    },
     "GREEN BAY PACKERS": {
       "sb": 0.03872366164708847,
       "reach_sb": 0.06306146578411069,
       "div": 0.17297150056181687
+    },
+    "DENVER BRONCOS": {
+      "sb": 0.03872366164708847,
+      "div": 0.2546510784700792,
+      "reach_sb": 0.066334798169581
     },
     "NEW ENGLAND PATRIOTS": {
       "sb": 0.036963495208584454,
