@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-19T14:23:40.426Z",
+  "generatedAt": "2026-09-19T17:59:50.404Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -59,7 +59,7 @@
     {
       "sport": "NFL",
       "team": "NEW YORK JETS",
-      "impliedNextGameWinProb": 0.35527082119976705
+      "impliedNextGameWinProb": 0.3630958183058778
     },
     {
       "sport": "NFL",
@@ -99,7 +99,7 @@
     {
       "sport": "NFL",
       "team": "LOS ANGELES CHARGERS",
-      "impliedNextGameWinProb": 0.7220792588780237
+      "impliedNextGameWinProb": 0.725752508361204
     },
     {
       "sport": "NFL",
@@ -193,20 +193,25 @@
       "reach_sb": 0.10080395692911452,
       "div": 0.47020471191275354
     },
-    "CINCINNATI BENGALS": {
-      "sb": 0.04068478943863983,
-      "div": 0.3377145804170043,
-      "reach_sb": 0.09122073183660366
-    },
     "HOUSTON TEXANS": {
       "sb": 0.04068478943863983,
       "div": 0.3915976759529231,
       "reach_sb": 0.07703084021757643
     },
+    "CINCINNATI BENGALS": {
+      "sb": 0.04068478943863983,
+      "div": 0.3377145804170043,
+      "reach_sb": 0.09122073183660366
+    },
     "LOS ANGELES CHARGERS": {
       "sb": 0.047528482226254797,
       "div": 0.1899532197938747,
       "reach_sb": 0.05416230952798343
+    },
+    "GREEN BAY PACKERS": {
+      "sb": 0.038747418512990316,
+      "reach_sb": 0.06192243068502749,
+      "div": 0.17589490389701995
     },
     "DETROIT LIONS": {
       "sb": 0.038747418512990316,
@@ -217,11 +222,6 @@
       "sb": 0.038747418512990316,
       "div": 0.23929171844163435,
       "reach_sb": 0.05252102742107484
-    },
-    "GREEN BAY PACKERS": {
-      "sb": 0.038747418512990316,
-      "reach_sb": 0.06192243068502749,
-      "div": 0.17589490389701995
     },
     "CHICAGO BEARS": {
       "sb": 0.14110018160919394,
