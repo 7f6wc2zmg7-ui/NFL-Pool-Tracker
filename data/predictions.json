@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-22T04:52:20.434Z",
+  "generatedAt": "2026-09-22T09:56:10.704Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -19,12 +19,12 @@
     {
       "sport": "NFL",
       "team": "BUFFALO BILLS",
-      "impliedNextGameWinProb": 0.7335423197492164
+      "impliedNextGameWinProb": 0.740871613663133
     },
     {
       "sport": "NFL",
       "team": "LOS ANGELES CHARGERS",
-      "impliedNextGameWinProb": 0.26645768025078376
+      "impliedNextGameWinProb": 0.2591283863368669
     },
     {
       "sport": "NFL",
@@ -49,12 +49,12 @@
     {
       "sport": "NFL",
       "team": "DETROIT LIONS",
-      "impliedNextGameWinProb": 0.7179705215419501
+      "impliedNextGameWinProb": 0.7220792588780237
     },
     {
       "sport": "NFL",
       "team": "NEW YORK JETS",
-      "impliedNextGameWinProb": 0.2820294784580499
+      "impliedNextGameWinProb": 0.27792074112197634
     },
     {
       "sport": "NFL",
@@ -85,6 +85,16 @@
       "sport": "NFL",
       "team": "KANSAS CITY CHIEFS",
       "impliedNextGameWinProb": 0.8579439252336449
+    },
+    {
+      "sport": "NFL",
+      "team": "NEW YORK GIANTS",
+      "impliedNextGameWinProb": 0.6164383561643836
+    },
+    {
+      "sport": "NFL",
+      "team": "TENNESSEE TITANS",
+      "impliedNextGameWinProb": 0.3835616438356164
     },
     {
       "sport": "NFL",
@@ -139,22 +149,22 @@
     {
       "sport": "NFL",
       "team": "DENVER BRONCOS",
-      "impliedNextGameWinProb": 0.4572564612326044
+      "impliedNextGameWinProb": 0.448558885283451
     },
     {
       "sport": "NFL",
       "team": "LOS ANGELES RAMS",
-      "impliedNextGameWinProb": 0.5427435387673957
+      "impliedNextGameWinProb": 0.551441114716549
     },
     {
       "sport": "NFL",
       "team": "CHICAGO BEARS",
-      "impliedNextGameWinProb": 0.39076376554174075
+      "impliedNextGameWinProb": 0.3962430290578221
     },
     {
       "sport": "NFL",
       "team": "PHILADELPHIA EAGLES",
-      "impliedNextGameWinProb": 0.6092362344582594
+      "impliedNextGameWinProb": 0.6037569709421778
     }
   ],
   "nflFutures": {
@@ -208,15 +218,15 @@
       "div": 0.2465180980268442,
       "reach_sb": 0.06627198376048882
     },
-    "NEW ENGLAND PATRIOTS": {
-      "sb": 0.03542908556336643,
-      "div": 0.3224284315005028,
-      "reach_sb": 0.09165274349854836
-    },
     "HOUSTON TEXANS": {
       "sb": 0.03542908556336643,
       "div": 0.381268848036273,
       "reach_sb": 0.07032945215398813
+    },
+    "NEW ENGLAND PATRIOTS": {
+      "sb": 0.03542908556336643,
+      "div": 0.3224284315005028,
+      "reach_sb": 0.09165274349854836
     },
     "DALLAS COWBOYS": {
       "sb": 0.03259475871829712,
