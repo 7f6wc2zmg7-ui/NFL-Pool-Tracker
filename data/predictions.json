@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-23T00:30:51.504Z",
+  "generatedAt": "2026-09-23T05:58:15.718Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -218,15 +218,15 @@
       "div": 0.2465180980268442,
       "reach_sb": 0.06627198376048882
     },
-    "HOUSTON TEXANS": {
-      "sb": 0.035582518047905284,
-      "div": 0.381268848036273,
-      "reach_sb": 0.07032945215398813
-    },
     "NEW ENGLAND PATRIOTS": {
       "sb": 0.035582518047905284,
       "div": 0.3224284315005028,
       "reach_sb": 0.09165274349854836
+    },
+    "HOUSTON TEXANS": {
+      "sb": 0.035582518047905284,
+      "div": 0.381268848036273,
+      "reach_sb": 0.07032945215398813
     },
     "DALLAS COWBOYS": {
       "sb": 0.032735916604072865,
