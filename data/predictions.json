@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-23T16:56:18.870Z",
+  "generatedAt": "2026-09-23T20:20:43.995Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -19,7 +19,7 @@
     {
       "sport": "NFL",
       "team": "BUFFALO BILLS",
-      "impliedNextGameWinProb": 0.6853932584269663
+      "impliedNextGameWinProb": 0.690792883054068
     },
     {
       "sport": "NFL",
@@ -29,7 +29,7 @@
     {
       "sport": "NFL",
       "team": "CLEVELAND BROWNS",
-      "impliedNextGameWinProb": 0.42794036443953615
+      "impliedNextGameWinProb": 0.4170073589533933
     },
     {
       "sport": "NFL",
@@ -39,12 +39,12 @@
     {
       "sport": "NFL",
       "team": "PITTSBURGH STEELERS",
-      "impliedNextGameWinProb": 0.5720596355604638
+      "impliedNextGameWinProb": 0.5829926410466066
     },
     {
       "sport": "NFL",
       "team": "CINCINNATI BENGALS",
-      "impliedNextGameWinProb": 0.593369754159424
+      "impliedNextGameWinProb": 0.5996387718242023
     },
     {
       "sport": "NFL",
@@ -54,12 +54,12 @@
     {
       "sport": "NFL",
       "team": "NEW YORK JETS",
-      "impliedNextGameWinProb": 0.4066302458405761
+      "impliedNextGameWinProb": 0.39076376554174075
     },
     {
       "sport": "NFL",
       "team": "INDIANAPOLIS COLTS",
-      "impliedNextGameWinProb": 0.644729178800233
+      "impliedNextGameWinProb": 0.6369041816941223
     },
     {
       "sport": "NFL",
@@ -69,22 +69,22 @@
     {
       "sport": "NFL",
       "team": "JACKSONVILLE JAGUARS",
-      "impliedNextGameWinProb": 0.4066302458405761
+      "impliedNextGameWinProb": 0.4003612281757977
     },
     {
       "sport": "NFL",
       "team": "NEW ENGLAND PATRIOTS",
-      "impliedNextGameWinProb": 0.31460674157303364
+      "impliedNextGameWinProb": 0.30920711694593195
     },
     {
       "sport": "NFL",
       "team": "MIAMI DOLPHINS",
-      "impliedNextGameWinProb": 0.15349887133182846
+      "impliedNextGameWinProb": 0.15999999999999998
     },
     {
       "sport": "NFL",
       "team": "KANSAS CITY CHIEFS",
-      "impliedNextGameWinProb": 0.690792883054068
+      "impliedNextGameWinProb": 0.6853932584269663
     },
     {
       "sport": "NFL",
@@ -99,7 +99,7 @@
     {
       "sport": "NFL",
       "team": "WASHINGTON COMMANDERS",
-      "impliedNextGameWinProb": 0.35527082119976705
+      "impliedNextGameWinProb": 0.3630958183058778
     },
     {
       "sport": "NFL",
@@ -124,7 +124,7 @@
     {
       "sport": "NFL",
       "team": "MINNESOTA VIKINGS",
-      "impliedNextGameWinProb": 0.8465011286681716
+      "impliedNextGameWinProb": 0.84
     },
     {
       "sport": "NFL",
@@ -144,7 +144,7 @@
     {
       "sport": "NFL",
       "team": "LAS VEGAS RAIDERS",
-      "impliedNextGameWinProb": 0.30920711694593195
+      "impliedNextGameWinProb": 0.31460674157303364
     },
     {
       "sport": "NFL",
@@ -159,7 +159,7 @@
     {
       "sport": "NFL",
       "team": "CHICAGO BEARS",
-      "impliedNextGameWinProb": 0.593369754159424
+      "impliedNextGameWinProb": 0.6092362344582594
     },
     {
       "sport": "NFL",
@@ -341,7 +341,7 @@
     "GREEN BAY PACKERS": 21,
     "LOS ANGELES RAMS": 18,
     "FOUR TEAMS": 17,
-    "NEW ENGLAND PATRIOTS": 2,
+    "NEW ENGLAND PATRIOTS": 3,
     "PREDICTION MARKET APPS": 221
   }
 }
