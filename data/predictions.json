@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-22T22:08:01.367Z",
+  "generatedAt": "2026-09-23T00:30:51.504Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -24,7 +24,7 @@
     {
       "sport": "NFL",
       "team": "LOS ANGELES CHARGERS",
-      "impliedNextGameWinProb": 0.2904564315352697
+      "impliedNextGameWinProb": 0.28644876973925815
     },
     {
       "sport": "NFL",
@@ -104,7 +104,7 @@
     {
       "sport": "NFL",
       "team": "SEATTLE SEAHAWKS",
-      "impliedNextGameWinProb": 0.7095435684647302
+      "impliedNextGameWinProb": 0.7135512302607419
     },
     {
       "sport": "NFL",
@@ -218,15 +218,15 @@
       "div": 0.2465180980268442,
       "reach_sb": 0.06627198376048882
     },
-    "NEW ENGLAND PATRIOTS": {
-      "sb": 0.035582518047905284,
-      "div": 0.3224284315005028,
-      "reach_sb": 0.09165274349854836
-    },
     "HOUSTON TEXANS": {
       "sb": 0.035582518047905284,
       "div": 0.381268848036273,
       "reach_sb": 0.07032945215398813
+    },
+    "NEW ENGLAND PATRIOTS": {
+      "sb": 0.035582518047905284,
+      "div": 0.3224284315005028,
+      "reach_sb": 0.09165274349854836
     },
     "DALLAS COWBOYS": {
       "sb": 0.032735916604072865,
