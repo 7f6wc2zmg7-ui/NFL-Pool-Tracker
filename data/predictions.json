@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-24T19:08:56.046Z",
+  "generatedAt": "2026-09-24T22:23:32.772Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -29,7 +29,7 @@
     {
       "sport": "NFL",
       "team": "CLEVELAND BROWNS",
-      "impliedNextGameWinProb": 0.4170073589533933
+      "impliedNextGameWinProb": 0.42794036443953615
     },
     {
       "sport": "NFL",
@@ -39,7 +39,7 @@
     {
       "sport": "NFL",
       "team": "PITTSBURGH STEELERS",
-      "impliedNextGameWinProb": 0.5829926410466066
+      "impliedNextGameWinProb": 0.5720596355604638
     },
     {
       "sport": "NFL",
@@ -84,7 +84,7 @@
     {
       "sport": "NFL",
       "team": "KANSAS CITY CHIEFS",
-      "impliedNextGameWinProb": 0.6853932584269663
+      "impliedNextGameWinProb": 0.690792883054068
     },
     {
       "sport": "NFL",
@@ -144,7 +144,7 @@
     {
       "sport": "NFL",
       "team": "LAS VEGAS RAIDERS",
-      "impliedNextGameWinProb": 0.31460674157303364
+      "impliedNextGameWinProb": 0.30920711694593195
     },
     {
       "sport": "NFL",
@@ -208,15 +208,15 @@
       "div": 0.44728831459278123,
       "reach_sb": 0.11188776479043566
     },
-    "DETROIT LIONS": {
-      "sb": 0.03887354002280247,
-      "reach_sb": 0.0720400050242854,
-      "div": 0.30137267144414726
-    },
     "NEW ENGLAND PATRIOTS": {
       "sb": 0.03887354002280247,
       "div": 0.32339930452732124,
       "reach_sb": 0.09165274349854836
+    },
+    "DETROIT LIONS": {
+      "sb": 0.03887354002280247,
+      "reach_sb": 0.0720400050242854,
+      "div": 0.30137267144414726
     },
     "DENVER BRONCOS": {
       "sb": 0.03887354002280247,
@@ -341,6 +341,7 @@
     "GREEN BAY PACKERS": 21,
     "LOS ANGELES RAMS": 18,
     "FOUR TEAMS": 17,
-    "NEW ENGLAND PATRIOTS": 221
+    "NEW ENGLAND PATRIOTS": 3,
+    "PREDICTION MARKET APPS": 221
   }
 }
