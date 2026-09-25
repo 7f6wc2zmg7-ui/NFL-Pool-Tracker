@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-25T07:46:36.556Z",
+  "generatedAt": "2026-09-25T13:45:11.223Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -109,7 +109,7 @@
     {
       "sport": "NFL",
       "team": "TAMPA BAY BUCCANEERS",
-      "impliedNextGameWinProb": 0.4739134147382802
+      "impliedNextGameWinProb": 0.4782608695652174
     },
     {
       "sport": "NFL",
