@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-26T19:51:12.426Z",
+  "generatedAt": "2026-09-26T22:48:34.332Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -34,7 +34,7 @@
     {
       "sport": "NFL",
       "team": "CINCINNATI BENGALS",
-      "impliedNextGameWinProb": 0.5996387718242023
+      "impliedNextGameWinProb": 0.593369754159424
     },
     {
       "sport": "NFL",
@@ -59,7 +59,7 @@
     {
       "sport": "NFL",
       "team": "JACKSONVILLE JAGUARS",
-      "impliedNextGameWinProb": 0.4003612281757977
+      "impliedNextGameWinProb": 0.4066302458405761
     },
     {
       "sport": "NFL",
@@ -198,15 +198,15 @@
       "div": 0.44728831459278123,
       "reach_sb": 0.11188776479043566
     },
-    "DETROIT LIONS": {
-      "sb": 0.03878694470773932,
-      "reach_sb": 0.07342028381449728,
-      "div": 0.3389078570395493
-    },
     "NEW ENGLAND PATRIOTS": {
       "sb": 0.03878694470773932,
       "div": 0.32339930452732124,
       "reach_sb": 0.09165274349854836
+    },
+    "DETROIT LIONS": {
+      "sb": 0.03878694470773932,
+      "reach_sb": 0.07342028381449728,
+      "div": 0.3389078570395493
     },
     "DENVER BRONCOS": {
       "sb": 0.03878694470773932,
