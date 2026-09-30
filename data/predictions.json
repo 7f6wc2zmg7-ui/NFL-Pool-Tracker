@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-30T06:42:09.137Z",
+  "generatedAt": "2026-09-30T13:41:40.843Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -69,7 +69,7 @@
     {
       "sport": "NFL",
       "team": "CINCINNATI BENGALS",
-      "impliedNextGameWinProb": 0.7913616398243045
+      "impliedNextGameWinProb": 0.7957758771164253
     },
     {
       "sport": "NFL",
@@ -114,7 +114,7 @@
     {
       "sport": "NFL",
       "team": "MIAMI DOLPHINS",
-      "impliedNextGameWinProb": 0.20863836017569545
+      "impliedNextGameWinProb": 0.2042241228835748
     },
     {
       "sport": "NFL",
@@ -341,6 +341,7 @@
     "GREEN BAY PACKERS": 21,
     "LOS ANGELES RAMS": 18,
     "FOUR TEAMS": 17,
-    "NEW ENGLAND PATRIOTS": 221
+    "NEW ENGLAND PATRIOTS": 4,
+    "PREDICTION MARKET APPS": 221
   }
 }
