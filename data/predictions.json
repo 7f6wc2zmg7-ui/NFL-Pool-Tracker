@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-01T08:54:18.020Z",
+  "generatedAt": "2026-10-01T16:26:44.693Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -341,7 +341,7 @@
     "GREEN BAY PACKERS": 21,
     "LOS ANGELES RAMS": 18,
     "FOUR TEAMS": 17,
-    "NEW ENGLAND PATRIOTS": 4,
+    "NEW ENGLAND PATRIOTS": 27,
     "PREDICTION MARKET APPS": 221
   }
 }
