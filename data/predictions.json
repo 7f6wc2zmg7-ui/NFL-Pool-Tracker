@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-02T20:43:46.276Z",
+  "generatedAt": "2026-10-03T00:29:41.991Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -14,7 +14,7 @@
     {
       "sport": "NFL",
       "team": "INDIANAPOLIS COLTS",
-      "impliedNextGameWinProb": 0.644729178800233
+      "impliedNextGameWinProb": 0.6369041816941223
     },
     {
       "sport": "NFL",
@@ -64,7 +64,7 @@
     {
       "sport": "NFL",
       "team": "JACKSONVILLE JAGUARS",
-      "impliedNextGameWinProb": 0.5829926410466066
+      "impliedNextGameWinProb": 0.5720596355604638
     },
     {
       "sport": "NFL",
@@ -89,7 +89,7 @@
     {
       "sport": "NFL",
       "team": "PHILADELPHIA EAGLES",
-      "impliedNextGameWinProb": 0.4170073589533933
+      "impliedNextGameWinProb": 0.42794036443953615
     },
     {
       "sport": "NFL",
@@ -170,7 +170,7 @@
     },
     "BALTIMORE RAVENS": {
       "sb": 0.08630555816234685,
-      "div": 0.5076610670112608,
+      "div": 0.5114754098360657,
       "reach_sb": 0.15975416996463812
     },
     "SAN FRANCISCO 49ERS": {
@@ -195,7 +195,7 @@
     },
     "CINCINNATI BENGALS": {
       "sb": 0.05975000180470167,
-      "div": 0.34613254568949603,
+      "div": 0.34098360655737703,
       "reach_sb": 0.09376875193576586
     },
     "DETROIT LIONS": {
@@ -255,7 +255,7 @@
     },
     "PITTSBURGH STEELERS": {
       "sb": 0.010931758220300241,
-      "div": 0.07310319364962156,
+      "div": 0.07081967213114755,
       "reach_sb": 0.018354734421469062
     },
     "WASHINGTON COMMANDERS": {
@@ -295,7 +295,7 @@
     },
     "CLEVELAND BROWNS": {
       "sb": 0.007690594291694274,
-      "div": 0.07310319364962156,
+      "div": 0.07672131147540984,
       "reach_sb": 0.009692949638303886
     },
     "NEW YORK JETS": {
