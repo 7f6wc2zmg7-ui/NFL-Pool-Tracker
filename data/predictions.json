@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-03T00:29:41.991Z",
+  "generatedAt": "2026-10-03T06:31:23.057Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -14,7 +14,7 @@
     {
       "sport": "NFL",
       "team": "INDIANAPOLIS COLTS",
-      "impliedNextGameWinProb": 0.6369041816941223
+      "impliedNextGameWinProb": 0.644729178800233
     },
     {
       "sport": "NFL",
