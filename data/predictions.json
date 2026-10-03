@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-03T12:32:25.334Z",
+  "generatedAt": "2026-10-03T17:15:56.935Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -124,7 +124,7 @@
     {
       "sport": "NFL",
       "team": "KANSAS CITY CHIEFS",
-      "impliedNextGameWinProb": 0.6574752261956054
+      "impliedNextGameWinProb": 0.6636481241914618
     },
     {
       "sport": "NFL",
