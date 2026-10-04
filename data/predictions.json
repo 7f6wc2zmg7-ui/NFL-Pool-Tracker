@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-03T23:03:08.044Z",
+  "generatedAt": "2026-10-04T02:37:51.286Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -139,7 +139,7 @@
     {
       "sport": "NFL",
       "team": "CAROLINA PANTHERS",
-      "impliedNextGameWinProb": 0.3775334481388264
+      "impliedNextGameWinProb": 0.3690596562184025
     },
     {
       "sport": "NFL",
