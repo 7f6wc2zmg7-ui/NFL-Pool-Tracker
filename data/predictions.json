@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-14T13:42:50.244Z",
+  "generatedAt": "2026-10-14T18:37:04.545Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -19,7 +19,7 @@
     {
       "sport": "NFL",
       "team": "JACKSONVILLE JAGUARS",
-      "impliedNextGameWinProb": 0.5720596355604638
+      "impliedNextGameWinProb": 0.5634920634920635
     },
     {
       "sport": "NFL",
@@ -114,7 +114,7 @@
     {
       "sport": "NFL",
       "team": "BUFFALO BILLS",
-      "impliedNextGameWinProb": 0.690792883054068
+      "impliedNextGameWinProb": 0.6853932584269663
     },
     {
       "sport": "NFL",
@@ -243,15 +243,15 @@
       "reach_sb": 0.035308493293327595,
       "div": 0.341904898721448
     },
-    "GREEN BAY PACKERS": {
-      "sb": 0.017848136161353324,
-      "reach_sb": 0.04805878253814034,
-      "div": 0.11074996990489948
-    },
     "HOUSTON TEXANS": {
       "sb": 0.017848136161353324,
       "div": 0.13295472055295074,
       "reach_sb": 0.03338013883009472
+    },
+    "GREEN BAY PACKERS": {
+      "sb": 0.017848136161353324,
+      "reach_sb": 0.04805878253814034,
+      "div": 0.11074996990489948
     },
     "ATLANTA FALCONS": {
       "sb": 0.013459250220036934,
