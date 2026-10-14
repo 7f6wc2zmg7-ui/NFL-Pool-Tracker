@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-14T01:54:22.031Z",
+  "generatedAt": "2026-10-14T07:36:35.676Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -114,7 +114,7 @@
     {
       "sport": "NFL",
       "team": "BUFFALO BILLS",
-      "impliedNextGameWinProb": 0.7001620745542949
+      "impliedNextGameWinProb": 0.690792883054068
     },
     {
       "sport": "NFL",
@@ -243,15 +243,15 @@
       "reach_sb": 0.035308493293327595,
       "div": 0.341904898721448
     },
-    "HOUSTON TEXANS": {
-      "sb": 0.017848136161353324,
-      "div": 0.13295472055295074,
-      "reach_sb": 0.03338013883009472
-    },
     "GREEN BAY PACKERS": {
       "sb": 0.017848136161353324,
       "reach_sb": 0.04805878253814034,
       "div": 0.11074996990489948
+    },
+    "HOUSTON TEXANS": {
+      "sb": 0.017848136161353324,
+      "div": 0.13295472055295074,
+      "reach_sb": 0.03338013883009472
     },
     "ATLANTA FALCONS": {
       "sb": 0.013459250220036934,
