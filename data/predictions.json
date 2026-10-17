@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-17T14:12:51.271Z",
+  "generatedAt": "2026-10-17T17:09:18.226Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -94,7 +94,7 @@
     {
       "sport": "NFL",
       "team": "ARIZONA CARDINALS",
-      "impliedNextGameWinProb": 0.1475409836065574
+      "impliedNextGameWinProb": 0.15349887133182846
     },
     {
       "sport": "NFL",
@@ -109,12 +109,12 @@
     {
       "sport": "NFL",
       "team": "KANSAS CITY CHIEFS",
-      "impliedNextGameWinProb": 0.7819063004846527
+      "impliedNextGameWinProb": 0.7867435158501441
     },
     {
       "sport": "NFL",
       "team": "LOS ANGELES CHARGERS",
-      "impliedNextGameWinProb": 0.21809369951534735
+      "impliedNextGameWinProb": 0.2132564841498559
     },
     {
       "sport": "NFL",
