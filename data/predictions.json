@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-17T19:23:00.827Z",
+  "generatedAt": "2026-10-17T22:17:36.694Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -104,17 +104,17 @@
     {
       "sport": "NFL",
       "team": "BUFFALO BILLS",
-      "impliedNextGameWinProb": 0.6636481241914618
+      "impliedNextGameWinProb": 0.690792883054068
     },
     {
       "sport": "NFL",
       "team": "KANSAS CITY CHIEFS",
-      "impliedNextGameWinProb": 0.7819063004846527
+      "impliedNextGameWinProb": 0.7768331562167907
     },
     {
       "sport": "NFL",
       "team": "LOS ANGELES CHARGERS",
-      "impliedNextGameWinProb": 0.21809369951534735
+      "impliedNextGameWinProb": 0.22316684378320936
     },
     {
       "sport": "NFL",
@@ -124,7 +124,7 @@
     {
       "sport": "NFL",
       "team": "DALLAS COWBOYS",
-      "impliedNextGameWinProb": 0.4826358742837298
+      "impliedNextGameWinProb": 0.4891657638136511
     },
     {
       "sport": "NFL",
@@ -226,7 +226,7 @@
     "DALLAS COWBOYS": {
       "sb": 0.028345712507540814,
       "reach_sb": 0.045720253543845964,
-      "div": 0.4288395025388181
+      "div": 0.4545273044168554
     },
     "HOUSTON TEXANS": {
       "sb": 0.017870123102580078,
@@ -241,7 +241,7 @@
     "PHILADELPHIA EAGLES": {
       "sb": 0.013475830536371863,
       "reach_sb": 0.028956160577769112,
-      "div": 0.21952498344249022
+      "div": 0.1893082793653707
     },
     "ATLANTA FALCONS": {
       "sb": 0.013475830536371863,
@@ -276,12 +276,12 @@
     "NEW YORK GIANTS": {
       "sb": 0.006524013196180028,
       "reach_sb": 0.016086755876538395,
-      "div": 0.24919052174552944
+      "div": 0.2481473391681211
     },
     "WASHINGTON COMMANDERS": {
       "sb": 0.005443878561050885,
       "reach_sb": 0.008774594114475488,
-      "div": 0.1024449922731621
+      "div": 0.1080170770496527
     },
     "NEW ORLEANS SAINTS": {
       "sb": 0.005443878561050885,
