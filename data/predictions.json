@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-18T04:29:04.467Z",
+  "generatedAt": "2026-10-18T09:35:41.800Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -9,7 +9,7 @@
     {
       "sport": "NFL",
       "team": "JACKSONVILLE JAGUARS",
-      "impliedNextGameWinProb": 0.5720596355604638
+      "impliedNextGameWinProb": 0.5634920634920635
     },
     {
       "sport": "NFL",
@@ -109,12 +109,12 @@
     {
       "sport": "NFL",
       "team": "KANSAS CITY CHIEFS",
-      "impliedNextGameWinProb": 0.771505376344086
+      "impliedNextGameWinProb": 0.7768331562167907
     },
     {
       "sport": "NFL",
       "team": "LOS ANGELES CHARGERS",
-      "impliedNextGameWinProb": 0.22849462365591394
+      "impliedNextGameWinProb": 0.22316684378320936
     },
     {
       "sport": "NFL",
