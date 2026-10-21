@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-21T11:45:22.880Z",
+  "generatedAt": "2026-10-21T17:10:22.693Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -34,7 +34,7 @@
     {
       "sport": "NFL",
       "team": "SAN FRANCISCO 49ERS",
-      "impliedNextGameWinProb": 0.6092362344582594
+      "impliedNextGameWinProb": 0.6164383561643836
     },
     {
       "sport": "NFL",
@@ -185,7 +185,7 @@
     },
     "BALTIMORE RAVENS": {
       "sb": 0.07487289693098265,
-      "div": 0.48015873015873023,
+      "div": 0.46956391128022834,
       "reach_sb": 0.1402187483248914
     },
     "LOS ANGELES RAMS": {
@@ -225,7 +225,7 @@
     },
     "CINCINNATI BENGALS": {
       "sb": 0.03743644846549132,
-      "div": 0.3055555555555556,
+      "div": 0.31612677114104043,
       "reach_sb": 0.07727611018794014
     },
     "DETROIT LIONS": {
@@ -265,7 +265,7 @@
     },
     "PITTSBURGH STEELERS": {
       "sb": 0.006806626993725694,
-      "div": 0.13095238095238096,
+      "div": 0.13096680518700246,
       "reach_sb": 0.02556930116512725
     },
     "INDIANAPOLIS COLTS": {
@@ -300,7 +300,7 @@
     },
     "CLEVELAND BROWNS": {
       "sb": 0.004097521722591089,
-      "div": 0.08333333333333334,
+      "div": 0.08334251239172885,
       "reach_sb": 0.008201473958625723
     },
     "ARIZONA CARDINALS": {
@@ -332,6 +332,7 @@
   "nflCurrentOU": {
     "NFL HOME": 1,
     "FOOTBALL": 26,
+    "NFL ODDS": 101,
     "BACK": 1,
     "SEATTLE SEAHAWKS": 25,
     "KANSAS CITY CHIEFS": 20,
@@ -340,7 +341,7 @@
     "GREEN BAY PACKERS": 21,
     "LOS ANGELES RAMS": 18,
     "FOUR TEAMS": 17,
-    "NEW ENGLAND PATRIOTS": 7,
+    "NEW ENGLAND PATRIOTS": 27,
     "PREDICTION MARKET APPS": 221
   }
 }
