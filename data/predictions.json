@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-22T22:20:16.536Z",
+  "generatedAt": "2026-10-23T01:29:30.653Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -9,12 +9,12 @@
     {
       "sport": "NFL",
       "team": "CHICAGO BEARS",
-      "impliedNextGameWinProb": 0.4066302458405761
+      "impliedNextGameWinProb": 0.734061247920523
     },
     {
       "sport": "NFL",
       "team": "NEW ENGLAND PATRIOTS",
-      "impliedNextGameWinProb": 0.7768331562167907
+      "impliedNextGameWinProb": 0.26593875207947704
     },
     {
       "sport": "NFL",
@@ -94,7 +94,7 @@
     {
       "sport": "NFL",
       "team": "MIAMI DOLPHINS",
-      "impliedNextGameWinProb": 0.22316684378320936
+      "impliedNextGameWinProb": 0.33635187580853815
     },
     {
       "sport": "NFL",
@@ -124,12 +124,12 @@
     {
       "sport": "NFL",
       "team": "LOS ANGELES RAMS",
-      "impliedNextGameWinProb": 0.740871613663133
+      "impliedNextGameWinProb": 0.7220792588780237
     },
     {
       "sport": "NFL",
       "team": "SEATTLE SEAHAWKS",
-      "impliedNextGameWinProb": 0.593369754159424
+      "impliedNextGameWinProb": 0.5720596355604638
     },
     {
       "sport": "NFL",
@@ -139,7 +139,7 @@
     {
       "sport": "NFL",
       "team": "PHILADELPHIA EAGLES",
-      "impliedNextGameWinProb": 0.3775334481388264
+      "impliedNextGameWinProb": 0.3835616438356164
     },
     {
       "sport": "NFL",
@@ -159,174 +159,174 @@
     {
       "sport": "NFL",
       "team": "LOS ANGELES CHARGERS",
-      "impliedNextGameWinProb": 0.2591283863368669
+      "impliedNextGameWinProb": 0.27792074112197634
     },
     {
       "sport": "NFL",
       "team": "WASHINGTON COMMANDERS",
-      "impliedNextGameWinProb": 0.6224665518611737
+      "impliedNextGameWinProb": 0.6164383561643836
     }
   ],
   "nflFutures": {
     "SAN FRANCISCO 49ERS": {
       "sb": 0.12868779160012642,
-      "reach_sb": 0.2557898307456416,
+      "reach_sb": 0.2747735367042746,
       "div": 0.7971558253887493
     },
     "BUFFALO BILLS": {
       "sb": 0.09689433720480106,
-      "div": 0.6241906212891806,
-      "reach_sb": 0.1756275231544094
+      "div": 0.6113640994255193,
+      "reach_sb": 0.16728538780007432
     },
     "KANSAS CITY CHIEFS": {
       "sb": 0.09689433720480106,
       "div": 0.6608116832060121,
-      "reach_sb": 0.16099189622487528
+      "reach_sb": 0.20356414660009042
     },
     "BALTIMORE RAVENS": {
       "sb": 0.07487289693098265,
       "div": 0.4272376447155483,
-      "reach_sb": 0.1402187483248914
+      "reach_sb": 0.11416097410680746
     },
     "LOS ANGELES RAMS": {
       "sb": 0.06335398971083146,
-      "reach_sb": 0.10871067806689767,
+      "reach_sb": 0.09464421819813905,
       "div": 0.07075347562622035
     },
     "SEATTLE SEAHAWKS": {
       "sb": 0.06335398971083146,
-      "reach_sb": 0.11294615903054303,
+      "reach_sb": 0.10920486715169889,
       "div": 0.1259993401562828
     },
     "JACKSONVILLE JAGUARS": {
       "sb": 0.05882870473148635,
       "div": 0.6817216694976947,
-      "reach_sb": 0.12419374851633236
+      "reach_sb": 0.12423400123387872
     },
     "CHICAGO BEARS": {
       "sb": 0.05147511664005056,
-      "reach_sb": 0.09771746343091925,
-      "div": 0.20369056068133426
+      "reach_sb": 0.10387780046137213,
+      "div": 0.21830872616115737
     },
     "NEW ENGLAND PATRIOTS": {
       "sb": 0.0433474666442531,
-      "div": 0.3467725673828781,
-      "reach_sb": 0.12975466262900395
+      "div": 0.3553109689199681,
+      "reach_sb": 0.111156737946102
     },
     "MINNESOTA VIKINGS": {
       "sb": 0.0433474666442531,
-      "reach_sb": 0.10871067806689767,
-      "div": 0.4471256210078069
+      "reach_sb": 0.11357306183776686,
+      "div": 0.45299060678440156
     },
     "DENVER BRONCOS": {
       "sb": 0.03921913648765757,
       "div": 0.2936940814248943,
-      "reach_sb": 0.07903238541948424
+      "reach_sb": 0.07346010507742393
     },
     "CINCINNATI BENGALS": {
       "sb": 0.03743644846549132,
       "div": 0.34793974853728366,
-      "reach_sb": 0.07727611018794014
+      "reach_sb": 0.08282266748925247
     },
     "DETROIT LIONS": {
       "sb": 0.03167699485541573,
-      "reach_sb": 0.06957483396281451,
-      "div": 0.20369056068133426
-    },
-    "GREEN BAY PACKERS": {
-      "sb": 0.02656780213680029,
-      "reach_sb": 0.06821062153217108,
-      "div": 0.14549325762952448
+      "reach_sb": 0.06680768343398051,
+      "div": 0.1848941252181231
     },
     "HOUSTON TEXANS": {
       "sb": 0.02656780213680029,
       "div": 0.23507643775782575,
-      "reach_sb": 0.04829756886746259
+      "reach_sb": 0.05363753704065874
+    },
+    "GREEN BAY PACKERS": {
+      "sb": 0.02656780213680029,
+      "reach_sb": 0.06552292029101935,
+      "div": 0.14380654183631794
     },
     "DALLAS COWBOYS": {
       "sb": 0.02287782961780025,
-      "reach_sb": 0.04045048486210146,
+      "reach_sb": 0.038718089262875066,
       "div": 0.39657623999776953
     },
     "CAROLINA PANTHERS": {
       "sb": 0.020087850396117293,
-      "reach_sb": 0.0632498490571041,
+      "reach_sb": 0.0619489428206001,
       "div": 0.5001325780402556
     },
     "ATLANTA FALCONS": {
       "sb": 0.011600026285081817,
-      "reach_sb": 0.02022524243105073,
+      "reach_sb": 0.020775560092274426,
       "div": 0.23815837049535976
     },
     "LAS VEGAS RAIDERS": {
       "sb": 0.00905056995869021,
       "div": 0.039367504531421994,
-      "reach_sb": 0.006899652695351798
+      "reach_sb": 0.007969728381041275
     },
     "PITTSBURGH STEELERS": {
       "sb": 0.006806626993725694,
       "div": 0.14131706709821984,
-      "reach_sb": 0.02556930116512725
+      "reach_sb": 0.026399725262199226
     },
     "INDIANAPOLIS COLTS": {
       "sb": 0.006806626993725694,
       "div": 0.07334384858044164,
-      "reach_sb": 0.006636307172628447
+      "reach_sb": 0.006704692130082342
     },
     "TAMPA BAY BUCCANEERS": {
       "sb": 0.006536522747942928,
-      "reach_sb": 0.006902265274088741,
+      "reach_sb": 0.0067603012998670746,
       "div": 0.12064601663251778
     },
     "WASHINGTON COMMANDERS": {
       "sb": 0.006536522747942928,
-      "reach_sb": 0.009996384190059555,
+      "reach_sb": 0.009360417184431336,
       "div": 0.13030362171355284
     },
     "NEW YORK GIANTS": {
       "sb": 0.006536522747942928,
-      "reach_sb": 0.0185039452028762,
+      "reach_sb": 0.018517347038766334,
       "div": 0.3591044692893189
     },
     "NEW ORLEANS SAINTS": {
       "sb": 0.005454316994972245,
-      "reach_sb": 0.0074972881425446666,
+      "reach_sb": 0.007039652593250012,
       "div": 0.14106303483186697
     },
     "PHILADELPHIA EAGLES": {
       "sb": 0.004097521722591089,
-      "reach_sb": 0.0071874828473981935,
+      "reach_sb": 0.004237800814842047,
       "div": 0.11401566899935874
     },
     "CLEVELAND BROWNS": {
       "sb": 0.004097521722591089,
       "div": 0.08350553964894808,
-      "reach_sb": 0.008201473958625723
+      "reach_sb": 0.011572482306717468
     },
     "ARIZONA CARDINALS": {
       "sb": 0.0020538699906254587,
-      "reach_sb": 0.004326793156891449,
+      "reach_sb": 0.004237800814842047,
       "div": 0.006091358828747447
     },
     "LOS ANGELES CHARGERS": {
       "sb": 0.0016439159006802573,
       "div": 0.0061267308376716356,
-      "reach_sb": 0.0043251554209667985
+      "reach_sb": 0.004202941335275498
     },
     "NEW YORK JETS": {
       "sb": 0.0016439159006802573,
-      "div": 0.022836242242287096,
-      "reach_sb": 0.0043251554209667985
+      "div": 0.027348177607779363,
+      "reach_sb": 0.004422990619844897
     },
     "TENNESSEE TITANS": {
       "sb": 0.0008227790871536553,
       "div": 0.009858044164037854,
-      "reach_sb": 0.0043251554209667985
+      "reach_sb": 0.004202941335275498
     },
     "MIAMI DOLPHINS": {
       "sb": 0.0008227790871536553,
-      "div": 0.006200569085654113,
-      "reach_sb": 0.0043251554209667985
+      "div": 0.005976754046733238,
+      "reach_sb": 0.004202941335275498
     }
   },
   "nflCurrentOU": {
