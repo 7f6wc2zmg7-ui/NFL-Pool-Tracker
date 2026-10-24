@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-24T10:55:52.284Z",
+  "generatedAt": "2026-10-24T14:31:13.100Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -233,15 +233,15 @@
       "reach_sb": 0.0671088946014497,
       "div": 0.19165984452767856
     },
-    "HOUSTON TEXANS": {
-      "sb": 0.02649234507487087,
-      "div": 0.23507643775782575,
-      "reach_sb": 0.05496280567021861
-    },
     "GREEN BAY PACKERS": {
       "sb": 0.02649234507487087,
       "reach_sb": 0.06462337998658119,
       "div": 0.1415334236512088
+    },
+    "HOUSTON TEXANS": {
+      "sb": 0.02649234507487087,
+      "div": 0.23507643775782575,
+      "reach_sb": 0.05496280567021861
     },
     "DALLAS COWBOYS": {
       "sb": 0.022812852703361027,
