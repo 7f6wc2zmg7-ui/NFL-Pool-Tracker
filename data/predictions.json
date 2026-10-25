@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-25T06:06:11.157Z",
+  "generatedAt": "2026-10-25T11:22:59.916Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -59,12 +59,12 @@
     {
       "sport": "NFL",
       "team": "HOUSTON TEXANS",
-      "impliedNextGameWinProb": 0.8042929292929294
+      "impliedNextGameWinProb": 0.8081570996978852
     },
     {
       "sport": "NFL",
       "team": "NEW YORK GIANTS",
-      "impliedNextGameWinProb": 0.19570707070707072
+      "impliedNextGameWinProb": 0.19184290030211482
     },
     {
       "sport": "NFL",
@@ -233,15 +233,15 @@
       "reach_sb": 0.06630608215142401,
       "div": 0.19165984452767856
     },
-    "GREEN BAY PACKERS": {
-      "sb": 0.02662366040810609,
-      "reach_sb": 0.0638503013310009,
-      "div": 0.1415334236512088
-    },
     "HOUSTON TEXANS": {
       "sb": 0.02662366040810609,
       "div": 0.23507643775782575,
       "reach_sb": 0.054302958527183226
+    },
+    "GREEN BAY PACKERS": {
+      "sb": 0.02662366040810609,
+      "reach_sb": 0.0638503013310009,
+      "div": 0.1415334236512088
     },
     "DALLAS COWBOYS": {
       "sb": 0.022925929795869132,
