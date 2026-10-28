@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-27T23:46:49.466Z",
+  "generatedAt": "2026-10-28T05:38:58.751Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -54,7 +54,7 @@
     {
       "sport": "NFL",
       "team": "TENNESSEE TITANS",
-      "impliedNextGameWinProb": 0.17287630402384502
+      "impliedNextGameWinProb": 0.19999999999999998
     },
     {
       "sport": "NFL",
