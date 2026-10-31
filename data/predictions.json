@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-31T00:46:56.862Z",
+  "generatedAt": "2026-10-31T06:59:41.361Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -205,12 +205,12 @@
     },
     "BALTIMORE RAVENS": {
       "sb": 0.05824477465805149,
-      "div": 0.2631578947368421,
+      "div": 0.25074051112488804,
       "reach_sb": 0.10659651525180412
     },
     "CINCINNATI BENGALS": {
       "sb": 0.047966285012512995,
-      "div": 0.4385964912280702,
+      "div": 0.4576014328029207,
       "reach_sb": 0.10158020865171923
     },
     "MINNESOTA VIKINGS": {
@@ -250,7 +250,7 @@
     },
     "PITTSBURGH STEELERS": {
       "sb": 0.012354952200192741,
-      "div": 0.17543859649122806,
+      "div": 0.1743243553534936,
       "reach_sb": 0.03320891436690821
     },
     "ATLANTA FALCONS": {
@@ -285,7 +285,7 @@
     },
     "CLEVELAND BROWNS": {
       "sb": 0.005400177782865701,
-      "div": 0.12280701754385966,
+      "div": 0.11733370071869761,
       "reach_sb": 0.015147925851572165
     },
     "NEW ORLEANS SAINTS": {
