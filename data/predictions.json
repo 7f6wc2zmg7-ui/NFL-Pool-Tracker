@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-01T09:13:54.337Z",
+  "generatedAt": "2026-11-01T16:01:16.730Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -44,12 +44,12 @@
     {
       "sport": "NFL",
       "team": "TENNESSEE TITANS",
-      "impliedNextGameWinProb": 0.15349887133182846
+      "impliedNextGameWinProb": 0.13228346456692913
     },
     {
       "sport": "NFL",
       "team": "PITTSBURGH STEELERS",
-      "impliedNextGameWinProb": 0.6309403437815976
+      "impliedNextGameWinProb": 0.6224665518611737
     },
     {
       "sport": "NFL",
@@ -341,6 +341,7 @@
     "GREEN BAY PACKERS": 21,
     "LOS ANGELES RAMS": 18,
     "FOUR TEAMS": 17,
-    "NEW ENGLAND PATRIOTS": 221
+    "NEW ENGLAND PATRIOTS": 8,
+    "PREDICTION MARKET APPS": 221
   }
 }
