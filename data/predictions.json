@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-05T02:25:22.338Z",
+  "generatedAt": "2026-11-05T10:50:24.419Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -89,7 +89,7 @@
     {
       "sport": "NFL",
       "team": "PHILADELPHIA EAGLES",
-      "impliedNextGameWinProb": 0.4066302458405761
+      "impliedNextGameWinProb": 0.4003612281757977
     },
     {
       "sport": "NFL",
