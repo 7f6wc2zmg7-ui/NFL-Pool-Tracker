@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-08T02:27:22.992Z",
+  "generatedAt": "2026-11-08T10:16:45.270Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -34,7 +34,7 @@
     {
       "sport": "NFL",
       "team": "CLEVELAND BROWNS",
-      "impliedNextGameWinProb": 0.3690596562184025
+      "impliedNextGameWinProb": 0.3775334481388264
     },
     {
       "sport": "NFL",
@@ -79,7 +79,7 @@
     {
       "sport": "NFL",
       "team": "PHILADELPHIA EAGLES",
-      "impliedNextGameWinProb": 0.4170073589533933
+      "impliedNextGameWinProb": 0.4066302458405761
     },
     {
       "sport": "NFL",
@@ -94,22 +94,12 @@
     {
       "sport": "NFL",
       "team": "HOUSTON TEXANS",
-      "impliedNextGameWinProb": 0.6309403437815976
-    },
-    {
-      "sport": "NFL",
-      "team": "SAN FRANCISCO 49ERS",
-      "impliedNextGameWinProb": 0.6369041816941223
-    },
-    {
-      "sport": "NFL",
-      "team": "LAS VEGAS RAIDERS",
-      "impliedNextGameWinProb": 0.19999999999999998
+      "impliedNextGameWinProb": 0.6224665518611737
     },
     {
       "sport": "NFL",
       "team": "SEATTLE SEAHAWKS",
-      "impliedNextGameWinProb": 0.7867435158501441
+      "impliedNextGameWinProb": 0.7819063004846527
     },
     {
       "sport": "NFL",
@@ -125,6 +115,16 @@
       "sport": "NFL",
       "team": "GREEN BAY PACKERS",
       "impliedNextGameWinProb": 0.593369754159424
+    },
+    {
+      "sport": "NFL",
+      "team": "SAN FRANCISCO 49ERS",
+      "impliedNextGameWinProb": 0.6369041816941223
+    },
+    {
+      "sport": "NFL",
+      "team": "LAS VEGAS RAIDERS",
+      "impliedNextGameWinProb": 0.20863836017569545
     },
     {
       "sport": "NFL",
