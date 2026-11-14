@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-14T02:25:45.447Z",
+  "generatedAt": "2026-11-14T10:20:41.022Z",
   "sources": {
     "nflNextGame": "The Odds API (h2h)",
     "nflFutures": "ESPN futures (auto-discovered; de-vigged)",
@@ -49,7 +49,7 @@
     {
       "sport": "NFL",
       "team": "CLEVELAND BROWNS",
-      "impliedNextGameWinProb": 0.33099297893681046
+      "impliedNextGameWinProb": 0.3249687530045188
     },
     {
       "sport": "NFL",
@@ -246,7 +246,7 @@
     "TAMPA BAY BUCCANEERS": {
       "sb": 0.02871435243099118,
       "reach_sb": 0.03488212115627594,
-      "div": 0.36370809492252676
+      "div": 0.3673405847318891
     },
     "HOUSTON TEXANS": {
       "sb": 0.026505556090145706,
@@ -261,7 +261,7 @@
     "CAROLINA PANTHERS": {
       "sb": 0.022230466398186717,
       "reach_sb": 0.020763167354926153,
-      "div": 0.2842518649548363
+      "div": 0.2665843100625709
     },
     "CLEVELAND BROWNS": {
       "sb": 0.017015912551698476,
@@ -271,12 +271,12 @@
     "ATLANTA FALCONS": {
       "sb": 0.01548639232233232,
       "reach_sb": 0.015572375516194616,
-      "div": 0.20303704639631162
+      "div": 0.19643054425663117
     },
     "NEW ORLEANS SAINTS": {
       "sb": 0.011881801005927384,
       "reach_sb": 0.00665689335043434,
-      "div": 0.14900299372632544
+      "div": 0.16964456094890876
     },
     "WASHINGTON COMMANDERS": {
       "sb": 0.01148574097239647,
